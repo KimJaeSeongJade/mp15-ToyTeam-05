@@ -1,0 +1,32 @@
+private / protected 필드 : _camelCase
+(_moveSpeed)
+
+public 필드 : camelCase
+(weaponDamage)
+
+private / protected 상수 : PascalCase 
+(DefaultLevel)
+
+public 상수 : 대문자+띄어쓰기는_로 
+(MAX_HEALTH)
+
+메서드/프로퍼티명 : PascalCase 
+(DamageCalurator)
+
+접근제한자는 반드시 명시 (private 생략 X)
+(private string _userName)
+
+이벤트 호출시엔 .Invoke 붙이기
+(_scoreChanged.Invoke(10))
+
+인터페이스명은 맨 앞에 반드시 'I'를 붙인다
+(IDamageable)
+
+클래스명은 앞에 분류명을 붙인다
+(Behavior X) (MonsterBehavior O )
+
+bool변수명은 Is, Has, Can으로 시작한다
+(IsAlive) (HasItem)
+
+스크립트는 분류명 폴더 하위에 분류명script 폴더를 생성하여 관리한다
+(MapScripts) (MonsterScripts)
