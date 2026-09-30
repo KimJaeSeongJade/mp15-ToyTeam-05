@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolder
+public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolder
 {
     
     
@@ -19,22 +19,18 @@ public class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolder
     
     public void Interact(IInteractor interactor)
     {
-        if (!interactor.CanInteract) return;
     }
 
     public void Interact(IInteractor interactor, IHoldable holdable)
     {
-        if (!interactor.CanInteract) return;
     }
 
     public void Hold(IHolder holder)
     {
-        if (!holder.CanHold) return;
     }
 
     public void Release()
     {
-        
     }
     
     // 메서드
