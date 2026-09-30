@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable
 {
+    public abstract Rigidbody Rigidbody { get; }
     
     public abstract void Interact(IInteractor interactor);
 

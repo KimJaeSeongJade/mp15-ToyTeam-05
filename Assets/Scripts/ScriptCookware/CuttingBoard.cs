@@ -9,6 +9,7 @@ public class CuttingBoard : Cookware
     private readonly int _playerLayerMask = (1 << 6);
     
     private IInteractor _playerInteractor;
+    private Rigidbody _rigidbody;
     
     // 상수 / Readonly 필드
     // ============================================================
@@ -35,6 +36,7 @@ public class CuttingBoard : Cookware
     // 이벤트
     // ============================================================
     
+    public override Rigidbody Rigidbody => _rigidbody;
     
     // 프로퍼티
     // ============================================================

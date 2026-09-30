@@ -4,7 +4,10 @@ using UnityEngine;
 
 public interface IHoldable
 {
-    
+    /// <summary>
+    /// 이 물체의 리자드바디
+    /// </summary>
+    public Rigidbody Rigidbody { get; }
     
     /// <summary>
     /// 이 물체 잡기
