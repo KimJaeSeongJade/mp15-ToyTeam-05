@@ -7,7 +7,7 @@ public interface IHolder
     /// <summary>
     /// 물체가 위치할 트랜스폼
     /// </summary>
-    Transform transform { get; }
+    Transform TargetTransform { get; }
     
     
     /// <summary>
