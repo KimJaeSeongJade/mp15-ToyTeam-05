@@ -4,38 +4,16 @@ using UnityEngine;
 
 public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable
 {
-    private readonly int _playerLayerMask = (1 << 6);
-    
-    // 상수 / Readonly 필드
-    // ============================================================
-    
-    private IInteractor _interactor;
-    
-    // 인스턴스 필드
-    // ============================================================
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == _playerLayerMask)
-        {
-            _interactor = other.GetComponent<IInteractor>();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == _playerLayerMask)
-        {
-            _interactor = null;
-        }
-    }
-    
-    // 이벤트
-    // ============================================================
     
     public abstract void Interact(IInteractor interactor);
 
     public abstract void Interact(IInteractor interactor, IHoldable holdable);
+    
+    /// <summary>
+    /// 상호작용 주체와 '음식'을 전달받는 메서드
+    /// </summary>
+    /// <param name="holder"></param>
+    // public abstract void Interact()
 
     public abstract void Hold(IHolder holder);
 
