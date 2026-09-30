@@ -104,6 +104,6 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
-/Assets/Import
-Assets/Import.meta
+/Assets/[Ii]mports/
+Assets/[Ii]mports.meta
 *.json
