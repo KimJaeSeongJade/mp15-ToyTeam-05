@@ -6,15 +6,32 @@ using UnityEngine;
 public class CuttingBoard : Cookware
 {
     
+    private readonly int _playerLayerMask = (1 << 6);
+    
+    private IInteractor _playerInteractor;
+    
+    // 상수 / Readonly 필드
+    // ============================================================
+    
     // 인스턴스 필드
     // ============================================================
     
-    
-    // ============================================================
-    
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == _playerLayerMask)
+        {
+            _playerInteractor = other.GetComponent<IInteractor>();
+        }
+    }
 
-
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == _playerLayerMask)
+        {
+            _playerInteractor = null;
+        }
+    }
+    
     // 이벤트
     // ============================================================
     
@@ -40,4 +57,14 @@ public class CuttingBoard : Cookware
     public override void Release()
     {
     }
+    
+    // 공개 메서드
+    // ============================================================
+
+    private void Cutting()
+    {
+    }
+    
+    // 비공개 메서드
+    // ============================================================
 }
