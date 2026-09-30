@@ -9,7 +9,6 @@ public interface IHolder
     /// </summary>
     Transform TargetTransform { get; }
     
-    
     /// <summary>
     /// 물건을 잡고 있는지 여부
     /// </summary>
