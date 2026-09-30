@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mouth_Mustache_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2664674905337592320, guid: 9e026f66c59cc4743bebc7c6075a9ff5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3436531399995891898, guid: 9e026f66c59cc4743bebc7c6075a9ff5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -73,6 +77,10 @@ PrefabInstance:
     - target: {fileID: 181155912042123834, guid: 81a111b3d6f44d646a746b62ca8d063c, type: 3}
       propertyPath: m_Name
       value: Eyes_Basic_Male_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 181155912042123834, guid: 81a111b3d6f44d646a746b62ca8d063c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 704893584566634624, guid: 81a111b3d6f44d646a746b62ca8d063c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -179,6 +187,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ade63e7fd92c26342a35feb67fcc8d9a, type: 3}
       propertyPath: m_Name
       value: Player1p
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ade63e7fd92c26342a35feb67fcc8d9a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
