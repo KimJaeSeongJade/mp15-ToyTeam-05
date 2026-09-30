@@ -15,7 +15,7 @@ public class InputManager : Singleton<InputManager>
    private bool _intaractP2 = Input.GetKeyDown(KeyCode.Keypad0); // 잡기 놓기
    private bool _skillP2 = Input.GetKeyDown(KeyCode.Keypad1);  // 조리
 
-   private Vector3 _moveDirectionP1; 
+   private Vector3 _moveDirectionP1;
    private Vector3 _moveDirectionP2;
    
    
