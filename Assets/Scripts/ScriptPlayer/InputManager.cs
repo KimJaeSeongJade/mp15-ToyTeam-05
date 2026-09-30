@@ -33,6 +33,7 @@ public class InputManager : Singleton<InputManager>
    
    private void ReadInputs()
    {
+      // 입력받은 키 변수에 담기
       _moveDirectionP1 = new Vector3(_HorizP1, 0, _VertP1);
       _moveDirectionP2 = new Vector3(_HorizP2, 0, _VertP2);
       
