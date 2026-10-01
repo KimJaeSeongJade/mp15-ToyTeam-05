@@ -338,9 +338,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyOnLoad: 0
-  OrderPrefab: []
+  FoodPrefab:
+  - {fileID: 1835597030363032126, guid: ab026374a896164409c0ce9aba87b74b, type: 3}
+  - {fileID: 5608034920074532052, guid: 50b3fb8b0e320fe448509de29ecf1517, type: 3}
+  - {fileID: 64828546169510501, guid: 5f610705cfe163a46a3325af44bf1446, type: 3}
+  - {fileID: 8946043380537882058, guid: f361c767274faae42b24b70b7beb9df2, type: 3}
+  - {fileID: 35409992414997902, guid: 4c278f28c8934c64181a2450105648fa, type: 3}
   OrderPostion: []
-  FoodList: []
+  OrderList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &1665646361
 Transform:
   m_ObjectHideFlags: 0

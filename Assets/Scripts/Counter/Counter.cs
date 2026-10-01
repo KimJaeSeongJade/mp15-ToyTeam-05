@@ -7,7 +7,6 @@ using UnityEngine;
 public class Counter : MonoBehaviour, IInteractable
 {
     private bool isPlayer;  // true = 플레이어1 , false = 플레이어2
-    
    
     public void Interact(IInteractor interactor)
     {
