@@ -41,6 +41,9 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
 
     public abstract void Interact(IInteractor interactor, IHoldable holdable);
     
+    public abstract bool CanWork();
+    public abstract bool CanWork(IHoldable holdable);
+    
     // 추상 메서드
     // ============================================================
 
@@ -110,6 +113,5 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
         _foodRigidbody.constraints = RigidbodyConstraints.None;
         _foodData.IsHolding = false;
     }
-
-
+    
 }
