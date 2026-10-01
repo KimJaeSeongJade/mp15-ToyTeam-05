@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolder
 {
-    public abstract Rigidbody Rigidbody { get; }
+    public abstract Rigidbody FoodRigidbody { get; }
+    public abstract Transform FoodTransform { get; }
     public abstract Transform TargetTransform { get;}
     public abstract bool IsHolding { get; }
     public abstract bool CanHolding { get; }

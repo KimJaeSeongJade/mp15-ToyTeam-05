@@ -13,10 +13,12 @@ public class Food : MonoBehaviour, IFood, IHoldable
     public string FoodName => _foodName;
     
     public bool CanHolding { get; set; }
+    public bool IsHolding { get; set; }
     
     public Food FoodData { get; }
 
-    public Rigidbody Rigidbody => _rigidbody;
+    public Rigidbody FoodRigidbody => _rigidbody;
+    public Transform FoodTransform { get; }
 
     private void Awake()
     {

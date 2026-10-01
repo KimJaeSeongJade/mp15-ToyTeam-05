@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BeltBehavior : MonoBehaviour
 {
-    private readonly int _itemLayerMask = 10;
+    private readonly int _itemLayerMask = 12;
 
     // 상수 / Readonly 필드
     // ============================================================
@@ -49,8 +49,8 @@ public class BeltBehavior : MonoBehaviour
     {
         foreach (IHoldable item in _items)
         {
-            item.Rigidbody.velocity = Vector3.zero;
-            item.Rigidbody.AddForce(_beltDirection.normalized * _beltPower);
+            item.FoodRigidbody.velocity = Vector3.zero;
+            item.FoodRigidbody.AddForce(_beltDirection.normalized * _beltPower);
         }
     }
     

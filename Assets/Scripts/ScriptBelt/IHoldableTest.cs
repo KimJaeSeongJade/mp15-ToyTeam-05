@@ -5,6 +5,9 @@ using UnityEngine;
 public class IHoldableTest : MonoBehaviour, IHoldable
 {
     public bool CanHolding { get; set; }
+    public bool IsHolding { get; }
+    public Rigidbody FoodRigidbody { get; }
+    public Transform FoodTransform { get; }
     public Rigidbody Rigidbody => GetComponent<Rigidbody>();
     
     public void Hold(IHolder holder)
