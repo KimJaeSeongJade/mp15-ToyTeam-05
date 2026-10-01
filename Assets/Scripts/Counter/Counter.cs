@@ -4,30 +4,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Counter : MonoBehaviour, IInteractor
+public class Counter : MonoBehaviour, IInteractable
 {
-    public bool CanInteract { get; }
     private bool isPlayer;  // true = 플레이어1 , false = 플레이어2
-
     
-    private void Awake()
+   
+    public void Interact(IInteractor interactor)
     {
-       
+        
     }
-    
-    private void OnTriggerEnter(Collider other)
+
+    public void Interact(IInteractor interactor, IHoldable holdable)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            if (isPlayer)
-            {
-                
-            }
-            if (!isPlayer)
-            {
-                
-            }
-        }
     }
     
     private bool IsOrder(Food playerFood) //주문서 == 요리 판별
@@ -36,6 +24,4 @@ public class Counter : MonoBehaviour, IInteractor
         
         return false;
     }
-
-
 }
