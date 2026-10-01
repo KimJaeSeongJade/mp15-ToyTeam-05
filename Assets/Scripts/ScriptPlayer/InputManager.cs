@@ -8,14 +8,16 @@ public class InputManager : Singleton<InputManager>
    private float _HorizP1;
    private float _VertP1;
    private Vector3 _moveDirectionP1;
-   private bool _intaractP1;  // P1 잡기 놓기
-   private bool _cookP1;  // P1 요리
-
+   private bool _intaractP1;  // P1 상호작용1 잡기 놓기
+   private bool _cookDownP1;  // P2 상호작용2 조리
+   private bool _cookUpP1;
+   
    private float _HorizP2;
    private float _VertP2;
    private Vector3 _moveDirectionP2;
-   private bool _intaractP2;  // P2 잡기 놓기
-   private bool _cookP2; // P2 요리
+   private bool _intaractP2;  // P2 상호작용1 잡기 놓기
+   private bool _cookDownP2; // P2 상호작용2 조리
+   private bool _cookUpP2;
    //------------------------------------------------------
    
    // 플레이어 이동 관련 이벤트
@@ -25,8 +27,10 @@ public class InputManager : Singleton<InputManager>
    // 플레이어 상호작용 관련 이벤트
    public event Action OnIntaractP1;
    public event Action OnCookP1; 
+   public event Action OnStopCookP1; 
    public event Action OnIntaractP2;
    public event Action OnCookP2;
+   public event Action OnStopCookP2;
    //-------------------------------------------------------
    
    private void Awake()
@@ -44,10 +48,12 @@ public class InputManager : Singleton<InputManager>
 
       // 해당 키 입력시 해당 이벤트 구독중인 함수 실행.
       if (_intaractP1) OnIntaractP1?.Invoke();
-      if (_cookP1)  OnCookP1?.Invoke();
+      if (_cookDownP1)  OnCookP1?.Invoke();
+      if (_cookUpP1) OnStopCookP1?.Invoke();
 
       if (_intaractP2) OnIntaractP2?.Invoke();
-      if (_cookP2)  OnCookP2?.Invoke();
+      if (_cookDownP2) OnCookP2?.Invoke();
+      if (_cookUpP2) OnStopCookP2?.Invoke();
    }
 
 
@@ -65,11 +71,13 @@ public class InputManager : Singleton<InputManager>
       _moveDirectionP2 = new Vector3(_HorizP2, 0, _VertP2);
       _moveDirectionP2.Normalize();
       
-      _intaractP1 = Input.GetKeyDown(KeyCode.G);  // 잡기 놓기
-      _cookP1 = Input.GetKey(KeyCode.H);  // 조리 (지속 입력) 
-      
+      _intaractP1 = Input.GetKeyDown(KeyCode.G);  // 상호작용1 잡기 놓기
+      _cookDownP1 = Input.GetKeyDown(KeyCode.H);
+      _cookUpP1 = Input.GetKeyUp(KeyCode.H);
+
       _intaractP2 = Input.GetKeyDown(KeyCode.Keypad0); // 잡기 놓기
-      _cookP2 = Input.GetKey(KeyCode.Keypad1);  // 조리 (지속 입력)
+      _cookDownP2 = Input.GetKeyDown(KeyCode.Keypad1);
+      _cookUpP2 = Input.GetKeyUp(KeyCode.Keypad1);
       
    }
 }
