@@ -1,15 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BeltBehavior : MonoBehaviour
 {
-    private readonly int _itemLayerMask = 10;
+    private readonly int _itemLayerMask = 12;
 
     // 상수 / Readonly 필드
     // ============================================================
     
-    private List<IHoldable> _items = new();
+    private List<Food> _foods = new();
     private Vector3 _beltDirection;
     private float _beltPower = 8f;
     
@@ -30,15 +31,15 @@ public class BeltBehavior : MonoBehaviour
     {
         if (collider.gameObject.layer == _itemLayerMask)
         {
-            _items.Add(collider.GetComponent<IHoldable>());
+            _foods.Add(collider.GetComponent<Food>());
         }
     }
 
     private void OnTriggerExit(Collider collider)
     {
-        if (_items.Contains(collider.GetComponent<IHoldable>()))
+        if (_foods.Contains(collider.GetComponent<Food>()))
         {
-            _items.Remove(collider.GetComponent<IHoldable>());
+            _foods.Remove(collider.GetComponent<Food>());
         }
     }
     
@@ -47,10 +48,11 @@ public class BeltBehavior : MonoBehaviour
 
     private void MoveRail()
     {
-        foreach (IHoldable item in _items)
+        if (_foods.Count <= 0) return;
+        foreach (Food food in _foods)
         {
-            item.Rigidbody.velocity = Vector3.zero;
-            item.Rigidbody.AddForce(_beltDirection.normalized * _beltPower);
+            food.FoodRigidbody.velocity = Vector3.zero;
+            food.FoodRigidbody.AddForce(_beltDirection.normalized * _beltPower);
         }
     }
     
