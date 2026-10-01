@@ -8,5 +8,7 @@ public interface IInteractor
     /// 상호작용 가능 여부
     /// </summary>
     public bool CanInteract { get; }
-    
+
+    public bool IsPlayer1 { get; }
+
 }

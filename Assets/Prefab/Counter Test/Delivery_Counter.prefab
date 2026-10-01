@@ -65,6 +65,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 886172cb5ea97464c97d6b759a584d17, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7175184774333840880}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 886172cb5ea97464c97d6b759a584d17, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6354437120917363376}
   m_SourcePrefab: {fileID: 100100000, guid: 886172cb5ea97464c97d6b759a584d17, type: 3}
 --- !u!1 &6136151340162530520 stripped
 GameObject:
@@ -123,5 +126,25 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.92, y: 1.5, z: 3.5186956}
-  m_Center: {x: -0.01, y: 1.52, z: 0}
+  m_Size: {x: 3.92, y: 3.33, z: 3.5186956}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6354437120917363376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6136151340162530520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f15f7390e58694e982cfcc77c29902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destroyOnLoad: 0
+  FoodPrefab:
+  - {fileID: 1835597030363032126, guid: ab026374a896164409c0ce9aba87b74b, type: 3}
+  - {fileID: 5608034920074532052, guid: 50b3fb8b0e320fe448509de29ecf1517, type: 3}
+  - {fileID: 64828546169510501, guid: 5f610705cfe163a46a3325af44bf1446, type: 3}
+  - {fileID: 8946043380537882058, guid: f361c767274faae42b24b70b7beb9df2, type: 3}
+  - {fileID: 35409992414997902, guid: 4c278f28c8934c64181a2450105648fa, type: 3}
+  OrderList: []
