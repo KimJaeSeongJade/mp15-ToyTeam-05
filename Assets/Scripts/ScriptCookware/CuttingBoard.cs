@@ -7,6 +7,8 @@ public class CuttingBoard : Cookware
 {
     
     private readonly int _playerLayerMask = (1 << 6);
+
+    private IHoldable _holdableItem;
     
     private IInteractor _playerInteractor;
     private Rigidbody _rigidbody;
@@ -40,7 +42,12 @@ public class CuttingBoard : Cookware
     
     // 프로퍼티
     // ============================================================
-    
+
+    public override string GetData()
+    {
+        return (_holdableItem.GetData());
+    }
+
     public override void Interact(IInteractor interactor)
     {
         if (!interactor.CanInteract) return;
