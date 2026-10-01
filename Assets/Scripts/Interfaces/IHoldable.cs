@@ -5,14 +5,20 @@ using UnityEngine;
 public interface IHoldable
 {
     /// <summary>
-    /// 이 물체를 들고있는지 아닌지 상태를 반환
+    /// 이 물체를 들 수 있는지 여부를 반환
     /// </summary>
     public bool CanHolding { get; }
     
     /// <summary>
+    /// 이 물체가 잡혀있는 상태인지 반환
+    /// </summary>
+    public bool IsHolding { get; }
+    
+    /// <summary>
     /// 이 물체의 리자드바디
     /// </summary>
-    public Rigidbody Rigidbody { get; }
+    public Rigidbody FoodRigidbody { get; }
+    public Transform FoodTransform { get; }
 
     /// <summary>
     /// 물체에게서 문자열을 받아오는 메서드
