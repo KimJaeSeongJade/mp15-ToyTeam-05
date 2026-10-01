@@ -18,7 +18,7 @@ public interface IHoldable
     /// 물체에게서 문자열을 받아오는 메서드
     /// </summary>
     /// <returns></returns>
-    public string GetData();
+    public Food FoodData { get; }
     
     /// <summary>
     /// 이 물체 잡기

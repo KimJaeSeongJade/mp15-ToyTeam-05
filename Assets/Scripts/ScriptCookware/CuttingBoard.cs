@@ -48,10 +48,7 @@ public class CuttingBoard : Cookware
     // 프로퍼티
     // ============================================================
 
-    public override string GetData()
-    {
-        return (_holdableItem.GetData());
-    }
+    public override Food FoodData { get; }
 
     public override void Interact(IInteractor interactor)
     {

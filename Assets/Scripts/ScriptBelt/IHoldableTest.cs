@@ -17,8 +17,5 @@ public class IHoldableTest : MonoBehaviour, IHoldable
         throw new System.NotImplementedException();
     }
 
-    public string GetData()
-    {
-        return "";
-    }
+    public Food FoodData { get; }
 }
