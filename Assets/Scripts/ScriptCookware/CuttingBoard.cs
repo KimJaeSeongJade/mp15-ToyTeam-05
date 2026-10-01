@@ -37,9 +37,14 @@ public class CuttingBoard : Cookware
     
     // 이벤트
     // ============================================================
-    
+
+    public override bool CanHolding { get; }
+    public override bool CanHold { get; }
+    public override bool CanRelease { get; }
     public override Rigidbody Rigidbody => _rigidbody;
-    
+    public override Transform TargetTransform { get; }
+    public override bool IsHolding { get; }
+
     // 프로퍼티
     // ============================================================
 

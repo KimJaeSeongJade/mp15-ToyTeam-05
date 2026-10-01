@@ -7,7 +7,7 @@ public interface IHoldable
     /// <summary>
     /// 이 물체를 들고있는지 아닌지 상태를 반환
     /// </summary>
-    public bool CanHolding { get; set;}
+    public bool CanHolding { get; }
     
     /// <summary>
     /// 이 물체의 리자드바디
