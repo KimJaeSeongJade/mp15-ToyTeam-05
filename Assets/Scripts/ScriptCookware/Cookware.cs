@@ -10,12 +10,12 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
     public abstract bool CanHolding { get; }
     public abstract bool CanHold { get; }
     public abstract bool CanRelease { get; }
+    
+    public abstract Food FoodData { get; }
 
     public abstract void Interact(IInteractor interactor);
 
     public abstract void Interact(IInteractor interactor, IHoldable holdable);
-
-    public abstract string GetData();
 
     public abstract void Hold(IHolder holder);
 
