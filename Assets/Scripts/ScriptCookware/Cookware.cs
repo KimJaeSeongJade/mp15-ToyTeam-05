@@ -4,44 +4,108 @@ using UnityEngine;
 
 public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolder
 {
-    protected readonly int _playerLayerMask = 6;
-    protected readonly int _itemLayerMask = 12;
-    protected Transform _foodTransform;
+    [SerializeField] protected Transform _targetTransform;
+    
+    protected int _playerLayer = 6;
+    protected int _foodLayer = 12;
+
+    protected bool _canHolding;
+    
+    protected bool _isHolding;
+    protected bool _canHold;
+    protected bool _canRealease;
+    
     protected Rigidbody _foodRigidbody;
-    [SerializeField] protected Transform _holdTransform;
+    protected Transform _foodTransform;
+
+    protected Food _foodData;
+    
+    // 비공개 필드
+    // ============================================================
+
+    public bool CanHolding => _canHolding;
+    public Transform TargetTransform => _targetTransform;
+
+    public bool IsHolding => _isHolding;
+    public bool CanHold => _canHold;
+    public bool CanRelease => _canRealease;
     
     public Rigidbody FoodRigidbody => _foodRigidbody;
     public Transform FoodTransform => _foodTransform;
-    public Transform TargetTransform => _holdTransform;
     
-    public abstract bool IsHolding { get; }
-    public abstract bool CanHolding { get; }
-    public abstract bool CanHold { get; }
-    public abstract bool CanRelease { get; }
+    public Food FoodData => _foodData;
     
-    public abstract Food FoodData { get; }
+    // 프로퍼티
+    // ============================================================
 
     public abstract void Interact(IInteractor interactor);
 
     public abstract void Interact(IInteractor interactor, IHoldable holdable);
-
-    public abstract void Hold(IHolder holder);
+    
+    // 추상 메서드
+    // ============================================================
+    
+    public void Hold(IHolder holder)
+    {
+        UnHoldItemPosition();
+        HoldItemPosition(TargetTransform);
+    }
 
     public abstract void Release();
     
-    protected void HoldItem()
+    protected void ColliderEnterCheck(Collider other)
     {
-        FoodTransform.rotation = Quaternion.Euler(Vector3.zero);
-        FoodTransform.position = TargetTransform.position;
-        FoodRigidbody.constraints = RigidbodyConstraints.FreezeAll;
-        FoodData.IsHolding = true;
+        if (other.gameObject.layer == _playerLayer)
+        {
+            
+        }
+        else if (other.gameObject.layer == _foodLayer)
+        {
+            SetFood(other.GetComponent<Food>());
+            HoldItemPosition(TargetTransform);
+        }
     }
-    protected void UnHoldItem()
+
+    protected void ColliderExitCheck(Collider other)
     {
-        FoodRigidbody.constraints = RigidbodyConstraints.None;
-        FoodData.IsHolding = false;
+        if (other.gameObject.layer == _playerLayer)
+        {
+            
+        }
+        else if (other.gameObject.layer == _foodLayer)
+        {
+            UnHoldItemPosition();
+            UnSetFood();
+        }
     }
     
-    // 메서드
-    // ============================================================
+    protected void SetFood(Food food)
+    {
+        _foodData = food;
+        _foodTransform = _foodData.FoodTransform;
+        _foodRigidbody = _foodData.FoodRigidbody;
+    }
+
+    protected void UnSetFood()
+    {
+        _foodData = null;
+        _foodTransform = null;
+        _foodRigidbody = null;
+    }
+    
+    protected void HoldItemPosition(Transform targetTransform)
+    {
+        _foodTransform.rotation = Quaternion.Euler(Vector3.zero);
+        _foodTransform.position = targetTransform.position;
+        _foodRigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        _foodData.IsHolding = true;
+    }
+    protected void UnHoldItemPosition()
+    {
+        _foodRigidbody.velocity = Vector3.zero;
+        _foodRigidbody.constraints = RigidbodyConstraints.None;
+        _foodData.IsHolding = false;
+    }
+
+
 }
