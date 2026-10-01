@@ -23,13 +23,19 @@ public class Counter : MonoBehaviour, IInteractor
             {
                 
             }
-            else
+            if (!isPlayer)
             {
                 
             }
-
         }
     }
     
-    
+    private bool IsOrder(Food playerFood) //주문서 == 요리 판별
+    {
+        
+        
+        return false;
+    }
+
+
 }
