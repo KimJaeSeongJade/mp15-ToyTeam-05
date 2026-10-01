@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class InputManager : Singleton<InputManager>
 {
+   private float _HorizP1;
+   private float _VertP1;
    private Vector3 _moveDirectionP1;
    private bool _intaractP1;  // P1 잡기 놓기
    private bool _cookP1;  // P1 요리
-   
+
+   private float _HorizP2;
+   private float _VertP2;
    private Vector3 _moveDirectionP2;
    private bool _intaractP2;  // P2 잡기 놓기
    private bool _cookP2; // P2 요리
@@ -49,15 +53,17 @@ public class InputManager : Singleton<InputManager>
 
    private void ReadInputs()
    {
-       float _HorizP1 = Input.GetAxisRaw("HorizontalP1");
-       float _VertP1 = Input.GetAxisRaw("VerticalP1");
+       _HorizP1 = Input.GetAxisRaw("HorizontalP1");
+       _VertP1 = Input.GetAxisRaw("VerticalP1");
    
-       float _HorizP2 = Input.GetAxisRaw("HorizontalP2");
-       float _VertP2 = Input.GetAxisRaw("VerticalP2");
+       _HorizP2 = Input.GetAxisRaw("HorizontalP2");
+       _VertP2 = Input.GetAxisRaw("VerticalP2");
       
       // 입력받은 이동키 변수에 담기
       _moveDirectionP1 = new Vector3(_HorizP1, 0, _VertP1);
+      _moveDirectionP1.Normalize();
       _moveDirectionP2 = new Vector3(_HorizP2, 0, _VertP2);
+      _moveDirectionP2.Normalize();
       
       _intaractP1 = Input.GetKeyDown(KeyCode.G);  // 잡기 놓기
       _cookP1 = Input.GetKey(KeyCode.H);  // 조리 (지속 입력) 
