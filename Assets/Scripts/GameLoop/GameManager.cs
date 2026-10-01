@@ -7,17 +7,23 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [SerializeField] private GameData _gameData;
+    public GameData GameData => _gameData;
+
     private void Awake() => SetSingleton();
+
 
     // 타이틀로 돌아가기
     public void TitleScene()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
     
     // 게임시작씬으로 가기
     public void GameStart()
     {
+        ResetGameData();
         SceneManager.LoadScene(1);
     }
 
@@ -31,6 +37,18 @@ public class GameManager : MonoBehaviour
         // 실제 빌드된 게임에서 애플리케이션 종료
         Application.Quit();
         #endif
+    }
+
+
+    public void ResetGameData()
+    {
+        _gameData.Player1Score = 0;
+        _gameData.Player2Score = 0;
+
+        _gameData.Player1Food = 0;
+        _gameData.Player2Food = 0;
+
+        _gameData.GameTimeLeft = GameData.START_GAMETIME;
     }
     
     

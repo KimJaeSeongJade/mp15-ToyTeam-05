@@ -439,14 +439,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Salad
       objectReference: {fileID: 0}
-    - target: {fileID: 1197389494616226314, guid: 50b3fb8b0e320fe448509de29ecf1517, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2971731036773588924, guid: 50b3fb8b0e320fe448509de29ecf1517, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3110789413838109993, guid: 50b3fb8b0e320fe448509de29ecf1517, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.24
@@ -575,10 +567,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8092344548729195420, guid: ab026374a896164409c0ce9aba87b74b, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -592,10 +580,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 47950126177379363, guid: d6d572b34aa6eb043b289e087e495b55, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3619031215711461631, guid: d6d572b34aa6eb043b289e087e495b55, type: 3}
       propertyPath: m_Name
       value: Tomato_Chopped
@@ -772,10 +756,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 420302346065357270, guid: 5d8795ee32dffae448e66a12cde3c278, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 844721430505391001, guid: 5d8795ee32dffae448e66a12cde3c278, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -820,10 +800,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CookingPot_Tomato
       objectReference: {fileID: 0}
-    - target: {fileID: 9002355482625808801, guid: 5d8795ee32dffae448e66a12cde3c278, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -837,10 +813,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 553053378971947641, guid: 1eaf34aac05e9c647a9d000ef5b4b00a, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4006759950509747161, guid: 1eaf34aac05e9c647a9d000ef5b4b00a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -953,18 +925,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4571375632930583752, guid: f361c767274faae42b24b70b7beb9df2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6254680296283973880, guid: f361c767274faae42b24b70b7beb9df2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667814220242666952, guid: f361c767274faae42b24b70b7beb9df2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1020,10 +980,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3487572322529911638, guid: 4c278f28c8934c64181a2450105648fa, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4348933025167871464, guid: 4c278f28c8934c64181a2450105648fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.24
@@ -1132,17 +1088,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2785353375701992760, guid: 97bd90c2f6e13a74cb31c1fd9846bf36, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3731242180130116042, guid: 97bd90c2f6e13a74cb31c1fd9846bf36, type: 3}
       propertyPath: m_Name
       value: CookingPot_Onion
-      objectReference: {fileID: 0}
-    - target: {fileID: 7003890632535664834, guid: 97bd90c2f6e13a74cb31c1fd9846bf36, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1611,14 +1559,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3339242180270045973, guid: a9f3e3a10d95c2e44b466fc1eb7f6680, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5404849100453580544, guid: a9f3e3a10d95c2e44b466fc1eb7f6680, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6311154327775785347, guid: a9f3e3a10d95c2e44b466fc1eb7f6680, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8576714031342780283, guid: a9f3e3a10d95c2e44b466fc1eb7f6680, type: 3}
