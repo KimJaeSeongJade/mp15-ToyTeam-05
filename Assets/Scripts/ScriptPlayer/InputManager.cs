@@ -19,7 +19,7 @@ public class InputManager : Singleton<InputManager>
    private bool _cookDownP2; // P2 상호작용2 조리
    private bool _cookUpP2;
    //------------------------------------------------------
-
+   
    // 플레이어 이동 관련 이벤트
    public event Action<Vector3> OnInputP1;
    public event Action<Vector3> OnInputP2;
