@@ -9,6 +9,11 @@ public class GameData : ScriptableObject
     
     public int Player1Score;
     public int Player2Score;
+
+    // 제출 음식 수
+    public int Player1Food;
+    public int Player2Food;
+
     public float GameTimeLeft;
 
 }
