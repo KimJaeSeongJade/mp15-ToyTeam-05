@@ -6,15 +6,15 @@ using UnityEngine;
 public class CuttingBoard : Cookware
 {
     
-    private readonly int _playerLayerMask = (1 << 6);
-
-    private IHoldable _holdableItem;
-    
-    private IInteractor _playerInteractor;
-    private Rigidbody _rigidbody;
     
     // 상수 / Readonly 필드
     // ============================================================
+    
+    [SerializeField] Transform HoldingTransform;
+    private IInteractor _playerInteractor;
+    private Food _holdFood;
+    
+    private bool _isHaveItem => _holdFood != null;
     
     // 인스턴스 필드
     // ============================================================
@@ -24,6 +24,12 @@ public class CuttingBoard : Cookware
         if (other.gameObject.layer == _playerLayerMask)
         {
             _playerInteractor = other.GetComponent<IInteractor>();
+        }
+        else if (other.gameObject.layer == _itemLayerMask && !_isHaveItem)
+        {
+            _holdFood = other.GetComponent<Food>();
+            SetFood(_holdFood);
+            SetItem();
         }
     }
 
@@ -39,16 +45,17 @@ public class CuttingBoard : Cookware
     // ============================================================
 
     public override bool CanHolding { get; }
+    
     public override bool CanHold { get; }
+    
     public override bool CanRelease { get; }
-    public override Rigidbody Rigidbody => _rigidbody;
-    public override Transform TargetTransform { get; }
-    public override bool IsHolding { get; }
+    
+    public override bool IsHolding { get; } // 음식을 가지고 있는지
+    public override Food FoodData { get; } // 음식 데이터
 
     // 프로퍼티
     // ============================================================
 
-    public override Food FoodData { get; }
 
     public override void Interact(IInteractor interactor)
     {
@@ -58,6 +65,7 @@ public class CuttingBoard : Cookware
     public override void Interact(IInteractor interactor, IHoldable holdable)
     {
         if (!interactor.CanInteract) return;
+        
     }
 
     public override void Hold(IHolder holder)
@@ -72,8 +80,11 @@ public class CuttingBoard : Cookware
     // 공개 메서드
     // ============================================================
 
-    private void Cutting()
+
+    private void SetFood(Food food)
     {
+        _holdFood = food;
+        
     }
     
     // 비공개 메서드

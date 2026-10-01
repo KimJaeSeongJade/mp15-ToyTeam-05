@@ -17,7 +17,7 @@ public class InputManager : Singleton<InputManager>
    private bool _intaractP2;  // P2 잡기 놓기
    private bool _cookP2; // P2 요리
    //------------------------------------------------------
-
+   
    // 플레이어 이동 관련 이벤트
    public event Action<Vector3> OnInputP1;
    public event Action<Vector3> OnInputP2;
