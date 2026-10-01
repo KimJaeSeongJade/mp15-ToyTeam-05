@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class CuttingBoard : Cookware
 {
-    
+    private bool _isWorking;
     
     // 비공개 필드
     // ============================================================
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,13 +23,7 @@ public class CuttingBoard : Cookware
     
     // 이벤트 함수
     // ============================================================
-   
-
-    public override void Release()
-    {
-        Debug.Log("놓아");
-    }
-
+    
     public override void Interact(IInteractor interactor)
     {
         Debug.Log("상호작용");
@@ -40,11 +35,6 @@ public class CuttingBoard : Cookware
     }
     
     // 공개 메서드
-    // ============================================================
-    
-    
-    
-    // 비공개 메서드
     // ============================================================
     
 }

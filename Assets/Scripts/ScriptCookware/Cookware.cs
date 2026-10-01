@@ -11,7 +11,6 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
 
     protected bool _canHolding;
     
-    protected bool _isHolding;
     protected bool _canHold;
     protected bool _canRealease;
     
@@ -26,7 +25,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
     public bool CanHolding => _canHolding;
     public Transform TargetTransform => _targetTransform;
 
-    public bool IsHolding => _isHolding;
+    public bool IsHolding => _foodData;
     public bool CanHold => _canHold;
     public bool CanRelease => _canRealease;
     
@@ -44,14 +43,17 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
     
     // 추상 메서드
     // ============================================================
+
     
-    public void Hold(IHolder holder)
+    public virtual void Hold(IHolder holder)
     {
+        if (!_canRealease) return;
         UnHoldItemPosition();
-        HoldItemPosition(TargetTransform);
+        _foodData.Hold(holder);
+        UnSetFood();
     }
 
-    public abstract void Release();
+    public void Release() {Debug.Log("이게 호출되면 뭔가 잘못된 것"); }
     
     protected void ColliderEnterCheck(Collider other)
     {
@@ -59,7 +61,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
         {
             
         }
-        else if (other.gameObject.layer == _foodLayer)
+        else if (other.gameObject.layer == _foodLayer && !IsHolding)
         {
             SetFood(other.GetComponent<Food>());
             HoldItemPosition(TargetTransform);
