@@ -61,7 +61,8 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
         {
             
         }
-        else if (other.gameObject.layer == _foodLayer && !IsHolding)
+        else if (other.gameObject.layer == _foodLayer 
+                 && !IsHolding)
         {
             SetFood(other.GetComponent<Food>());
             HoldItemPosition(TargetTransform);
@@ -74,7 +75,8 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
         {
             
         }
-        else if (other.gameObject.layer == _foodLayer)
+        else if (other.gameObject.layer == _foodLayer 
+                 && other.gameObject.transform == _foodTransform)
         {
             UnHoldItemPosition();
             UnSetFood();
