@@ -6,18 +6,15 @@ using UnityEngine;
 public class CuttingBoard : Cookware
 {
     
-    private readonly int _playerLayerMask = (1 << 6);
-    private readonly int _ItemLayerMask = (1 << 12);
-
     
     // 상수 / Readonly 필드
     // ============================================================
     
+    [SerializeField] Transform HoldingTransform;
     private IInteractor _playerInteractor;
-    private Rigidbody _rigidbody;
-    private IHoldable _holdFood;
-
-    private bool _isHaveItem;
+    private Food _holdFood;
+    
+    private bool _isHaveItem => _holdFood != null;
     
     // 인스턴스 필드
     // ============================================================
@@ -28,10 +25,11 @@ public class CuttingBoard : Cookware
         {
             _playerInteractor = other.GetComponent<IInteractor>();
         }
-        else if (other.gameObject.layer == _ItemLayerMask && !_isHaveItem)
+        else if (other.gameObject.layer == _itemLayerMask && !_isHaveItem)
         {
-            _holdFood = other.GetComponent<IHoldable>();
-            SetItemOnBoard();
+            _holdFood = other.GetComponent<Food>();
+            SetFood(_holdFood);
+            SetItem();
         }
     }
 
@@ -51,10 +49,7 @@ public class CuttingBoard : Cookware
     public override bool CanHold { get; }
     
     public override bool CanRelease { get; }
-    public override Rigidbody FoodRigidbody => _rigidbody;
-    public override Transform FoodTransform => _holdFood.FoodTransform;
-
-    public override Transform TargetTransform { get; } 
+    
     public override bool IsHolding { get; } // 음식을 가지고 있는지
     public override Food FoodData { get; } // 음식 데이터
 
@@ -85,15 +80,11 @@ public class CuttingBoard : Cookware
     // 공개 메서드
     // ============================================================
 
-    private void SetItemOnBoard()
-    {
-        _holdFood.FoodTransform.rotation = Quaternion.Euler(Vector3.zero);
-        _holdFood.FoodTransform.position = TargetTransform.position;
-    }
 
-    private void Cutting()
+    private void SetFood(Food food)
     {
-        // 들어온 아이템을 일정 시간후에 잘린 상태로 반환 
+        _holdFood = food;
+        
     }
     
     // 비공개 메서드

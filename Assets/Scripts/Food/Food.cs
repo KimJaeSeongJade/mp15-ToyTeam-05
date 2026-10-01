@@ -6,23 +6,24 @@ public class Food : MonoBehaviour, IFood, IHoldable
 {
     [SerializeField] private string _foodName;
     [SerializeField] private string _foodId;
+    [SerializeField] private int _foodPoint;
     
     private Rigidbody _rigidbody;
 
-    public string FoodId { get; }
+    public string FoodId => _foodId;
     public string FoodName => _foodName;
     
     public bool CanHolding { get; set; }
     public bool IsHolding { get; set; }
-    
-    public Food FoodData { get; }
+
+    public Food FoodData => this;
 
     public Rigidbody FoodRigidbody => _rigidbody;
-    public Transform FoodTransform { get; }
+    public Transform FoodTransform => transform;
 
     private void Awake()
     {
-        _rigidbody =  GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     public void Hold(IHolder holder)
