@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IHoldableTest : MonoBehaviour, IHoldable
 {
+    public bool CanHolding { get; set; }
     public Rigidbody Rigidbody => GetComponent<Rigidbody>();
     
     public void Hold(IHolder holder)
@@ -14,5 +15,10 @@ public class IHoldableTest : MonoBehaviour, IHoldable
     public void Release()
     {
         throw new System.NotImplementedException();
+    }
+
+    public string GetData()
+    {
+        return "";
     }
 }

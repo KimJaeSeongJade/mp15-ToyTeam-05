@@ -11,6 +11,8 @@ public class Food : MonoBehaviour, IFood, IHoldable
     
     public string FoodId => _foodId;
     public string FoodName => _foodName;
+    
+    public bool CanHolding { get; set; }
 
     public Rigidbody Rigidbody => _rigidbody;
 
@@ -26,6 +28,11 @@ public class Food : MonoBehaviour, IFood, IHoldable
         
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+    }
+
+    public string GetData()
+    {
+        return _foodId;
     }
 
     public void Release()
