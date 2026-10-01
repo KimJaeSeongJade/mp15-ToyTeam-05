@@ -29,7 +29,6 @@ public class CuttingBoard : Cookware
         {
             _holdFood = other.GetComponent<Food>();
             SetFood(_holdFood);
-            SetItem();
         }
     }
 
