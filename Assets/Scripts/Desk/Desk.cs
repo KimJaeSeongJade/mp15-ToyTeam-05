@@ -17,7 +17,7 @@ public class Desk : MonoBehaviour, IInteractable
     }
     
     // -------------------- 테스트
-    /*[SerializeField] private Food _testHoldFood;
+    [SerializeField] private Food _testHoldFood;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
@@ -31,7 +31,7 @@ public class Desk : MonoBehaviour, IInteractable
             Debug.Log("=== Desk Interact 테스트 ===");
             Interact(null, _testHoldFood);
         }
-    }*/
+    }
     // -------------------- 테스트
     
     private void OnTriggerEnter(Collider collision)
