@@ -57,11 +57,12 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         {
             
         }
-        else if (other.gameObject.layer == _foodLayer 
+        else if (other.TryGetComponent(out Food food) 
                  && !IsHolding)
         {
-            SetFood(other.GetComponent<Food>());
-            HoldItemPosition(TargetTransform);
+            if (!food.CanHolding) return;
+            SetFood(food);
+            food.Hold(this);
         }
     }
 
@@ -72,9 +73,10 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
             
         }
         else if (other.gameObject.layer == _foodLayer 
-                 && other.gameObject.transform == _foodData.FoodTransform)
+                 && other.TryGetComponent(out Food food))
         {
-            UnHoldItemPosition();
+            if (food != _foodData) return;
+            _foodData.Release();
             UnSetFood();
         }
     }
@@ -92,8 +94,11 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         _foodData = null;
     }
 
+    private string GetFoodID(Food food)
+    {
+        return food.FoodId;
+    }
     
-
     /// <summary>
     /// 요리중일때 음식을 못집어 올리게 bool값을 설정하는 함수
     /// </summary>

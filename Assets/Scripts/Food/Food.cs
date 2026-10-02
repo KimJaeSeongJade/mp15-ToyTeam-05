@@ -28,16 +28,30 @@ public class Food : MonoBehaviour, IFood, IHoldable
 
     public void Hold(IHolder holder)
     {
-        // 나중에 손 위치나 들 위치 정해서 수정
-        transform.SetParent(holder.TargetTransform);
-        
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        HoldItemPosition(holder);
     }
 
     public void Release()
     {
+        UnHoldItemPosition();
+    }
+    
+    private void HoldItemPosition(IHolder holder)
+    {
+        transform.SetParent(holder.TargetTransform);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        
+        _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        IsHolding = true;
+    }
+
+    private void UnHoldItemPosition()
+    {
         transform.SetParent(null);
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.constraints = RigidbodyConstraints.None;
+        IsHolding = false;
     }
 
 }
