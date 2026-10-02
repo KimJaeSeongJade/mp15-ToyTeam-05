@@ -34,17 +34,28 @@ public class Desk : MonoBehaviour, IInteractable
     }
     // -------------------- 테스트
     
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerStay(Collider collision)
     {
+        if (_currentFood != null) return;
+        
         // Debug.Log(collision.gameObject.name);
         if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
         {
             _currentFood = collision.gameObject.GetComponent<Food>();
+            // Debug.Log(_currentFood.name);
             
             _currentFood.transform.position = _spawnPoint.position;
             _currentFood.transform.rotation = _spawnPoint.rotation;
         }
-        
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (_currentFood == null) return;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
+        {
+            _currentFood = null;
+        }
     }
     
 
@@ -77,6 +88,7 @@ public class Desk : MonoBehaviour, IInteractable
             
             Destroy(_currentFood.gameObject);
             Instantiate(resultfood.gameObject, _spawnPoint.position, Quaternion.identity);
+            _currentFood = resultfood;
         }
     }
 }
