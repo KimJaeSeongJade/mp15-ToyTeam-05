@@ -54,21 +54,55 @@ public class PlayerInteraction : MonoBehaviour, IHolder
     // 들어올리기 / 내려놓기 함수
     private void PutItDown()
     {
-        if (_holdables.Count <= 0) return;
+        // if (_holdables.Count <= 0) return;
         
-        if (_currentHoldable == null)
+        if (IsHolding)
         {
-            _currentHoldable = _holdables[0];
+            tempRelease();
+        }
+        else
+        {
+            tempHold();
+        }
+    }
+
+    private void TryHold()
+    {
+        _currentHoldable = _holdables[0];
+        if (!_currentHoldable.IsHolding)
+        {
             _currentHoldable.Hold(this);
             CanHold = false;
             IsHolding = true;
         }
         else
         {
-            _currentHoldable.Release();
-            _currentHoldable = null;
-            CanHold = true;
-            IsHolding = false;
+            
+        }
+    }
+
+    private void tempRelease()
+    {
+        _currentHoldable.Release();
+        _currentHoldable.IsHolding = false;
+        IsHolding = false;
+        _currentHoldable = null;
+    }
+    
+    private void tempHold()
+    {
+        if (_holdables.Count <= 0) return;
+        foreach (var holdable in _holdables)
+        {
+            if (holdable.CanHolding)
+            {
+                holdable.Hold(this);
+                _currentHoldable = holdable;
+                holdable.IsHolding = true;
+                IsHolding = true;
+                _holdables.Remove(holdable);
+                return;
+            }
         }
     }
 
