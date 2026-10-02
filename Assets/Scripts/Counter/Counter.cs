@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour, IInteractable
 {
+    public GameData _gameData;
     public void Interact(IInteractor interactor)
     {
     }
@@ -20,13 +21,13 @@ public class Counter : MonoBehaviour, IInteractable
             
             if (interactor.IsPlayer1)
             {
-                // P1 점수 주기
-                // P1 누적 완성음식 갯수++
+                _gameData.Player1Score += holdable.FoodData._foodPoint;
+                _gameData.Player1Food++;
             }
             else if (!interactor.IsPlayer1)
             {
-                // P2 점수 주기
-                // P2 누적 완성음식 갯수++
+                _gameData.Player2Score += holdable.FoodData._foodPoint;
+                _gameData.Player2Food++;
             }
             
             Destroy(holdable.FoodData);

@@ -6,8 +6,8 @@ public class Food : MonoBehaviour, IFood, IHoldable
 {
     [SerializeField] private string _foodName;
     [SerializeField] private string _foodId;
-    [SerializeField] private int _foodPoint;
-    
+    [SerializeField] internal int _foodPoint;
+
     private Rigidbody _rigidbody;
 
     public string FoodId => _foodId;
