@@ -13,10 +13,12 @@ public class PlayManager : MonoBehaviour
 
 
     [SerializeField] private TextMeshProUGUI _player1Score;
+    [SerializeField] private TextMeshProUGUI _p1InGameScore;
     [SerializeField] private TextMeshProUGUI _player1Bilge;
 
 
     [SerializeField] private TextMeshProUGUI _player2Score;
+    [SerializeField] private TextMeshProUGUI _p2InGameScore;
     [SerializeField] private TextMeshProUGUI _player2Bilge;
 
 
@@ -48,6 +50,8 @@ public class PlayManager : MonoBehaviour
             GameEnd();
         }
 
+        InGameScore();
+
         _timeText.text = Mathf.CeilToInt(GameManager.Instance.GameData.GameTimeLeft).ToString();
     }
     //----------------------
@@ -59,7 +63,13 @@ public class PlayManager : MonoBehaviour
     }
 
     //----------------------
-    
+
+    private void InGameScore()
+    {
+        _p1InGameScore.text = GameManager.Instance.GameData.Player1Score.ToString();
+        _p2InGameScore.text = GameManager.Instance.GameData.Player2Score.ToString();
+    }
+
     private IEnumerator StartCountDown()
     {
         _isGameStart = false;
