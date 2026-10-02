@@ -8,6 +8,6 @@ public enum CookwareJobEnum
     Start = 0,
     Quarter = 25,
     Half = 50,
-    ThreeFourth = 75,
-    Done = 100
+    ThreeFourth = 75
+    
 }
