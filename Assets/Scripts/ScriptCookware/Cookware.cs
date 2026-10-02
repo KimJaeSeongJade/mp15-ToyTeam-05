@@ -78,6 +78,11 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         }
     }
 
+    /// <summary>
+    /// 다음 열거형 값을 반환, 마지막 상태면 처음으로 되돌아감
+    /// </summary>
+    /// <param name="jobEnum">현재 열거형 값</param>
+    /// <returns></returns>
     protected CookwareJobEnum NextJobEnum(CookwareJobEnum jobEnum)
     {
         switch (jobEnum)
@@ -95,20 +100,31 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         }
     }
     
-    // protected  메서드
-    // ============================================================
-    
-
+    /// <summary>
+    /// 해당 음식을 등록
+    /// </summary>
+    /// <param name="food">등록할 음식</param>
     protected void SetFood(Food food)
     {
         _foodData = food;
     }
 
+    /// <summary>
+    /// 등록된 음식값을 없앰
+    /// </summary>
     protected void UnSetFood()
     {
         _foodData = null;
     }
+    
+    // protected  메서드
+    // ============================================================
 
+    /// <summary>
+    /// 넣은 음식의 ID값을 반환
+    /// </summary>
+    /// <param name="food">ID값을 알고 싶은 음식</param>
+    /// <returns></returns>
     private string GetFoodID(Food food)
     {
         return food.FoodId;

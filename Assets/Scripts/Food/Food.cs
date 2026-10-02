@@ -37,6 +37,10 @@ public class Food : MonoBehaviour, IFood, IHoldable
         UnHoldItemPosition();
     }
     
+    /// <summary>
+    /// 잡은 오브젝트의 위치에 고정시키고 IsHolding을 true로 변경
+    /// </summary>
+    /// <param name="holder"></param>
     private void HoldItemPosition(IHolder holder)
     {
         transform.SetParent(holder.TargetTransform);
@@ -47,6 +51,9 @@ public class Food : MonoBehaviour, IFood, IHoldable
         IsHolding = true;
     }
 
+    /// <summary>
+    /// 위치 고정을 해제하고 IsHolding을 false로 바꿈
+    /// </summary>
     private void UnHoldItemPosition()
     {
         transform.SetParent(null);
