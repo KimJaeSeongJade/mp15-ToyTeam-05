@@ -6,8 +6,13 @@ using UnityEngine;
 public class CuttingBoard : Cookware
 {
     private bool _isWorking;
+    private WaitForSeconds _choppingTime = new  WaitForSeconds(0.4f);
     
     // 비공개 필드
+    // ============================================================
+    
+    
+    // 프로퍼티
     // ============================================================
     
 
@@ -31,10 +36,35 @@ public class CuttingBoard : Cookware
 
     public override void Interact(IInteractor interactor, IHoldable holdable)
     {
-        Debug.Log("물건들고 상호작용");
+        
+    }
+    
+    public override bool CanWork()
+    {
+        if (_foodData == null) return false;
+        return CheckRecipe();
+    }
+
+    public override bool CanWork(IHoldable holdable)
+    {
+        if (_foodData != null) return false;
+
+        return false;
     }
     
     // 공개 메서드
     // ============================================================
+
+    private bool CheckRecipe()
+    {
+        if (_foodData == null) return false;
+        if (_foodData.FoodId == "01") return true;
+        if (_foodData.FoodId == "03") return true;
+        return false;
+    }
     
+    
+    
+    // 비공개 메서드
+    // ============================================================
 }
