@@ -24,6 +24,7 @@ public class Food : MonoBehaviour, IFood, IHoldable
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        CanHolding = true;
     }
 
     public void Hold(IHolder holder)

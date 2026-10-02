@@ -8,12 +8,15 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     
     protected int _playerLayer = 6;
     protected int _foodLayer = 12;
+    
     protected CookwareJobEnum _cookProgress;
+    protected IInteractor _playerInteractor;
+    protected IHolder _playerHolder;
 
     protected bool _canHoldItem;
     protected bool _canRealeaseItem;
     
-    protected Food _foodData;
+    [SerializeField] protected Food _foodData;
     
     // 비공개 필드
     // ============================================================
@@ -27,7 +30,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     public Food FoodData => _foodData;
 
     public bool IsHolding => _foodData != null;
-    public bool IsCooking => _cookProgress is CookwareJobEnum.Idle or CookwareJobEnum.Done;
+    public bool IsCooking => _cookProgress != CookwareJobEnum.Idle;
     
     // 프로퍼티
     // ============================================================
@@ -53,11 +56,8 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     
     protected void ColliderEnterCheck(Collider other)
     {
-        if (other.gameObject.layer == _playerLayer)
-        {
-            
-        }
-        else if (other.TryGetComponent(out Food food) 
+        if (other.gameObject.layer == _playerLayer) return;
+        else if (other.TryGetComponent(out Food food)
                  && !IsHolding)
         {
             if (!food.CanHolding) return;
@@ -68,11 +68,8 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
 
     protected void ColliderExitCheck(Collider other)
     {
-        if (other.gameObject.layer == _playerLayer)
-        {
-            
-        }
-        else if (other.gameObject.layer == _foodLayer 
+        if (other.gameObject.layer == _playerLayer) return;
+        else if (other.gameObject.layer == _foodLayer
                  && other.TryGetComponent(out Food food))
         {
             if (food != _foodData) return;
@@ -80,16 +77,34 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
             UnSetFood();
         }
     }
+
+    protected CookwareJobEnum NextJobEnum(CookwareJobEnum jobEnum)
+    {
+        switch (jobEnum)
+        {
+            case CookwareJobEnum.Idle:
+                return CookwareJobEnum.Start;
+            case CookwareJobEnum.Start:
+                return CookwareJobEnum.Quarter;
+            case CookwareJobEnum.Quarter:
+                return CookwareJobEnum.Half;
+            case CookwareJobEnum.Half:
+                return CookwareJobEnum.ThreeFourth;
+            default: // 진행도 3/4일때
+                return CookwareJobEnum.Idle;
+        }
+    }
     
     // protected  메서드
     // ============================================================
+    
 
-    private void SetFood(Food food)
+    protected void SetFood(Food food)
     {
         _foodData = food;
     }
 
-    private void UnSetFood()
+    protected void UnSetFood()
     {
         _foodData = null;
     }
