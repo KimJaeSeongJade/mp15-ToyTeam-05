@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,6 +33,7 @@ public class PlayManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(StartCountDown());
+        StartCoroutine(TextColorChange());
     }
 
     private void Update()
@@ -48,7 +50,16 @@ public class PlayManager : MonoBehaviour
 
         _timeText.text = Mathf.CeilToInt(GameManager.Instance.GameData.GameTimeLeft).ToString();
     }
+    //----------------------
 
+    private IEnumerator TextColorChange()
+    {
+        yield return new WaitForSeconds(GameManager.Instance.GameData.GameTimeLeft - 6f);
+        _timeText.color = Color.red;
+    }
+
+    //----------------------
+    
     private IEnumerator StartCountDown()
     {
         _isGameStart = false;
