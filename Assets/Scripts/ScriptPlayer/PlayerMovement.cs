@@ -9,37 +9,43 @@ public class PlayerMovement : MonoBehaviour
     private float _moveSpeed = 1000f;
     private float _rotSpeed = 500f;
 
-    [SerializeField] private bool _IsPlayer1p;
+    [SerializeField] public PLAYER_ID _playerID;
 
     private void Awake() => CacheComponents();
     
     public void Start()
     {
-        SetEvents(_IsPlayer1p);
+        BindInputEvents();
     }
 
     private void OnDisable()
+    {
+        UnBindInputEvents();
+    }
+
+    private void BindInputEvents()
+    {
+        switch (_playerID)
+        {
+            case PLAYER_ID.PLAYER_1P:
+                InputManager.Instance.OnInputP1 += Move;
+                InputManager.Instance.OnInputP1 += Rotate;
+                break;
+            case PLAYER_ID.PLAYER_2P:
+                InputManager.Instance.OnInputP2 += Move;
+                InputManager.Instance.OnInputP2 += Rotate;
+                break;
+        }
+    }
+    
+    private void UnBindInputEvents()
     {
         InputManager.Instance.OnInputP1 -= Move;
         InputManager.Instance.OnInputP1 -= Rotate;
         InputManager.Instance.OnInputP2 -= Move;
         InputManager.Instance.OnInputP2 -= Rotate;
     }
-
-    private void SetEvents(bool isPlayer1p)
-    {
-        if (isPlayer1p)
-        {
-            InputManager.Instance.OnInputP1 += Move;
-            InputManager.Instance.OnInputP1 += Rotate;
-        }
-        else
-        {
-            InputManager.Instance.OnInputP2 += Move;
-            InputManager.Instance.OnInputP2 += Rotate;
-        }
-    }
-
+    
     private void Move(Vector3 dir)
     {
         _rigidbody.AddForce(dir * _moveSpeed * Time.deltaTime, ForceMode.Force);
