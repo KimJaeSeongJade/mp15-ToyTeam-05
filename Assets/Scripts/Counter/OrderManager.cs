@@ -24,12 +24,13 @@ public class OrderManager : Singleton<OrderManager>
     {
         if (OrderList.Count < OrderList.Capacity)
         {
-            RandomOrder();
+            StartCoroutine(RandomOrder());
         }
     }
     
-    private void RandomOrder()
+    private IEnumerator RandomOrder()
     {
+        yield return new WaitForSeconds(2f);
         int Order = Random.Range(0, FoodPrefab.Length-1);
         OrderList.Add(FoodPrefab[Order]);
     }
