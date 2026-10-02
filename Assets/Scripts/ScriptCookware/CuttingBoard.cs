@@ -7,7 +7,6 @@ public class CuttingBoard : Cookware
 {
     private bool _isWorking;
     private WaitForSeconds _choppingTime = new  WaitForSeconds(0.4f);
-    private CookwareJobEnum _progress;
     
     // 비공개 필드
     // ============================================================

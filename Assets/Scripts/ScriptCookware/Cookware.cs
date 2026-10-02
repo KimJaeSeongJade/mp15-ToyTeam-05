@@ -2,37 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolder
+public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
 {
     [SerializeField] protected Transform _targetTransform;
     
     protected int _playerLayer = 6;
     protected int _foodLayer = 12;
+    protected CookwareJobEnum _cookProgress;
 
-    protected bool _canHolding;
+    protected bool _canHoldItem;
+    protected bool _canRealeaseItem;
     
-    protected bool _canHold;
-    protected bool _canRealease;
-    
-    protected Rigidbody _foodRigidbody;
-    protected Transform _foodTransform;
-
     protected Food _foodData;
     
     // 비공개 필드
     // ============================================================
 
-    public bool CanHolding => _canHolding;
-    public Transform TargetTransform => _targetTransform;
 
-    public bool IsHolding => _foodData;
-    public bool CanHold => _canHold;
-    public bool CanRelease => _canRealease;
+    public Transform TargetTransform => _targetTransform;
     
-    public Rigidbody FoodRigidbody => _foodRigidbody;
-    public Transform FoodTransform => _foodTransform;
+    public bool CanHold => _canHoldItem;
+    public bool CanRelease => _canRealeaseItem;
     
     public Food FoodData => _foodData;
+
+    public bool IsHolding => _foodData != null;
+    public bool IsCooking => _cookProgress is CookwareJobEnum.Idle or CookwareJobEnum.Done;
     
     // 프로퍼티
     // ============================================================
@@ -47,16 +42,14 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
     // 추상 메서드
     // ============================================================
 
-    
-    public virtual void Hold(IHolder holder)
+    private void Update()
     {
-        if (!_canRealease) return;
-        UnHoldItemPosition();
-        _foodData.Hold(holder);
-        UnSetFood();
+        CheckCookStatus();
     }
-
-    public void Release() {Debug.Log("이게 호출되면 뭔가 잘못된 것"); }
+        
+    // 이벤트 함수
+    // ============================================================
+    
     
     protected void ColliderEnterCheck(Collider other)
     {
@@ -79,39 +72,37 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHoldable, IHolde
             
         }
         else if (other.gameObject.layer == _foodLayer 
-                 && other.gameObject.transform == _foodTransform)
+                 && other.gameObject.transform == _foodData.FoodTransform)
         {
             UnHoldItemPosition();
             UnSetFood();
         }
     }
     
-    protected void SetFood(Food food)
+    // protected  메서드
+    // ============================================================
+
+    private void SetFood(Food food)
     {
         _foodData = food;
-        _foodTransform = _foodData.FoodTransform;
-        _foodRigidbody = _foodData.FoodRigidbody;
     }
 
-    protected void UnSetFood()
+    private void UnSetFood()
     {
         _foodData = null;
-        _foodTransform = null;
-        _foodRigidbody = null;
+    }
+
+    
+
+    /// <summary>
+    /// 요리중일때 음식을 못집어 올리게 bool값을 설정하는 함수
+    /// </summary>
+    private void CheckCookStatus()
+    {
+        if (!IsHolding) _cookProgress = CookwareJobEnum.Idle;
+        else FoodData.CanHolding = !IsCooking;
     }
     
-    protected void HoldItemPosition(Transform targetTransform)
-    {
-        _foodTransform.rotation = Quaternion.Euler(Vector3.zero);
-        _foodTransform.position = targetTransform.position;
-        _foodRigidbody.constraints = RigidbodyConstraints.FreezeAll;
-        _foodData.IsHolding = true;
-    }
-    protected void UnHoldItemPosition()
-    {
-        _foodRigidbody.velocity = Vector3.zero;
-        _foodRigidbody.constraints = RigidbodyConstraints.None;
-        _foodData.IsHolding = false;
-    }
-    
+    // private 메서드
+    // ============================================================
 }
