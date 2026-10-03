@@ -17,16 +17,22 @@ public class OrderManager : Singleton<OrderManager>
     {
         SetSingleton();
     }
-    
-    private void Update()
+
+    private void Start()
     {
         AddOrder();
+        OrderUi();
+    }
+
+    private void Update()
+    {
+       // AddOrder();
     }
     
     //==================================================
 
     
-    /*private void OrderUi()
+    private void OrderUi()
     {
         for (int i = 0; i < OrderList.Count; i++)
         { 
@@ -37,10 +43,10 @@ public class OrderManager : Singleton<OrderManager>
             if (index != -1)
             {
                 Debug.Log("인스턴스 생성");
-                Instantiate(FoodImageprefab[index], OrderPosition[i].position, Quaternion.identity,_OrderUi);
+                Instantiate(FoodImageprefab[index], _OrderUi);
             }
         }
-    }*/
+    }
    
     
     //====================================================
