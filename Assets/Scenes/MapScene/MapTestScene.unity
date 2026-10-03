@@ -997,13 +997,13 @@ MonoBehaviour:
   _bottomRight: {fileID: 266548550}
   _spawntimefood: 3
   _foodSpawnData:
-  - _food: {fileID: 4537277816614354052, guid: b93a2d1f16c82c143a39ee636587b9d2, type: 3}
+  - _food: {fileID: 6655654314228795475, guid: aa6e0cf19395452428076b86d668490c, type: 3}
     _cooldown: 10
-  - _food: {fileID: 6572070595303354154, guid: 1eaf34aac05e9c647a9d000ef5b4b00a, type: 3}
+  - _food: {fileID: 6808984131777018563, guid: 801aa9b2182ee0541a8e546a146eba52, type: 3}
     _cooldown: 2
-  - _food: {fileID: 5109964811270898122, guid: a71b7c9647dc471458bce01ac7a0f539, type: 3}
+  - _food: {fileID: 5790053353383131404, guid: 035905fc57e17b14586253cba246a966, type: 3}
     _cooldown: 5
-  - _food: {fileID: 7478263300174384852, guid: a9f3e3a10d95c2e44b466fc1eb7f6680, type: 3}
+  - _food: {fileID: 2441481406936406632, guid: 9a6b7ce122b188f4390e02f62465c337, type: 3}
     _cooldown: 4
 --- !u!4 &1542006695
 Transform:
