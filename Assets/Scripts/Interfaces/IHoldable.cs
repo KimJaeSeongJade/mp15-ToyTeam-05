@@ -13,7 +13,7 @@ public interface IHoldable
     /// 이 물체가 잡혀있는 상태인지 반환
     /// </summary>
     public bool IsHolding { get; }
-    
+    public PLAYER_ID PlayerID { get; }
     /// <summary>
     /// 이 물체의 리자드바디
     /// </summary>
@@ -30,7 +30,7 @@ public interface IHoldable
     /// 이 물체 잡기
     /// </summary>
     /// <param name="holder">IHoldable를 잡아둘 물체</param>
-    public void Hold(IHolder holder);
+    public void Hold(IHolder holder, PLAYER_ID ID);
     
     /// <summary>
     /// 이 물체 놓기
