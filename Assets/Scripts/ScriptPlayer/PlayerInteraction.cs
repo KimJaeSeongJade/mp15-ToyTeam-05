@@ -86,7 +86,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder
         {
             if (holdable.CanHolding)
             {
-                holdable.Hold(this);
+                holdable.Hold(this, _playerMovement._playerID);
                 _currentHoldable = holdable;
                 holdable.IsHolding = true;
                 holdable.CanHolding = false;
