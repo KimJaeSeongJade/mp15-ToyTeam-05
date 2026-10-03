@@ -40,10 +40,17 @@ public class PlayerMovement : MonoBehaviour
     
     private void UnBindInputEvents()
     {
-        InputManager.Instance.OnInputP1 -= Move;
-        InputManager.Instance.OnInputP1 -= Rotate;
-        InputManager.Instance.OnInputP2 -= Move;
-        InputManager.Instance.OnInputP2 -= Rotate;
+        switch (_playerID)
+        {
+            case PLAYER_ID.PLAYER_1P:
+                InputManager.Instance.OnInputP1 -= Move;
+                InputManager.Instance.OnInputP1 -= Rotate;
+                break;
+            case PLAYER_ID.PLAYER_2P:
+                InputManager.Instance.OnInputP2 -= Move;
+                InputManager.Instance.OnInputP2 -= Rotate;
+                break;
+        }
     }
     
     private void Move(Vector3 dir)
