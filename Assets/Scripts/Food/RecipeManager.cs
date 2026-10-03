@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,10 +38,15 @@ public class RecipeManager : MonoBehaviour
         List<int> foodids = new List<int>();
 
         // 지금은 괜찮은데 만약 음식 3개 조합 시에 0204(토마토 샐러드) + 12(???) 이런식은 작동 x
-        // 레시피 3개 만들때는 수정해야함
+        // 레시피 3개 만들때는 수정해야함 (수정 완)
         foreach (string foodId in foodIds)
         {
-            foodids.Add(int.Parse(foodId));
+            for (int i = 0; i < foodId.Length; i += 2)
+            {
+                foodids.Add(int.Parse(foodId.Substring(i, 2)));
+            }
+            
+            //foodids.Add(int.Parse(foodId));
         }
 
         foodids.Sort();
