@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,18 +28,38 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(1);
     }
    
-    public void GameStartP1()
+    public void GameStartP1(Image _ready)
     {
         _P1Ready = !_P1Ready;
+        
+        if (_P1Ready)
+        {
+            _ready.color = new Color32(11, 207, 98, 255);
+        }
+        else
+        {
+            _ready.color = new Color32(255,140,85,255);
+        }
+        
         if (_P1Ready && _P2Ready)
         {
             StartCoroutine(GameStartDelay());
         }
     }
     
-    public void GameStartP2()
+    public void GameStartP2(Image _ready)
     {
         _P2Ready = !_P2Ready;
+        
+        if (_P2Ready)
+        {
+            _ready.color = new Color32(11, 207, 98, 255);
+        }
+        else
+        {
+            _ready.color = new Color32(255,140,85,255);
+        }
+        
         if (_P1Ready && _P2Ready)
         {
             StartCoroutine(GameStartDelay());
