@@ -14,11 +14,11 @@ public class ButtonColor : MonoBehaviour
 
         if (isChoose)
         {
-            _ready.color = new Color(11, 207, 98);
+            _ready.color = new Color(11f, 207f, 98f, 255f);
         }
         else
         {
-            _ready.color = new Color(255, 140, 85);
+            _ready.color = new Color(255f,140f,85f,255f);
         }
     }
 }
