@@ -14,6 +14,9 @@ public class ChangeColor : MonoBehaviour
 
         isClick = !isClick;
         
-        colors.normalColor = isClick ? colors.highlightedColor : colors.normalColor;
+        colors.normalColor = isClick ? new Color() : Color.white;
+        colors.selectedColor = isClick ? new Color() : Color.red;
+        
+        button.colors = colors;
     }
 }
