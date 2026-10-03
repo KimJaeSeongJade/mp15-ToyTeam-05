@@ -32,8 +32,7 @@ public class GameManager : MonoBehaviour
         _P1Ready = !_P1Ready;
         if (_P1Ready && _P2Ready)
         {
-            ResetGameData();
-            SceneManager.LoadScene(1);
+            StartCoroutine(GameStartDelay());
         }
     }
     
@@ -42,9 +41,15 @@ public class GameManager : MonoBehaviour
         _P2Ready = !_P2Ready;
         if (_P1Ready && _P2Ready)
         {
-            ResetGameData();
-            SceneManager.LoadScene(1);
+            StartCoroutine(GameStartDelay());
         }
+    }
+
+    private IEnumerator GameStartDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        ResetGameData();
+        SceneManager.LoadScene(1);
     }
 
     // 게임 종료하기
