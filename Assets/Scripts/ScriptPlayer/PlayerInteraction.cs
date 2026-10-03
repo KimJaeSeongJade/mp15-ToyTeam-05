@@ -26,7 +26,11 @@ public class PlayerInteraction : MonoBehaviour, IHolder
 
     [SerializeField] private List<Food> _holdables;
     [SerializeField] private Food _currentHoldable;
-
+    
+    private PlayerMovement _playerMovement;
+    
+    private void Awake() => Init();
+    
     private void Start()
     {
         BindHoldInputEvents();
@@ -66,25 +70,11 @@ public class PlayerInteraction : MonoBehaviour, IHolder
         }
     }
 
-    private void TryHold()
-    {
-        _currentHoldable = _holdables[0];
-        if (!_currentHoldable.IsHolding)
-        {
-            _currentHoldable.Hold(this);
-            CanHold = false;
-            IsHolding = true;
-        }
-        else
-        {
-            
-        }
-    }
-
     private void tempRelease()
     {
         _currentHoldable.Release();
         _currentHoldable.IsHolding = false;
+        _currentHoldable.CanHolding = true;
         IsHolding = false;
         _currentHoldable = null;
     }
@@ -99,8 +89,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder
                 holdable.Hold(this);
                 _currentHoldable = holdable;
                 holdable.IsHolding = true;
+                holdable.CanHolding = false;
                 IsHolding = true;
-                _holdables.Remove(holdable);
                 return;
             }
         }
@@ -108,13 +98,25 @@ public class PlayerInteraction : MonoBehaviour, IHolder
 
     private void BindHoldInputEvents()
     {
-        InputManager.Instance.OnIntaractP1 += PutItDown;
-        InputManager.Instance.OnIntaractP2 += PutItDown;
+        switch (_playerMovement._playerID)
+        {
+            case PLAYER_ID.PLAYER_1P:
+                InputManager.Instance.OnIntaractP1 += PutItDown;
+                break;
+            case PLAYER_ID.PLAYER_2P:
+                InputManager.Instance.OnIntaractP2 += PutItDown;
+                break;
+        }
     }
 
     private void UnBindHoldInputEvents()
     {
         InputManager.Instance.OnIntaractP1 -= PutItDown;
         InputManager.Instance.OnIntaractP2 -= PutItDown;
+    }
+
+    private void Init()
+    {
+        _playerMovement = GetComponent<PlayerMovement>();
     }
 }
