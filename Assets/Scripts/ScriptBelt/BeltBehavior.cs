@@ -48,6 +48,8 @@ public class BeltBehavior : MonoBehaviour
 
     private void MoveRail()
     {
+        _foods.RemoveAll(food => food == null);
+
         if (_foods.Count <= 0) return;
         foreach (Food food in _foods)
         {
