@@ -85,6 +85,7 @@ public class CuttingBoard : Cookware
     {
         if (!CanWork()) return;
         _playerInteractor = interactor;
+        IsPressed = interactor.IsPressed;
         StartCoroutine(_choppingCoroutine());
     }
 

@@ -26,6 +26,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     
     public bool CanHold => _canHoldItem;
     public bool CanRelease => _canRealeaseItem;
+    public bool IsPressed { get; set; }
     
     public Food FoodData => _foodData;
 
