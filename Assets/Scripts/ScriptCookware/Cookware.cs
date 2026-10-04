@@ -8,8 +8,10 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     
     protected int _playerLayer = 6;
     protected int _foodLayer = 12;
+
     
-    public CookwareJobEnum cookProgress = CookwareJobEnum.Idle;
+    
+    protected int _cookProgress = (int)CookwareJobEnum.Idle;
     protected IInteractor _playerInteractor;
     protected IHolder _lastHolder;
 
@@ -31,7 +33,9 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     public Food FoodData => _foodData;
 
     public bool IsHolding => _foodData != null;
-    public bool IsCooking => cookProgress != CookwareJobEnum.Idle;
+    public bool IsCooking => _cookProgress != (int)CookwareJobEnum.Idle;
+    
+    public int CookProgress => _cookProgress;
     
     // 프로퍼티
     // ============================================================
@@ -85,28 +89,6 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     }
 
     /// <summary>
-    /// 다음 열거형 값을 반환, 마지막 상태면 처음으로 되돌아감
-    /// </summary>
-    /// <param name="jobEnum">현재 열거형 값</param>
-    /// <returns></returns>
-    protected CookwareJobEnum NextJobEnum(CookwareJobEnum jobEnum)
-    {
-        switch (jobEnum)
-        {
-            case CookwareJobEnum.Idle:
-                return CookwareJobEnum.Start;
-            case CookwareJobEnum.Start:
-                return CookwareJobEnum.Quarter;
-            case CookwareJobEnum.Quarter:
-                return CookwareJobEnum.Half;
-            case CookwareJobEnum.Half:
-                return CookwareJobEnum.ThreeFourth;
-            default: // 진행도 3/4일때
-                return CookwareJobEnum.Idle;
-        }
-    }
-    
-    /// <summary>
     /// 해당 음식을 등록
     /// </summary>
     /// <param name="food">등록할 음식</param>
@@ -146,7 +128,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     /// </summary>
     private void CheckCookStatus()
     {
-        if (!IsHolding) cookProgress = CookwareJobEnum.Idle;
+        if (!IsHolding) _cookProgress = (int)CookwareJobEnum.Idle;
         else FoodData.CanHolding = !IsCooking;
     }
     

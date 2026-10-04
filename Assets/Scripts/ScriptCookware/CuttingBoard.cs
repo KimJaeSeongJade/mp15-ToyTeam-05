@@ -30,29 +30,29 @@ public class CuttingBoard : Cookware
         _isStillHoldKey = true;
         while (_isStillHoldKey)
         {
-            switch (cookProgress)
+            switch (_cookProgress)
             {
-                case CookwareJobEnum.Idle:
-                    cookProgress = CookwareJobEnum.Start;
+                case (int)CookwareJobEnum.Idle:
+                    _cookProgress = (int)CookwareJobEnum.Start;
                     _recipeChar = _foodData.FoodId[1];
                     break;
-                case CookwareJobEnum.ThreeFourth:
+                case (int)CookwareJobEnum.ThreeFourth:
                     yield return _choppingTime;
                     if (_isStillHoldKey)
                     {
                         RemoveFood(_foodData);
                         FoodProcess();
                         _recipeChar = 'N';
-                        cookProgress = CookwareJobEnum.Idle;
+                        _cookProgress = (int)CookwareJobEnum.Idle;
                         _isStillHoldKey = false;
                     }
                     break;
                 default:
                     yield return _choppingTime;
-                    if (_isStillHoldKey) cookProgress = NextJobEnum(cookProgress);
+                    if (_isStillHoldKey) NextChop();
                     break;
             }
-            Debug.Log($"요리 진행도 : {(int)cookProgress}");
+            Debug.Log($"요리 진행도 : {(int)_cookProgress}");
         }
         _playerInteractor = null;
     }
@@ -61,9 +61,9 @@ public class CuttingBoard : Cookware
     // 코루틴
     // ============================================================
     
-
     private void OnTriggerEnter(Collider other)
     {
+        
         ColliderEnterCheck(other);
     }
 
@@ -148,7 +148,11 @@ public class CuttingBoard : Cookware
         if (!_isStillHoldKey) return;
         if (!_playerInteractor.IsPressed) _isStillHoldKey = false;
     }
-    
+
+    private void NextChop()
+    {
+        _cookProgress += 25;
+    }
     
     // 비공개 메서드
     // ============================================================
