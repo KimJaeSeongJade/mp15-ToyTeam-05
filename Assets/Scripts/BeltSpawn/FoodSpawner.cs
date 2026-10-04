@@ -97,6 +97,7 @@ public class FoodSpawner : MonoBehaviour
 
     private void SpawnFood(FoodSpawnData food, Transform spawnpoint)
     {
+        food.Food.CanHolding = true;
         float randomY = Random.Range(0f, 360f);
         
         Quaternion randomRotation = Quaternion.Euler(spawnpoint.rotation.eulerAngles.x, randomY, spawnpoint.rotation.eulerAngles.z);
