@@ -21,6 +21,30 @@ public class CookingPot : Cookware
     {
         if (_isCooking) Boil(); 
     }
+    
+    private void OnTriggerStay(Collider collision)
+    {
+        if (IsHolding) return;
+        
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
+        {
+            _foodData = collision.gameObject.GetComponent<Food>();
+            
+            _foodData.transform.position = TargetTransform.position;
+            _foodData.transform.rotation = TargetTransform.rotation;
+            _foodData.Hold(this, PLAYER_ID.NONE);
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (!IsHolding) return;
+        if (collision.gameObject.GetComponent<Food>() == _foodData)
+        {
+            _foodData = null;
+        }
+    }
+    
     // 이벤트 함수
     // ============================================================
     
@@ -68,6 +92,7 @@ public class CookingPot : Cookware
         }
         else
         {
+            _foodData.Release();
             // 오브젝트 풀로 반환
             ProcessFood();
         }
