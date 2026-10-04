@@ -13,10 +13,12 @@ public class PlayManager : MonoBehaviour
 
 
     [SerializeField] private TextMeshProUGUI _player1Score;
+    [SerializeField] private TextMeshProUGUI _p1InGameScore;
     [SerializeField] private TextMeshProUGUI _player1Bilge;
 
 
     [SerializeField] private TextMeshProUGUI _player2Score;
+    [SerializeField] private TextMeshProUGUI _p2InGameScore;
     [SerializeField] private TextMeshProUGUI _player2Bilge;
 
 
@@ -48,6 +50,8 @@ public class PlayManager : MonoBehaviour
             GameEnd();
         }
 
+        InGameScore();
+
         _timeText.text = Mathf.CeilToInt(GameManager.Instance.GameData.GameTimeLeft).ToString();
     }
     //----------------------
@@ -59,7 +63,13 @@ public class PlayManager : MonoBehaviour
     }
 
     //----------------------
-    
+
+    private void InGameScore()
+    {
+        _p1InGameScore.text = GameManager.Instance.GameData.Player1Score.ToString();
+        _p2InGameScore.text = GameManager.Instance.GameData.Player2Score.ToString();
+    }
+
     private IEnumerator StartCountDown()
     {
         _isGameStart = false;
@@ -86,31 +96,49 @@ public class PlayManager : MonoBehaviour
 
     private void PlayerWin()
     {
+        ResultScoreUI();
+        
+        int player1Score = GameManager.Instance.GameData.Player1Score;
+        int player2Score = GameManager.Instance.GameData.Player2Score;
+        
+        int player1Food = GameManager.Instance.GameData.Player1Food;
+        int player2food = GameManager.Instance.GameData.Player2Food;
+
+        if (player1Score > player2Score) Player1Win();
+        else if (player1Score < player2Score) Player2Win();
+        else
+        {
+            if (player1Food > player2food) Player1Win();
+            else if (player1Food < player2food) Player2Win();
+            else PlayerDraw();
+        }
+    }
+
+    private void ResultScoreUI()
+    {
         _player1Score.text = "player1 Score : " + GameManager.Instance.GameData.Player1Score.ToString();
         _player1Bilge.text = "player1 Bilge : " + GameManager.Instance.GameData.Player1Food.ToString();
 
         _player2Score.text = "player2 Score : " + GameManager.Instance.GameData.Player2Score.ToString();
         _player2Bilge.text = "player2 Bilge : " + GameManager.Instance.GameData.Player2Food.ToString();
+    }
 
-        int player1Score = GameManager.Instance.GameData.Player1Score;
-        int player2Score = GameManager.Instance.GameData.Player2Score;
+    private void Player1Win()
+    {
+        _player1WinUI.SetActive(true);
+        _player2LoseUI.SetActive(true);
+    }
 
-        if (player1Score > player2Score)
-        {
-            _player1WinUI.SetActive(true);
-            _player2LoseUI.SetActive(true);
-        }
-        else if (player1Score < player2Score)
-        {
-            _player1LoseUI.SetActive(true);
-            _player2WinUI.SetActive(true);
-        }
-        // 테스트
-        else
-        {
-            _player1WinUI.SetActive(true);
-            _player2WinUI.SetActive(true);
-        }
+    private void Player2Win()
+    {
+        _player1LoseUI.SetActive(true);
+        _player2WinUI.SetActive(true);
+    }
+
+    private void PlayerDraw()
+    {
+        _player1WinUI.SetActive(true);
+        _player2WinUI.SetActive(true);
     }
 
 

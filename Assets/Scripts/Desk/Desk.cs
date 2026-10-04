@@ -38,11 +38,9 @@ public class Desk : MonoBehaviour, IInteractable
     {
         if (_currentFood != null) return;
         
-        // Debug.Log(collision.gameObject.name);
         if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
         {
             _currentFood = collision.gameObject.GetComponent<Food>();
-            // Debug.Log(_currentFood.name);
             
             _currentFood.transform.position = _spawnPoint.position;
             _currentFood.transform.rotation = _spawnPoint.rotation;
@@ -87,8 +85,8 @@ public class Desk : MonoBehaviour, IInteractable
             if (resultfood == null) return;
             
             Destroy(_currentFood.gameObject);
-            Instantiate(resultfood.gameObject, _spawnPoint.position, Quaternion.identity);
-            _currentFood = resultfood;
+            GameObject foodObject = Instantiate(resultfood.gameObject, _spawnPoint.position, Quaternion.identity);
+            _currentFood = foodObject.gameObject.GetComponent<Food>();
         }
     }
 }

@@ -93,7 +93,7 @@ public class CuttingBoard : Cookware
         if (!CanWork(holdable)) return;
         _playerInteractor = interactor;
         holdable.Release();
-        holdable.Hold(this);
+        holdable.Hold(this, PLAYER_ID.NONE);
         StartCoroutine(_choppingCoroutine());
     }
     

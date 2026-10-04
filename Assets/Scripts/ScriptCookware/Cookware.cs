@@ -62,7 +62,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         {
             if (!food.CanHolding) return;
             SetFood(food);
-            food.Hold(this);
+            food.Hold(this, PLAYER_ID.NONE);
         }
     }
 

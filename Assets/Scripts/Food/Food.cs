@@ -9,6 +9,7 @@ public class Food : MonoBehaviour, IFood, IHoldable
     [SerializeField] internal int _foodPoint;
 
     private Rigidbody _rigidbody;
+    private PLAYER_ID _lastHoldingPlayerID = PLAYER_ID.NONE;
 
     public string FoodId => _foodId;
     public string FoodName => _foodName;
@@ -18,6 +19,7 @@ public class Food : MonoBehaviour, IFood, IHoldable
 
     public Food FoodData => this;
 
+    public PLAYER_ID PlayerID => _lastHoldingPlayerID;
     public Rigidbody FoodRigidbody => _rigidbody;
     public Transform FoodTransform => transform;
 
@@ -27,8 +29,9 @@ public class Food : MonoBehaviour, IFood, IHoldable
         CanHolding = true;
     }
 
-    public void Hold(IHolder holder)
+    public void Hold(IHolder holder, PLAYER_ID playerID)
     {
+        _lastHoldingPlayerID =  playerID;
         HoldItemPosition(holder);
     }
 

@@ -60,7 +60,7 @@ public class OrderManager : Singleton<OrderManager>
     
     private void RandomOrder()
     {
-        int Order = Random.Range(0, FoodPrefab.Count-1);
+        int Order = Random.Range(0, FoodPrefab.Count);
         OrderList.Add(FoodPrefab[Order]);
     }
     
