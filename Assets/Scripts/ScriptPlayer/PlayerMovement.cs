@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rigidbody;
-    private float _moveSpeed = 600f;
+    private float _moveSpeed = 300f;
     private float _rotSpeed = 20f;
 
     [SerializeField] public PLAYER_ID _playerID;

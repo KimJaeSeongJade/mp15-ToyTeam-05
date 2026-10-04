@@ -89,7 +89,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         _currentHoldable.CanHolding = true;
         IsHolding = false;
         
-        _foodRigidbody.AddForce(transform.forward * 100f);
+        ThrowHoldItem(_currentHoldable, 100f);
         _currentHoldable = null;
     }
     
@@ -106,7 +106,6 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
                 holdable.CanHolding = false;
                 IsHolding = true;
 
-                ThrowHoldItem(_currentHoldable, 100f);
                 return;
             }
         }
@@ -114,7 +113,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private void ThrowHoldItem(Food currentHoldItem, float forcePower)
     {
-        _foodRigidbody = _currentHoldable.GetComponent<Rigidbody>();
+        _foodRigidbody = currentHoldItem.GetComponent<Rigidbody>();
+        _foodRigidbody.AddForce(transform.forward * forcePower);
     }
 
     private void CookInteraction()
