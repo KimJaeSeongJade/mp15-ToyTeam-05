@@ -14,7 +14,6 @@ public class CuttingBoard : Cookware
     private bool _isCooking;
     private bool _isWaitingTimer;
     private bool _isStillHoldKey;
-    private char _recipeChar;
     
     private WaitForSeconds _choppingTime = new  WaitForSeconds(0.5f);
     
@@ -42,9 +41,6 @@ public class CuttingBoard : Cookware
                     {
                         RemoveFood(_foodData);
                         FoodProcess();
-                        _recipeChar = 'N';
-                        _cookProgress = (int)CookwareJobEnum.Idle;
-                        _isStillHoldKey = false;
                     }
                     break;
                 default:
@@ -97,22 +93,10 @@ public class CuttingBoard : Cookware
         StartCoroutine(_choppingCoroutine());
     }
     
-    public override bool CanWork()
-    {
-        if (_foodData == null) return false;
-        return CheckRecipe(_foodData);
-    }
-
-    public override bool CanWork(IHoldable holdable)
-    {
-        if (_foodData != null) return false;
-        return CheckRecipe(holdable.FoodData);
-    }
-    
     // 공개 메서드
     // ============================================================
     
-    private bool CheckRecipe(Food food)
+    protected override bool CheckRecipe(Food food)
     {
         Debug.Log($"레시피 확인 {food.FoodId}");
         if (food == null) return false;
@@ -133,7 +117,9 @@ public class CuttingBoard : Cookware
             _foodData = Instantiate(ChoppedTomato, TargetTransform.position, Quaternion.identity);
             return;
         }
-        
+        _recipeChar = 'N';
+        _cookProgress = (int)CookwareJobEnum.Idle;
+        _isStillHoldKey = false;
     }
 
     private void RemoveFood(Food food)
