@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BeltBehavior : MonoBehaviour
 {
-    private readonly int _itemLayerMask = 12;
+    // private readonly int _itemLayerMask = 12;
 
     // 상수 / Readonly 필드
     // ============================================================

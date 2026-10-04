@@ -19,12 +19,12 @@ public class Counter : MonoBehaviour, IInteractable
         {
             OrderManager.Instance.OrderList.RemoveAt(index);  // 리스트에서 삭제
             
-            if (interactor.IsPlayer1)
+            if (interactor.PlayerCheck == PLAYER_ID.PLAYER_1P)
             {
                 _gameData.Player1Score += holdable.FoodData._foodPoint;
                 _gameData.Player1Food++;
             }
-            else if (!interactor.IsPlayer1)
+            else if (interactor.PlayerCheck == PLAYER_ID.PLAYER_2P)
             {
                 _gameData.Player2Score += holdable.FoodData._foodPoint;
                 _gameData.Player2Food++;

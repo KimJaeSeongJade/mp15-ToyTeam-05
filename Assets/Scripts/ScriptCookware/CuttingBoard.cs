@@ -41,7 +41,6 @@ public class CuttingBoard : Cookware
                     if (_isStillHoldKey)
                     {
                         RemoveFood(_foodData);
-                        UnSetFood();
                         FoodProcess();
                         _recipeChar = 'N';
                         _cookProgress = CookwareJobEnum.Idle;
@@ -85,6 +84,7 @@ public class CuttingBoard : Cookware
     {
         if (!CanWork()) return;
         _playerInteractor = interactor;
+        IsPressed = interactor.IsPressed;
         StartCoroutine(_choppingCoroutine());
     }
 
@@ -122,15 +122,14 @@ public class CuttingBoard : Cookware
 
     private void FoodProcess()
     {
-        bool isSucess = false;
         if (_recipeChar == '1')
         {
-            Instantiate(ChoppedLettuce, TargetTransform);
+            _foodData = Instantiate(ChoppedLettuce, TargetTransform);
             return;
         }
         if (_recipeChar == '3')
         {
-            Instantiate(ChoppedTomato, TargetTransform);
+            _foodData = Instantiate(ChoppedTomato, TargetTransform);
             return;
         }
         
@@ -138,6 +137,7 @@ public class CuttingBoard : Cookware
 
     private void RemoveFood(Food food)
     {
+        _playerHolder.RemoveData(food);
         Destroy(food.gameObject);
         UnSetFood();
     }
