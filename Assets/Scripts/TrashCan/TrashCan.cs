@@ -13,7 +13,7 @@ public class TrashCan : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Food"))
         {
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
     }
 }

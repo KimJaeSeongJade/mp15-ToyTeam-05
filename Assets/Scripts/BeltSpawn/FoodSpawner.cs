@@ -13,6 +13,20 @@ public class FoodSpawner : MonoBehaviour
     [SerializeField] private List<FoodSpawnData> _foodSpawnData;
     Queue<FoodSpawnData> _spawnData = new();
 
+    // --------------- 오브젝트풀
+    [SerializeField] private PoolManager _poolManager;
+
+    [SerializeField] private int num;
+    
+    
+    
+    
+    
+    
+    
+    
+    // --------------- 오브젝트풀
+    
     private bool _changeSpawn = true;
 
     private void Start()
@@ -23,6 +37,26 @@ public class FoodSpawner : MonoBehaviour
         }
         StartCoroutine(SpawnFood());
     }
+
+
+
+    // ----------------------- 테스트
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //_poolManager.Get(num);
+        }
+    }
+    // ----------------------- 테스트
+    
+    
+    
+    
+    
+    
+    
+    
 
     private IEnumerator CooldownRoutine(FoodSpawnData fooddata)
     {
@@ -67,7 +101,13 @@ public class FoodSpawner : MonoBehaviour
         
         Quaternion randomRotation = Quaternion.Euler(spawnpoint.rotation.eulerAngles.x, randomY, spawnpoint.rotation.eulerAngles.z);
         
-        Instantiate(food.Food, spawnpoint.position, randomRotation);
+        //Instantiate(food.Food, spawnpoint.position, randomRotation);
+        
+        Food ob = _poolManager.Get(food.Food);
+        
+        ob.transform.position = spawnpoint.position;
+        ob.transform.rotation = randomRotation;
+        ob.gameObject.SetActive(true);
     }
 
 
