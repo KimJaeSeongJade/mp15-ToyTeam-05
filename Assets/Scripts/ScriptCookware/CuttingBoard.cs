@@ -14,7 +14,7 @@ public class CuttingBoard : Cookware
     private bool _isCooking;
     private bool _isWaitingTimer;
     private bool _isStillHoldKey;
-    private char _recipeChar; // 추후 레시피 리팩토링하면 변경
+    private char _recipeChar;
     
     private WaitForSeconds _choppingTime = new  WaitForSeconds(0.5f);
     
@@ -114,6 +114,7 @@ public class CuttingBoard : Cookware
     
     private bool CheckRecipe(Food food)
     {
+        Debug.Log($"레시피 확인 {food.FoodId}");
         if (food == null) return false;
         if (food.FoodId == "01") return true;
         if (food.FoodId == "03") return true;
@@ -124,12 +125,12 @@ public class CuttingBoard : Cookware
     {
         if (_recipeChar == '1')
         {
-            _foodData = Instantiate(ChoppedLettuce, TargetTransform);
+            _foodData = Instantiate(ChoppedLettuce, TargetTransform.position, Quaternion.identity);
             return;
         }
         if (_recipeChar == '3')
         {
-            _foodData = Instantiate(ChoppedTomato, TargetTransform);
+            _foodData = Instantiate(ChoppedTomato, TargetTransform.position, Quaternion.identity);
             return;
         }
         
