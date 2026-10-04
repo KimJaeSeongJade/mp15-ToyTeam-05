@@ -41,6 +41,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     [SerializeField] private Cookware _cookware;
     
     private PlayerMovement _playerMovement;
+    private Rigidbody _foodRigidbody;
     
     private void Awake() => Init();
     
@@ -87,6 +88,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         _currentHoldable.IsHolding = false;
         _currentHoldable.CanHolding = true;
         IsHolding = false;
+        
+        ThrowHoldItem(_currentHoldable, 100f);
         _currentHoldable = null;
     }
     
@@ -102,11 +105,17 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
                 holdable.IsHolding = true;
                 holdable.CanHolding = false;
                 IsHolding = true;
+
                 return;
             }
         }
     }
 
+    private void ThrowHoldItem(Food currentHoldItem, float forcePower)
+    {
+        _foodRigidbody = currentHoldItem.GetComponent<Rigidbody>();
+        _foodRigidbody.AddForce(transform.forward * forcePower);
+    }
 
     private void CookInteraction()
     {
