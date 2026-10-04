@@ -6,8 +6,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rigidbody;
-    private float _moveSpeed = 1000f;
-    private float _rotSpeed = 500f;
+    private float _moveSpeed = 600f;
+    private float _rotSpeed = 20f;
 
     [SerializeField] public PLAYER_ID _playerID;
 
@@ -55,12 +55,19 @@ public class PlayerMovement : MonoBehaviour
     
     private void Move(Vector3 dir)
     {
-        _rigidbody.AddForce(dir * _moveSpeed * Time.deltaTime, ForceMode.Force);
+        _rigidbody.velocity = Vector3.zero;
+        Vector3 movement = (dir * _moveSpeed * Time.deltaTime);
+        
+        _rigidbody.AddForce(movement, ForceMode.Impulse);
     }
 
     private void Rotate(Vector3 dir)
     {
-        transform.forward += Vector3.Slerp(transform.forward, _rigidbody.velocity, Time.deltaTime * _rotSpeed);
+        if (dir.magnitude < 0.1f) return;
+        
+        Quaternion rotation = Quaternion.LookRotation(dir);
+        
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * _rotSpeed);
     }
 
     private void CacheComponents()
