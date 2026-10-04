@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameData _gameData;
     public GameData GameData => _gameData;
+    private bool _P1Ready = false;
+    private bool _P2Ready = false;
 
     private void Awake() => SetSingleton();
-
 
     // 타이틀로 돌아가기
     public void TitleScene()
@@ -19,10 +21,54 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
-    
     // 게임시작씬으로 가기
     public void GameStart()
     {
+            ResetGameData();
+            SceneManager.LoadScene(1);
+    }
+   
+    public void GameStartP1(Image _ready)
+    {
+        _P1Ready = !_P1Ready;
+        
+        if (_P1Ready)
+        {
+            _ready.color = new Color32(11, 207, 98, 255);
+        }
+        else
+        {
+            _ready.color = new Color32(255,140,85,255);
+        }
+        
+        if (_P1Ready && _P2Ready)
+        {
+            StartCoroutine(GameStartDelay());
+        }
+    }
+    
+    public void GameStartP2(Image _ready)
+    {
+        _P2Ready = !_P2Ready;
+        
+        if (_P2Ready)
+        {
+            _ready.color = new Color32(11, 207, 98, 255);
+        }
+        else
+        {
+            _ready.color = new Color32(255,140,85,255);
+        }
+        
+        if (_P1Ready && _P2Ready)
+        {
+            StartCoroutine(GameStartDelay());
+        }
+    }
+
+    private IEnumerator GameStartDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
         ResetGameData();
         SceneManager.LoadScene(1);
     }
@@ -42,6 +88,9 @@ public class GameManager : MonoBehaviour
 
     public void ResetGameData()
     {
+        _P1Ready = false;
+        _P2Ready = false;
+        
         _gameData.Player1Score = 0;
         _gameData.Player2Score = 0;
 
