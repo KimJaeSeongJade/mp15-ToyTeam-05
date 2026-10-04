@@ -11,7 +11,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
 
     
     
-    protected int cookProgress = (int)CookwareJobEnum.Idle;
+    protected int _cookProgress = (int)CookwareJobEnum.Idle;
     protected IInteractor _playerInteractor;
     protected IHolder _lastHolder;
 
@@ -33,9 +33,9 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     public Food FoodData => _foodData;
 
     public bool IsHolding => _foodData != null;
-    public bool IsCooking => cookProgress != (int)CookwareJobEnum.Idle;
+    public bool IsCooking => _cookProgress != (int)CookwareJobEnum.Idle;
     
-    public int CookProgress => cookProgress;
+    public int CookProgress => _cookProgress;
     
     // 프로퍼티
     // ============================================================
@@ -128,7 +128,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     /// </summary>
     private void CheckCookStatus()
     {
-        if (!IsHolding) cookProgress = (int)CookwareJobEnum.Idle;
+        if (!IsHolding) _cookProgress = (int)CookwareJobEnum.Idle;
         else FoodData.CanHolding = !IsCooking;
     }
     

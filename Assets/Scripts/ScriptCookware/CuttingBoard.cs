@@ -30,10 +30,10 @@ public class CuttingBoard : Cookware
         _isStillHoldKey = true;
         while (_isStillHoldKey)
         {
-            switch (cookProgress)
+            switch (_cookProgress)
             {
                 case (int)CookwareJobEnum.Idle:
-                    cookProgress = (int)CookwareJobEnum.Start;
+                    _cookProgress = (int)CookwareJobEnum.Start;
                     _recipeChar = _foodData.FoodId[1];
                     break;
                 case (int)CookwareJobEnum.ThreeFourth:
@@ -43,7 +43,7 @@ public class CuttingBoard : Cookware
                         RemoveFood(_foodData);
                         FoodProcess();
                         _recipeChar = 'N';
-                        cookProgress = (int)CookwareJobEnum.Idle;
+                        _cookProgress = (int)CookwareJobEnum.Idle;
                         _isStillHoldKey = false;
                     }
                     break;
@@ -52,7 +52,7 @@ public class CuttingBoard : Cookware
                     if (_isStillHoldKey) NextChop();
                     break;
             }
-            Debug.Log($"요리 진행도 : {(int)cookProgress}");
+            Debug.Log($"요리 진행도 : {(int)_cookProgress}");
         }
         _playerInteractor = null;
     }
@@ -151,7 +151,7 @@ public class CuttingBoard : Cookware
 
     private void NextChop()
     {
-        cookProgress += 25;
+        _cookProgress += 25;
     }
     
     // 비공개 메서드
