@@ -8,54 +8,36 @@ public class OrderManager : Singleton<OrderManager>
     [SerializeField] private List<GameObject> FoodImageprefab = new List<GameObject>(5); // 주문서 UI 라인업
     
     [SerializeField] public List<Food> OrderList = new List<Food>(6); // 실제 주문서들
-    // [SerializeField] private List<Transform> OrderPosition = new (6); // 주문서 UI 포지션
     
     [SerializeField] private Transform _OrderUi; // 주문서 클론 부모
-    private int playerIndex;
+    public int _successIndex;
     
-    private void Awake()
-    {
-        SetSingleton();
-    }
-
-    private void Start()
-    {
-        AddOrder();
-        OrderUi();
-    }
-
+    private void Awake() => SetSingleton();
+    
     private void Update()
     {
-       // AddOrder();
+        AddOrder();
     }
     
-    //==================================================
-
-    
-    private void OrderUi()
-    {
-        for (int i = 0; i < OrderList.Count; i++)
-        { 
-            if(OrderList[i] == null) return;
-            // 오더 리스트 i는 FoodPrefab의 몇 번째 인덱스에 있나? 찾기
-            int index = FoodPrefab.IndexOf(OrderList[i]);
-            Debug.Log("여기는 됨");
-            if (index != -1)
-            {
-                Debug.Log("인스턴스 생성");
-                Instantiate(FoodImageprefab[index], _OrderUi);
-            }
-        }
-    }
-   
-    
-    //====================================================
     private void AddOrder()
     {
         if (OrderList.Count < OrderList.Capacity)
         {
             RandomOrder();
+            AddOrderUi();
         }
+    }
+    
+    private void AddOrderUi()
+    {
+            if(OrderList[OrderList.Count-1] == null) return;
+            
+            // 마지막꺼 인덱스 번호 라인업안에서 찾고
+            int index = FoodPrefab.IndexOf(OrderList[OrderList.Count-1]); 
+            if (index != -1)
+            {
+                Instantiate(FoodImageprefab[index], _OrderUi);
+            }
     }
     
     private void RandomOrder()
@@ -64,7 +46,6 @@ public class OrderManager : Singleton<OrderManager>
         OrderList.Add(FoodPrefab[Order]);
     }
     
-
 // =================================== 테스트용 (버튼 누르면 랜덤 삭제)
     /*private void RemoveOrder()
     {

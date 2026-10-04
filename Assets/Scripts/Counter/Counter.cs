@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour, IInteractable
 {
+    public RemoveOrderUI _removeOrderUI;
     public GameData _gameData;
     public void Interact(IInteractor interactor)
     {
@@ -14,9 +15,12 @@ public class Counter : MonoBehaviour, IInteractable
     public void Interact(IInteractor interactor, IHoldable holdable)
     {
         int index = OrderManager.Instance.OrderList.IndexOf(holdable.FoodData); // 오더리스트에 있나
+       
         if (index == -1) return;
         else
         {
+            OrderManager.Instance._successIndex = index;
+            _removeOrderUI.RemoveOrderUi();
             OrderManager.Instance.OrderList.RemoveAt(index);  // 리스트에서 삭제
             
             if (interactor.PlayerCheck == PLAYER_ID.PLAYER_1P)
