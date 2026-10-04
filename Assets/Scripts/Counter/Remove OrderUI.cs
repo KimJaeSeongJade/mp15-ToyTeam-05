@@ -6,16 +6,7 @@ public class RemoveOrderUI : MonoBehaviour
 {
     private List<GameObject> orderList = new List<GameObject>();
     private int _index;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            RemoveOrderUi();
-        }
-    }
-
-
+    
     public void RemoveOrderUi()
     {
         foreach (Transform child in transform)

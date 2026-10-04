@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
 
         _gameData.Player1Food = 0;
         _gameData.Player2Food = 0;
-
+        
         _gameData.GameTimeLeft = GameData.START_GAMETIME;
     }
     
