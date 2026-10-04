@@ -30,10 +30,10 @@ public class CuttingBoard : Cookware
         _isStillHoldKey = true;
         while (_isStillHoldKey)
         {
-            switch (_cookProgress)
+            switch (cookProgress)
             {
                 case CookwareJobEnum.Idle:
-                    _cookProgress = CookwareJobEnum.Start;
+                    cookProgress = CookwareJobEnum.Start;
                     _recipeChar = _foodData.FoodId[1];
                     break;
                 case CookwareJobEnum.ThreeFourth:
@@ -43,16 +43,16 @@ public class CuttingBoard : Cookware
                         RemoveFood(_foodData);
                         FoodProcess();
                         _recipeChar = 'N';
-                        _cookProgress = CookwareJobEnum.Idle;
+                        cookProgress = CookwareJobEnum.Idle;
                         _isStillHoldKey = false;
                     }
                     break;
                 default:
                     yield return _choppingTime;
-                    if (_isStillHoldKey) _cookProgress = NextJobEnum(_cookProgress);
+                    if (_isStillHoldKey) cookProgress = NextJobEnum(cookProgress);
                     break;
             }
-            Debug.Log($"요리 진행도 : {(int)_cookProgress}");
+            Debug.Log($"요리 진행도 : {(int)cookProgress}");
         }
         _playerInteractor = null;
     }
