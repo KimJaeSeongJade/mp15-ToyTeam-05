@@ -10,7 +10,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     protected int _foodLayer = 12;
     protected char _recipeChar;
     
-    protected int _cookProgress = (int)CookwareJobEnum.Start;
+    protected int _cookProgress = (int)CookwareJobEnum.Idle;
     protected IInteractor _playerInteractor;
     protected IHolder _lastHolder;
 
