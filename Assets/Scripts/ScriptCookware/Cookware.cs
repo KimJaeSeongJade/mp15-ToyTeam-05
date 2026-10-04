@@ -11,7 +11,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     
     protected CookwareJobEnum _cookProgress;
     protected IInteractor _playerInteractor;
-    protected IHolder _playerHolder;
+    protected IHolder _lastHolder;
 
     protected bool _canHoldItem;
     protected bool _canRealeaseItem;
@@ -65,6 +65,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         {
             if (!food.CanHolding) return;
             SetFood(food);
+            _lastHolder = food.LastHolder;
             food.Hold(this, PLAYER_ID.NONE);
         }
     }

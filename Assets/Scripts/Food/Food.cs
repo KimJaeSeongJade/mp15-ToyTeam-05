@@ -16,6 +16,7 @@ public class Food : MonoBehaviour, IFood, IHoldable
     
     public bool CanHolding { get; set; }
     public bool IsHolding { get; set; }
+    public IHolder LastHolder { get; set; }
 
     public Food FoodData => this;
 
@@ -31,7 +32,8 @@ public class Food : MonoBehaviour, IFood, IHoldable
 
     public void Hold(IHolder holder, PLAYER_ID playerID)
     {
-        _lastHoldingPlayerID =  playerID;
+        if (playerID != PLAYER_ID.NONE) LastHolder = holder;
+        _lastHoldingPlayerID = playerID;
         HoldItemPosition(holder);
     }
 
