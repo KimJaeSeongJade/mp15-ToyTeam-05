@@ -451,6 +451,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FoodSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 8306275130273928242, guid: 2429d8a260702c5478da0508ad0f5988, type: 3}
+      propertyPath: _poolManager
+      value: 
+      objectReference: {fileID: 1436845228}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1318,6 +1322,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6814103678222104768, guid: 9a78c8b9873b87c4b8cb2410e34510f2, type: 3}
   m_PrefabInstance: {fileID: 1407816412}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1436845227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436845229}
+  - component: {fileID: 1436845228}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1436845228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436845227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c698ae154a58343887321524e8920d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectPoolSize: 10
+  _foodObject:
+  - {fileID: 6655654314228795475, guid: aa6e0cf19395452428076b86d668490c, type: 3}
+  - {fileID: 6808984131777018563, guid: 801aa9b2182ee0541a8e546a146eba52, type: 3}
+  - {fileID: 5790053353383131404, guid: 035905fc57e17b14586253cba246a966, type: 3}
+  - {fileID: 2441481406936406632, guid: 9a6b7ce122b188f4390e02f62465c337, type: 3}
+--- !u!4 &1436845229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436845227}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1495376950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5948139149197784665, guid: 16242b855c4ed914592e3a9cd73a52d9, type: 3}
@@ -12399,3 +12453,4 @@ SceneRoots:
   - {fileID: 956444269}
   - {fileID: 7754254182717835670}
   - {fileID: 403376739}
+  - {fileID: 1436845229}
