@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,34 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] private GameData _gameData;
+    [SerializeField] private Image _p1Ready;
+    [SerializeField] private Image _p2Ready;
+    
     public GameData GameData => _gameData;
     private bool _P1Ready = false;
     private bool _P2Ready = false;
 
     private void Awake() => SetSingleton();
+
+    private void temp1() => GameStartP1(_p1Ready);
+    private void temp2() => GameStartP2(_p2Ready);
+    
+
+    private void OnEnable()
+    {
+        InputManager.Instance.OnIntaractP1 += temp1;
+        InputManager.Instance.OnCookP1 += temp1;
+        InputManager.Instance.OnIntaractP2 += temp2;
+        InputManager.Instance.OnCookP2 += temp2;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.OnIntaractP1 -= temp1;
+        InputManager.Instance.OnCookP1 -= temp1;
+        InputManager.Instance.OnIntaractP2 -= temp2;
+        InputManager.Instance.OnCookP2 -= temp2;
+    }
 
     // 타이틀로 돌아가기
     public void TitleScene()
@@ -96,7 +120,7 @@ public class GameManager : MonoBehaviour
 
         _gameData.Player1Food = 0;
         _gameData.Player2Food = 0;
-
+        
         _gameData.GameTimeLeft = GameData.START_GAMETIME;
     }
     
