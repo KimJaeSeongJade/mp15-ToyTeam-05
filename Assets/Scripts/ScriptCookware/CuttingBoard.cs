@@ -41,7 +41,6 @@ public class CuttingBoard : Cookware
                     if (_isStillHoldKey)
                     {
                         RemoveFood(_foodData);
-                        UnSetFood();
                         FoodProcess();
                         _recipeChar = 'N';
                         _cookProgress = CookwareJobEnum.Idle;
@@ -123,15 +122,14 @@ public class CuttingBoard : Cookware
 
     private void FoodProcess()
     {
-        bool isSucess = false;
         if (_recipeChar == '1')
         {
-            Instantiate(ChoppedLettuce, TargetTransform);
+            _foodData = Instantiate(ChoppedLettuce, TargetTransform);
             return;
         }
         if (_recipeChar == '3')
         {
-            Instantiate(ChoppedTomato, TargetTransform);
+            _foodData = Instantiate(ChoppedTomato, TargetTransform);
             return;
         }
         

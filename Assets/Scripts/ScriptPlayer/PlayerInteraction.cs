@@ -62,15 +62,15 @@ public class PlayerInteraction : MonoBehaviour, IHolder
         
         if (IsHolding)
         {
-            tempRelease();
+            ReleaseItem();
         }
         else
         {
-            tempHold();
+            HoldItem();
         }
     }
 
-    private void tempRelease()
+    private void ReleaseItem()
     {
         _currentHoldable.Release();
         _currentHoldable.IsHolding = false;
@@ -79,7 +79,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder
         _currentHoldable = null;
     }
     
-    private void tempHold()
+    private void HoldItem()
     {
         if (_holdables.Count <= 0) return;
         foreach (var holdable in _holdables)
@@ -118,5 +118,13 @@ public class PlayerInteraction : MonoBehaviour, IHolder
     private void Init()
     {
         _playerMovement = GetComponent<PlayerMovement>();
+    }
+
+    /// <summary>
+    /// 별개 메서드로 구현 필요, I Holder 참조
+    /// </summary>
+    public void RemoveData()
+    {
+        // 구현 필요
     }
 }

@@ -117,8 +117,13 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     {
         _foodData = null;
     }
-    
-    // protected  메서드
+
+    public void RemoveData()
+    {
+        UnSetFood();
+    }
+
+    // 공개 메서드
     // ============================================================
 
     /// <summary>

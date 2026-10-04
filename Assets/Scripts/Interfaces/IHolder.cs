@@ -24,4 +24,9 @@ public interface IHolder
     /// </summary>
     public bool CanRelease { get; }
     
+    /// <summary>
+    /// 플레이어가 가지고 있던 음식 데이터와 참조를 비우는 메서드
+    /// </summary>
+    public void RemoveData();
+    
 }
