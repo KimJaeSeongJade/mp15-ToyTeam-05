@@ -215,6 +215,9 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     /// </summary>
     public void RemoveData(Food food)
     {
-        // 구현 필요
+        if (_holdables.Contains(food))
+        {
+            _holdables.Remove(food);
+        }
     }
 }

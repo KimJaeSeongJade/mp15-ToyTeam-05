@@ -13,10 +13,9 @@ public interface IHoldable
     /// 이 물체가 잡혀있는 상태인지 반환
     /// </summary>
     public bool IsHolding { get; }
+
+    public IHolder LastHolder { get; }
     public PLAYER_ID PlayerID { get; }
-    /// <summary>
-    /// 이 물체의 리자드바디
-    /// </summary>
     public Rigidbody FoodRigidbody { get; }
     public Transform FoodTransform { get; }
 
