@@ -10,7 +10,7 @@ public interface IInteractor
     public bool CanInteract { get; }
     
     /// <summary>
-    ///  상호작용 버튼이 눌린상태인지 체크하는 프로퍼타
+    ///  상호작용 버튼이 눌린상태인지 체크하는 프로퍼티
     /// </summary>
     public bool IsPressed { get; }
     
