@@ -137,6 +137,7 @@ public class CuttingBoard : Cookware
 
     private void RemoveFood(Food food)
     {
+        _playerHolder.RemoveData(food);
         Destroy(food.gameObject);
         UnSetFood();
     }

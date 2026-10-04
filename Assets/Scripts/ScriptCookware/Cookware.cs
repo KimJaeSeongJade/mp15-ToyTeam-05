@@ -57,7 +57,9 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     
     protected void ColliderEnterCheck(Collider other)
     {
-        if (other.gameObject.layer == _playerLayer) return;
+        if (other.gameObject.layer == _playerLayer)
+        {
+        }
         else if (other.TryGetComponent(out Food food)
                  && !IsHolding)
         {
@@ -69,7 +71,9 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
 
     protected void ColliderExitCheck(Collider other)
     {
-        if (other.gameObject.layer == _playerLayer) return;
+        if (other.gameObject.layer == _playerLayer)
+        {
+        }
         else if (other.gameObject.layer == _foodLayer
                  && other.TryGetComponent(out Food food))
         {
@@ -118,9 +122,9 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         _foodData = null;
     }
 
-    public void RemoveData()
+    public void RemoveData(Food food)
     {
-        UnSetFood();
+        if (_foodData == food) UnSetFood();
     }
 
     // 공개 메서드

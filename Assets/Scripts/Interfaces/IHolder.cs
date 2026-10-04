@@ -25,8 +25,9 @@ public interface IHolder
     public bool CanRelease { get; }
     
     /// <summary>
-    /// 플레이어가 가지고 있던 음식 데이터와 참조를 비우는 메서드
+    /// 해당하는 음식의 참조를 비우는 메서드
     /// </summary>
-    public void RemoveData();
+    /// <param name="food">비울 대상</param>
+    public void RemoveData(Food food);
     
 }

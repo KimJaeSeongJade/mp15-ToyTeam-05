@@ -123,7 +123,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder
     /// <summary>
     /// 별개 메서드로 구현 필요, I Holder 참조
     /// </summary>
-    public void RemoveData()
+    public void RemoveData(Food food)
     {
         // 구현 필요
     }
