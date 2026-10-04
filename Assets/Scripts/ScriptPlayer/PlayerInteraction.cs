@@ -24,6 +24,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     /// </summary>
     public bool CanRelease { get; private set; }
 
+    public PLAYER_ID PlayerCheck => _playerMovement._playerID;
+
     [SerializeField] private List<Food> _holdables;
     [SerializeField] private Food _currentHoldable;
     
