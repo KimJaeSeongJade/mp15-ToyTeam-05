@@ -2307,7 +2307,7 @@ MonoBehaviour:
   <TargetTransform>k__BackingField: {fileID: 4166123699443961254}
   _holdables: []
   _currentHoldable: {fileID: 0}
-  _cookware: {fileID: 0}
+  _CanCookware: 0
 --- !u!1 &3974940287855505415
 GameObject:
   m_ObjectHideFlags: 0
