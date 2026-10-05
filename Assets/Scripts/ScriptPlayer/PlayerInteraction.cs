@@ -38,7 +38,9 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     
     public bool IsPlayer1 { get; private set; }
     
-    [SerializeField] private Cookware _cookware;
+    // [SerializeField] private Cookware _cookware;
+
+    [SerializeField] public IInteractable _cookware { get; private set; }
     [SerializeField] private bool _CanCookware;
     
     private PlayerMovement _playerMovement;
@@ -141,26 +143,32 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private bool CanCook()
     {
-        if (_cookware)
+        if (_cookware != null)
         {
-            if (!IsHolding)
+            if (IsHolding)
             {
-                _cookware.Interact(this);
+                _cookware.Interact(this, _currentHoldable);
             }
             else
             {
-                ThrowHoldItem(_currentHoldable, 1000f);
-                ReleaseItem();
+                _cookware.Interact(this);
             }
             Debug.Log("Cookware");
             return true;
         }
         else
         {
-            ThrowHoldItem(_currentHoldable, 1000f);
-            ReleaseItem();
-            Debug.Log("UnCookware");
-            return false;
+            if (IsHolding)
+            {
+                ThrowHoldItem(_currentHoldable, 1000f);
+                ReleaseItem();
+                Debug.Log("UnCookware");
+                return false;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -168,14 +176,14 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     {
         if (other.GetComponent<Food>() != null) _holdables.Add(other.GetComponent<Food>());
         
-        if (other.GetComponent<Cookware>() != null) _cookware = other.GetComponent<Cookware>();
+        if (other.GetComponent<IInteractable>() != null) _cookware = other.GetComponent<IInteractable>();
     }
     
     private void CheckExitTrigger(Collider other)
     {
         _holdables.Remove(other.GetComponent<Food>());
         
-        if (other.GetComponent<Cookware>())
+        if (_cookware != null)
         {
             _cookware = null;
             IsPressed = false;
