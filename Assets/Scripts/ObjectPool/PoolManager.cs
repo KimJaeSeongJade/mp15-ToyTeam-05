@@ -10,10 +10,17 @@ public class PoolManager : MonoBehaviour
     
     // 오브젝트풀로 만들 음식들
     [SerializeField] private Food[] _foodObject;
+    
+    public static PoolManager Instance;
 
     // 풀 담당을 하는 리스트들
     private List<Food>[] pools;
-    
+
+    private void Awake()
+    {
+        SetSingleton();
+    }
+
     private void Start()
     {
         FillPool();
@@ -78,6 +85,19 @@ public class PoolManager : MonoBehaviour
         }
         
         return select;
+    }
+    
+    
+    private void SetSingleton()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
     
 }

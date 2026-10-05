@@ -125,12 +125,31 @@ public class CuttingBoard : Cookware
     {
         if (_recipeChar == '1')
         {
-            _foodData = Instantiate(ChoppedLettuce, TargetTransform.position, Quaternion.identity);
+            // ----------------- 변경 전
+            //_foodData = Instantiate(ChoppedLettuce, TargetTransform.position, Quaternion.identity);
+            // ----------------- 변경 전
+            
+            // ----------------- 변경
+            Food ob = PoolManager.Instance.Get(ChoppedLettuce);
+        
+            ob.transform.position = TargetTransform.position;
+            ob.transform.rotation = Quaternion.identity;
+            ob.gameObject.SetActive(true);
+            // ----------------- 변경
             return;
         }
         if (_recipeChar == '3')
         {
-            _foodData = Instantiate(ChoppedTomato, TargetTransform.position, Quaternion.identity);
+            //_foodData = Instantiate(ChoppedTomato, TargetTransform.position, Quaternion.identity);
+            
+            // ----------------- 변경
+            Food ob = PoolManager.Instance.Get(ChoppedTomato);
+        
+            ob.transform.position = TargetTransform.position;
+            ob.transform.rotation = Quaternion.identity;
+            ob.gameObject.SetActive(true);
+            // ----------------- 변경
+            
             return;
         }
         
@@ -139,7 +158,13 @@ public class CuttingBoard : Cookware
     private void RemoveFood(Food food)
     {
         _lastHolder.RemoveData(food);
-        Destroy(food.gameObject);
+        //Destroy(food.gameObject);
+        // ------------------ 변경
+        // 플레이어 잡을 수 있는 리스트에서 빼줘야함
+        food.CanHolding = false;
+        food.Release();
+        food.gameObject.SetActive(false);
+        // ------------------ 변경
         UnSetFood();
     }
 
