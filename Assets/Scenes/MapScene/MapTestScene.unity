@@ -1361,7 +1361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6016143190019501987, guid: 97710b43f342c2749b1b04084ee6f7a7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000009536743
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6016143190019501987, guid: 97710b43f342c2749b1b04084ee6f7a7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1487,6 +1487,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetTransform: {fileID: 1289958622}
+  _cookProgress: -1
+  _canHoldItem: 0
+  _canRealeaseItem: 0
   _foodData: {fileID: 0}
   ChoppedLettuce: {fileID: 8255207923408045091, guid: 7238ae04205cfa748a4149d06055e1ae, type: 3}
   ChoppedTomato: {fileID: 948376256471153294, guid: 875a80f397dc211478a932e44463a6d0, type: 3}
