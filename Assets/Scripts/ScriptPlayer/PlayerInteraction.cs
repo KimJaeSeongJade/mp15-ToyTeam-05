@@ -88,12 +88,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         IsHolding = false;
         _currentHoldable = null;
     }
-
-    public void FoodReturnPool(Food food)
-    {
-        // 해당 음식이 잡을 수 있는 목록에 있으면 목록에서 제거
-    }
-
+    
     private void HoldItem()
     {
         if (_holdables.Count <= 0) return;

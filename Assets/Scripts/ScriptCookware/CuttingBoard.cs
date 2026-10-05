@@ -117,7 +117,6 @@ public class CuttingBoard : Cookware
 
     private void RemoveFood(Food food)
     {
-        Debug.Log(_lastHolder);
         _lastHolder.RemoveData(food);
         //Destroy(food.gameObject);
         // ------------------ 변경
