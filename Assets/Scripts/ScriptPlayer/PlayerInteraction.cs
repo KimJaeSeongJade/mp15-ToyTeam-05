@@ -38,8 +38,6 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     
     public bool IsPlayer1 { get; private set; }
     
-    public Food CurrentHoldFood => _currentHoldable;
-    
     // [SerializeField] private Cookware _cookware;
 
     [SerializeField] public IInteractable _cookware { get; private set; }

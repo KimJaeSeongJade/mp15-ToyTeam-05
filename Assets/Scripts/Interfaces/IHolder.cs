@@ -10,11 +10,6 @@ public interface IHolder
     Transform TargetTransform { get; }
     
     /// <summary>
-    /// 현재 가지고 있는 음식
-    /// </summary>
-    public Food CurrentHoldFood { get; }
-    
-    /// <summary>
     /// 물건을 잡고 있는지 여부
     /// </summary>
     public bool IsHolding { get; }

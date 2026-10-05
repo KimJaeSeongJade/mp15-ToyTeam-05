@@ -28,8 +28,8 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     public bool CanHold => _canHoldItem;
     public bool CanRelease => _canRealeaseItem;
     public bool IsPressed { get; set; }
-
-    public Food CurrentHoldFood => _foodData;
+    
+    public Food FoodData => _foodData;
 
     public bool IsHolding => _foodData != null;
     public bool IsCooking => _cookProgress != (int)CookwareJobEnum.Idle;
@@ -71,6 +71,18 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     // 이벤트 함수
     // ============================================================
     
+    public bool CanWork()
+    {
+        if (!IsHolding) return false;
+        return CheckRecipe(_foodData);
+    }
+
+    public bool CanWork(IHoldable holdable)
+    {
+        if (IsHolding) return false;
+        return CheckRecipe(holdable.FoodData);
+    }
+
     public void RemoveData(Food food)
     {
         if (_foodData == food) UnSetFood();
@@ -124,21 +136,8 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     private void CheckCookStatus()
     {
         if (!IsHolding) _cookProgress = (int)CookwareJobEnum.Idle;
-        else CurrentHoldFood.CanHolding = !IsCooking;
+        else FoodData.CanHolding = !IsCooking;
     }
-    
-    private bool CanWork()
-    {
-        if (!IsHolding) return false;
-        return CheckRecipe(_foodData);
-    }
-
-    private bool CanWork(IHoldable holdable)
-    {
-        if (IsHolding) return false;
-        return CheckRecipe(holdable.FoodData);
-    }
-
     
     // private 메서드
     // ============================================================
