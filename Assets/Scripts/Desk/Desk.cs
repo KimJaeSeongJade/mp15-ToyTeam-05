@@ -73,8 +73,8 @@ public class Desk : MonoBehaviour, IInteractable
         }
         else
         {
-            Debug.Log($"Desk 음식 ID : {_currentFood.FoodId}");
-            Debug.Log($"들고 있는 음식 ID : {holdable.FoodData.FoodId}");
+            Debug.Log($"Desk 음식 ID : {_currentFood.FoodName}");
+            Debug.Log($"들고 있는 음식 ID : {holdable.FoodData.FoodName}");
             
             List<string> list = new List<string>();
             list.Add(_currentFood.FoodId);

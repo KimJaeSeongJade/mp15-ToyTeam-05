@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &156876848434620254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2450946703795077227}
+  - component: {fileID: 8353708637751626699}
+  m_Layer: 0
+  m_Name: RecipeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2450946703795077227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156876848434620254}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.96, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8353708637751626699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156876848434620254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e25f85500c641184492348f4d6190230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recipes:
+  - _resultFood: {fileID: 5801376832508719534, guid: c2727853a1c91a040bcb7f8972d098c9, type: 3}
+    _cookTime: 100
+    _score: 1
+  - _resultFood: {fileID: 4648034989731534574, guid: a0ec73768cc37e14e81416575088c406, type: 3}
+    _cookTime: 100
+    _score: 2
+  - _resultFood: {fileID: 8691590260607707272, guid: f23e9f5e4f2703349874c9471af99bbe, type: 3}
+    _cookTime: 100
+    _score: 3
+  - _resultFood: {fileID: 5774687646860719095, guid: cfdb12456d891b541aef1e9ec391487b, type: 3}
+    _cookTime: 100
+    _score: 4
+  - _resultFood: {fileID: 2227947906344165633, guid: 3e5d1860476990542a67189259948c31, type: 3}
+    _cookTime: 100
+    _score: 5
+  - _resultFood: {fileID: 379226213138272043, guid: a512c67ac3d4e164781f6732eaf35c68, type: 3}
+    _cookTime: 100
+    _score: 5
+  - _resultFood: {fileID: 2974869242194637918, guid: af64f80e0cf051a4cbd71327d5a13907, type: 3}
+    _cookTime: 100
+    _score: 5
+  - _resultFood: {fileID: 333766562245778941, guid: a3baad4aca6e88e489885220be4ce621, type: 3}
+    _cookTime: 100
+    _score: 5
