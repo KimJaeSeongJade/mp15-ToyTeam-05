@@ -110,6 +110,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private void ThrowHoldItem(Food currentHoldItem, float forcePower)
     {
+        if (currentHoldItem == null) return;
+        
         _foodRigidbody = currentHoldItem.GetComponent<Rigidbody>();
         _foodRigidbody.AddForce(transform.forward * forcePower);
     }
