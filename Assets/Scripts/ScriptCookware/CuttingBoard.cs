@@ -117,14 +117,7 @@ public class CuttingBoard : Cookware
 
     private void RemoveFood(Food food)
     {
-        _lastHolder.RemoveData(food);
-        //Destroy(food.gameObject);
-        // ------------------ 변경
-        // 플레이어 잡을 수 있는 리스트에서 빼줘야함
-        food.CanHolding = false;
-        food.Release();
-        food.gameObject.SetActive(false);
-        // ------------------ 변경
+        food.ReturnToPool();
         UnSetFood();
     }
 

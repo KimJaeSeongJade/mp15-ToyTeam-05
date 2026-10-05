@@ -168,14 +168,21 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private void CheckEnterTrigger(Collider other)
     {
-        if (other.GetComponent<Food>() != null) _holdables.Add(other.GetComponent<Food>());
+        if (other.TryGetComponent(out Food food))
+        {
+            _holdables.Add(food);
+            food.OnReturnPool += RemoveData;
+        }
         
         if (other.GetComponent<IInteractable>() != null) _cookware = other.GetComponent<IInteractable>();
     }
     
     private void CheckExitTrigger(Collider other)
     {
-        _holdables.Remove(other.GetComponent<Food>());
+        if (other.TryGetComponent(out Food food))
+        {
+            RemoveData(food);
+        }
         
         if (other.GetComponent<IInteractable>() != null)
         {
@@ -231,6 +238,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         if (_holdables.Contains(food))
         {
             _holdables.Remove(food);
+            food.OnReturnPool -= RemoveData;
         }
     }
 }

@@ -67,7 +67,7 @@ public class PoolManager : MonoBehaviour
     {
         Food foodInstance = Instantiate(_foodObject[index]);
         pools[index].Add(foodInstance);
-        foodInstance.gameObject.SetActive(false);
+        foodInstance.ReturnToPool();
     }
 
     
@@ -86,7 +86,7 @@ public class PoolManager : MonoBehaviour
             {
                 // 변수에 할당
                 select = o;
-                select.gameObject.SetActive(true);
+                select.ActiveThisFood();
                 break;
             }
         }
