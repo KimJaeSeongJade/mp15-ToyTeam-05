@@ -10,12 +10,12 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     protected int _foodLayer = 12;
     protected char _recipeChar;
     
-    protected int _cookProgress = (int)CookwareJobEnum.Idle;
-    protected IInteractor _playerInteractor;
-    protected IHolder _lastHolder;
+    [SerializeField] protected int _cookProgress = (int)CookwareJobEnum.Idle;
+    [SerializeField] protected IInteractor _playerInteractor;
+    [SerializeField] protected IHolder _lastHolder;
 
-    protected bool _canHoldItem;
-    protected bool _canRealeaseItem;
+    [SerializeField] protected bool _canHoldItem;
+    [SerializeField] protected bool _canRealeaseItem;
     
     [SerializeField] protected Food _foodData;
     
@@ -57,35 +57,6 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     // ============================================================
     
     
-    protected void ColliderEnterCheck(Collider other)
-    {
-        if (other.gameObject.layer == _playerLayer)
-        {
-        }
-        else if (other.TryGetComponent(out Food food)
-                 && !IsHolding)
-        {
-            if (!food.CanHolding) return;
-            SetFood(food);
-            _lastHolder = food.LastHolder;
-            food.Hold(this, PLAYER_ID.NONE);
-        }
-    }
-
-    protected void ColliderExitCheck(Collider other)
-    {
-        if (other.gameObject.layer == _playerLayer)
-        {
-        }
-        else if (other.gameObject.layer == _foodLayer
-                 && other.TryGetComponent(out Food food))
-        {
-            if (food != _foodData) return;
-            _foodData.Release();
-            UnSetFood();
-        }
-    }
-
     /// <summary>
     /// 해당 음식을 등록
     /// </summary>
@@ -118,6 +89,29 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     public void RemoveData(Food food)
     {
         if (_foodData == food) UnSetFood();
+    }
+
+    protected void CheckTrigger(Collider collision)
+    {
+        if (IsHolding) return;
+        
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
+        {
+            _foodData = collision.gameObject.GetComponent<Food>();
+            
+            _foodData.transform.position = TargetTransform.position;
+            _foodData.transform.rotation = TargetTransform.rotation;
+            _foodData.Hold(this, PLAYER_ID.NONE);
+        }
+    }
+
+    protected void OutTrigger(Collider collision)
+    {
+        if (!IsHolding) return;
+        if (collision.gameObject.GetComponent<Food>() == _foodData)
+        {
+            _foodData = null;
+        }
     }
 
     // 공개 메서드

@@ -24,25 +24,12 @@ public class CookingPot : Cookware
     
     private void OnTriggerStay(Collider collision)
     {
-        if (IsHolding) return;
-        
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
-        {
-            _foodData = collision.gameObject.GetComponent<Food>();
-            
-            _foodData.transform.position = TargetTransform.position;
-            _foodData.transform.rotation = TargetTransform.rotation;
-            _foodData.Hold(this, PLAYER_ID.NONE);
-        }
+        CheckTrigger(collision);
     }
 
     private void OnTriggerExit(Collider collision)
     {
-        if (!IsHolding) return;
-        if (collision.gameObject.GetComponent<Food>() == _foodData)
-        {
-            _foodData = null;
-        }
+        OutTrigger(collision);
     }
     
     // 이벤트 함수

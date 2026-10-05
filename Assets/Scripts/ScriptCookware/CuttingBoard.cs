@@ -57,15 +57,14 @@ public class CuttingBoard : Cookware
     // 코루틴
     // ============================================================
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider collision)
     {
-        
-        ColliderEnterCheck(other);
+        CheckTrigger(collision);
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider collision)
     {
-        ColliderExitCheck(other);
+        OutTrigger(collision);
     }
     
     private void Update()
@@ -109,11 +108,6 @@ public class CuttingBoard : Cookware
     {
         if (_recipeChar == '1')
         {
-            // ----------------- 변경 전
-            //_foodData = Instantiate(ChoppedLettuce, TargetTransform.position, Quaternion.identity);
-            // ----------------- 변경 전
-            
-            // ----------------- 변경
             Food ob = PoolManager.Instance.Get(ChoppedLettuce);
         
             ob.transform.position = TargetTransform.position;
@@ -124,9 +118,6 @@ public class CuttingBoard : Cookware
         }
         if (_recipeChar == '3')
         {
-            //_foodData = Instantiate(ChoppedTomato, TargetTransform.position, Quaternion.identity);
-            
-            // ----------------- 변경
             Food ob = PoolManager.Instance.Get(ChoppedTomato);
         
             ob.transform.position = TargetTransform.position;
