@@ -183,7 +183,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     {
         _holdables.Remove(other.GetComponent<Food>());
         
-        if (_cookware != null)
+        if (other.GetComponent<IInteractable>() != null)
         {
             _cookware = null;
             IsPressed = false;
