@@ -85,13 +85,15 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void ReleaseItem()
     {
         _currentHoldable.Release();
-        // _currentHoldable.IsHolding = false;
-        _currentHoldable.CanHolding = true;
         IsHolding = false;
-        
         _currentHoldable = null;
     }
-    
+
+    public void FoodReturnPool(Food food)
+    {
+        // 해당 음식이 잡을 수 있는 목록에 있으면 목록에서 제거
+    }
+
     private void HoldItem()
     {
         if (_holdables.Count <= 0) return;
@@ -101,10 +103,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
             {
                 holdable.Hold(this, _playerMovement._playerID);
                 _currentHoldable = holdable;
-                // holdable.IsHolding = true;
-                holdable.CanHolding = false;
                 IsHolding = true;
-
                 return;
             }
         }
