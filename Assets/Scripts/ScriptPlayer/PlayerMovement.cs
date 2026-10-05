@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake() => CacheComponents();
     
-    public void Start()
+    public void OnEnable()
     {
         BindInputEvents();
     }

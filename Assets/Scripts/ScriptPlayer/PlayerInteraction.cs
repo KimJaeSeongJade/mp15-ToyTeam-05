@@ -39,27 +39,26 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     public bool IsPlayer1 { get; private set; }
     
     [SerializeField] private Cookware _cookware;
+    [SerializeField] private bool _CanCookware;
     
     private PlayerMovement _playerMovement;
     private Rigidbody _foodRigidbody;
     
     private void Awake() => Init();
     
-    private void Start()
+    private void OnEnable()
     {
         BindHoldInputEvents();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        CheckTriggerFood(other);
-        CheckTriggerCookware(other);
+        CheckEnterTrigger(other);
     }
     
     private void OnTriggerExit(Collider other)
     {
-        UnCheckTriggerFood(other);
-        UnCheckTriggerCookware(other);
+        CheckExitTrigger(other);
     }
 
     private void OnDisable()
@@ -70,10 +69,9 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     // 들어올리기 / 내려놓기 함수
     private void PutItDown()
     {
-        // if (_holdables.Count <= 0) return;
-        
         if (IsHolding)
         {
+            ThrowHoldItem(_currentHoldable, 100f);
             ReleaseItem();
         }
         else
@@ -85,11 +83,10 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void ReleaseItem()
     {
         _currentHoldable.Release();
-        _currentHoldable.IsHolding = false;
+        // _currentHoldable.IsHolding = false;
         _currentHoldable.CanHolding = true;
         IsHolding = false;
         
-        ThrowHoldItem(_currentHoldable, 100f);
         _currentHoldable = null;
     }
     
@@ -102,7 +99,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
             {
                 holdable.Hold(this, _playerMovement._playerID);
                 _currentHoldable = holdable;
-                holdable.IsHolding = true;
+                // holdable.IsHolding = true;
                 holdable.CanHolding = false;
                 IsHolding = true;
 
@@ -122,15 +119,21 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         if (CanCook())
         {
             IsPressed = true;
-            CanInteract = true;
+            CanInteract = false;
             Debug.Log($"{IsPressed} : Cook");
+        }
+        else
+        {
+            IsPressed = false;
+            CanInteract = true;
+            Debug.Log($"{IsPressed} : UnCook");
         }
     }
 
     private void UnCookInteraction()
     {
         IsPressed = false;
-        CanInteract = false;
+        CanInteract = true;
         Debug.Log($"{IsPressed} : UnCook");
     }
 
@@ -138,46 +141,43 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     {
         if (_cookware)
         {
-            if (IsHolding)
+            if (!IsHolding)
             {
-                _cookware.Interact(this, _currentHoldable);
+                _cookware.Interact(this);
             }
             else
             {
-                _cookware.Interact(this);
+                ThrowHoldItem(_currentHoldable, 1000f);
+                ReleaseItem();
             }
             Debug.Log("Cookware");
             return true;
         }
         else
         {
+            ThrowHoldItem(_currentHoldable, 1000f);
+            ReleaseItem();
             Debug.Log("UnCookware");
             return false;
         }
     }
 
-    private void CheckTriggerFood(Collider other)
+    private void CheckEnterTrigger(Collider other)
     {
-        if (other.GetComponent<Food>() == null) return;
+        if (other.GetComponent<Food>() != null) _holdables.Add(other.GetComponent<Food>());
         
-        _holdables.Add(other.GetComponent<Food>());
+        if (other.GetComponent<Cookware>() != null) _cookware = other.GetComponent<Cookware>();
     }
     
-    private void UnCheckTriggerFood(Collider other)
+    private void CheckExitTrigger(Collider other)
     {
         _holdables.Remove(other.GetComponent<Food>());
-    }
-
-    private void CheckTriggerCookware(Collider other)
-    {
-        if (other.GetComponent<Cookware>() == null) return;
         
-        _cookware = other.GetComponent<Cookware>();
-    }
-
-    private void UnCheckTriggerCookware(Collider other)
-    {
-        _cookware = null;
+        if (other.GetComponent<Cookware>())
+        {
+            _cookware = null;
+            IsPressed = false;
+        }
     }
     
     private void BindHoldInputEvents()
