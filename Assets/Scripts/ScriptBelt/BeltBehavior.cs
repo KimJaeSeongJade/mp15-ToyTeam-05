@@ -11,7 +11,7 @@ public class BeltBehavior : MonoBehaviour
     // ============================================================
     
     private Vector3 _beltDirection;
-    [SerializeField] private float _beltPower = 3000f; // 벨트 속도
+    private float _beltPower = 70f; // 벨트 속도
     
     // 인스턴스 필드
     // ============================================================
@@ -33,7 +33,7 @@ public class BeltBehavior : MonoBehaviour
     private void MoveRail(Food food)
     {
         food.FoodRigidbody.velocity = Vector3.zero;
-        food.FoodRigidbody.AddForce(_beltDirection * (_beltPower * Time.deltaTime));
+        food.FoodRigidbody.AddForce(_beltDirection * (_beltPower * Time.deltaTime), ForceMode.Impulse);
     }
     
     // 비공개 메서드

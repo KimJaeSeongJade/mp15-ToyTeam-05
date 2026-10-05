@@ -11,9 +11,9 @@ public class TrashCan : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Food"))
+        if (other.TryGetComponent(out Food food))
         {
-            other.gameObject.SetActive(false);
+            food.ReturnToPool();
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Food : MonoBehaviour, IFood, IHoldable
 {
+    public event System.Action<Food> OnReturnPool;
+    
     [SerializeField] private string _foodName;
     [SerializeField] private string _foodId;
     [SerializeField] internal int _foodPoint;
@@ -47,6 +49,26 @@ public class Food : MonoBehaviour, IFood, IHoldable
 
     public void Release()
     {
+        UnHoldItemPosition();
+    }
+
+    /// <summary>
+    /// 이 오브젝트 활성화
+    /// </summary>
+    public void ActiveThisFood()
+    {
+        this.gameObject.SetActive(true);
+        _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+    }
+
+    /// <summary>
+    /// 오브젝트 풀로 돌아감
+    /// </summary>
+    public void ReturnToPool()
+    {
+        this.gameObject.SetActive(false);
+        Debug.Log($"{this.name}이 비명을 지르며 오브젝트 풀 너머로 사라집니다...");
+        OnReturnPool?.Invoke(this);
         UnHoldItemPosition();
     }
     
