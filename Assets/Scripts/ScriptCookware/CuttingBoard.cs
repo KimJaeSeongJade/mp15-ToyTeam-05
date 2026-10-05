@@ -32,8 +32,10 @@ public class CuttingBoard : Cookware
             switch (_cookProgress)
             {
                 case (int)CookwareJobEnum.Idle:
+                    _lastHolder = _foodData.LastHolder;
                     _cookProgress = (int)CookwareJobEnum.Start;
                     _recipeChar = _foodData.FoodId[1];
+                    _foodData.CanHolding = false;
                     break;
                 case (int)CookwareJobEnum.ThreeFourth:
                     yield return _choppingTime;
@@ -74,24 +76,12 @@ public class CuttingBoard : Cookware
     
     // 이벤트 함수
     // ============================================================
-    
-    public override void Interact(IInteractor interactor)
+
+    protected override void StartCooking()
     {
-        if (!CanWork()) return;
-        _playerInteractor = interactor;
-        IsPressed = interactor.IsPressed;
         StartCoroutine(_choppingCoroutine());
     }
 
-    public override void Interact(IInteractor interactor, IHoldable holdable)
-    {
-        if (!CanWork(holdable)) return;
-        _playerInteractor = interactor;
-        holdable.Release();
-        holdable.Hold(this, PLAYER_ID.NONE);
-        StartCoroutine(_choppingCoroutine());
-    }
-    
     // 공개 메서드
     // ============================================================
     
@@ -109,23 +99,16 @@ public class CuttingBoard : Cookware
         if (_recipeChar == '1')
         {
             Food ob = PoolManager.Instance.Get(ChoppedLettuce);
-        
             ob.transform.position = TargetTransform.position;
             ob.transform.rotation = Quaternion.identity;
             ob.gameObject.SetActive(true);
-            // ----------------- 변경
-            return;
         }
         if (_recipeChar == '3')
         {
             Food ob = PoolManager.Instance.Get(ChoppedTomato);
-        
             ob.transform.position = TargetTransform.position;
             ob.transform.rotation = Quaternion.identity;
             ob.gameObject.SetActive(true);
-            // ----------------- 변경
-            
-            return;
         }
         _recipeChar = 'N';
         _cookProgress = (int)CookwareJobEnum.Idle;
@@ -134,6 +117,7 @@ public class CuttingBoard : Cookware
 
     private void RemoveFood(Food food)
     {
+        Debug.Log(_lastHolder);
         _lastHolder.RemoveData(food);
         //Destroy(food.gameObject);
         // ------------------ 변경
@@ -155,6 +139,7 @@ public class CuttingBoard : Cookware
     {
         _cookProgress += 25;
     }
+    
     
     // 비공개 메서드
     // ============================================================

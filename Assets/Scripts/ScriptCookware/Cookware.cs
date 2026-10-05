@@ -39,9 +39,24 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     // 프로퍼티
     // ============================================================
 
-    public abstract void Interact(IInteractor interactor);
+    public void Interact(IInteractor interactor)
+    {
+        if (!CanWork()) return;
+        _playerInteractor = interactor;
+        IsPressed = interactor.IsPressed;
+        StartCooking();
+    }
 
-    public abstract void Interact(IInteractor interactor, IHoldable holdable);
+    public void Interact(IInteractor interactor, IHoldable holdable)
+    {
+        if (!CanWork(holdable)) return;
+        _playerInteractor = interactor;
+        holdable.Release();
+        SetFood(holdable.FoodData);
+        StartCooking();
+    }
+
+    protected abstract void StartCooking();
     
     protected abstract bool CheckRecipe(Food food);
     
@@ -55,24 +70,6 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         
     // 이벤트 함수
     // ============================================================
-    
-    
-    /// <summary>
-    /// 해당 음식을 등록
-    /// </summary>
-    /// <param name="food">등록할 음식</param>
-    protected void SetFood(Food food)
-    {
-        _foodData = food;
-    }
-
-    /// <summary>
-    /// 등록된 음식값을 없앰
-    /// </summary>
-    protected void UnSetFood()
-    {
-        _foodData = null;
-    }
     
     public bool CanWork()
     {
@@ -97,35 +94,41 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         
         if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
         {
-            _foodData = collision.gameObject.GetComponent<Food>();
-            
-            _foodData.transform.position = TargetTransform.position;
-            _foodData.transform.rotation = TargetTransform.rotation;
-            _foodData.Hold(this, PLAYER_ID.NONE);
+            Food food = collision.gameObject.GetComponent<Food>();
+            SetFood(food);
         }
     }
 
     protected void OutTrigger(Collider collision)
     {
         if (!IsHolding) return;
-        if (collision.gameObject.GetComponent<Food>() == _foodData)
-        {
-            _foodData = null;
-        }
+        if (collision.gameObject.GetComponent<Food>() == _foodData) UnSetFood();
+    }
+    
+    /// <summary>
+    /// 해당 음식을 등록
+    /// </summary>
+    /// <param name="food">등록할 음식</param>
+    protected void SetFood(Food food)
+    {
+        _foodData = food;
+            
+        _foodData.transform.position = TargetTransform.position;
+        _foodData.transform.rotation = TargetTransform.rotation;
+        _foodData.Hold(this, PLAYER_ID.NONE);
+    }
+    
+    /// <summary>
+    /// 등록된 음식값을 없앰
+    /// </summary>
+    protected void UnSetFood()
+    {
+        _foodData = null;
     }
 
     // 공개 메서드
     // ============================================================
 
-    /// <summary>
-    /// 넣은 음식의 ID값을 반환
-    /// </summary>
-    /// <param name="food">ID값을 알고 싶은 음식</param>
-    /// <returns></returns>
-    private string GetFoodID(Food food)
-    {
-        return food.FoodId;
-    }
     
     /// <summary>
     /// 요리중일때 음식을 못집어 올리게 bool값을 설정하는 함수

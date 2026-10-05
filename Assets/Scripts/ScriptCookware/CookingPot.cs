@@ -35,21 +35,6 @@ public class CookingPot : Cookware
     // 이벤트 함수
     // ============================================================
     
-    public override void Interact(IInteractor interactor)
-    {
-        if (!CanWork()) return;
-        _playerInteractor = interactor;
-        StartBoil();
-    }
-
-    public override void Interact(IInteractor interactor, IHoldable holdable)
-    {
-        if (!CanWork(holdable)) return;
-        _playerInteractor = interactor;
-        holdable.Release();
-        holdable.Hold(this, PLAYER_ID.NONE);
-        StartBoil();
-    }
 
     protected override bool CheckRecipe(Food food)
     {
@@ -58,6 +43,11 @@ public class CookingPot : Cookware
         if (food.FoodId == "05") return true;
         if (food.FoodId == "10") return true;
         return false;
+    }
+
+    protected override void StartCooking()
+    {
+        StartBoil();
     }
 
     // 공개 메서드
