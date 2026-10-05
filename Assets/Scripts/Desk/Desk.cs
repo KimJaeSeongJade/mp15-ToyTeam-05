@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class Desk : MonoBehaviour, IInteractable
@@ -83,10 +84,27 @@ public class Desk : MonoBehaviour, IInteractable
             Food resultfood = RecipeManager.Instance.GetRecipe(list);
 
             if (resultfood == null) return;
-            
-            Destroy(_currentFood.gameObject);
-            GameObject foodObject = Instantiate(resultfood.gameObject, _spawnPoint.position, Quaternion.identity);
-            _currentFood = foodObject.gameObject.GetComponent<Food>();
+
+            holdable.Release();
+
+            // 손에 있는 음식 비활성화 
+            holdable.FoodData.gameObject.SetActive(false);
+
+            // Merge이후 주석처리 해제 예정
+            //interactor.ReleaseItem();
+
+            _currentFood.gameObject.SetActive(false);
+
+            // 오브젝트풀로 변경
+            // Destroy(_currentFood.gameObject);
+            // GameObject foodObject = Instantiate(resultfood.gameObject, _spawnPoint.position, Quaternion.identity);
+
+            Food ob = PoolManager.Instance.Get(resultfood);
+
+            ob.transform.position = _spawnPoint.position;
+            ob.transform.rotation = Quaternion.identity;
+
+            _currentFood = ob.gameObject.GetComponent<Food>();
         }
     }
 }
