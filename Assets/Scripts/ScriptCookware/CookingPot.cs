@@ -24,45 +24,17 @@ public class CookingPot : Cookware
     
     private void OnTriggerStay(Collider collision)
     {
-        if (IsHolding) return;
-        
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
-        {
-            _foodData = collision.gameObject.GetComponent<Food>();
-            
-            _foodData.transform.position = TargetTransform.position;
-            _foodData.transform.rotation = TargetTransform.rotation;
-            _foodData.Hold(this, PLAYER_ID.NONE);
-        }
+        CheckTrigger(collision);
     }
 
     private void OnTriggerExit(Collider collision)
     {
-        if (!IsHolding) return;
-        if (collision.gameObject.GetComponent<Food>() == _foodData)
-        {
-            _foodData = null;
-        }
+        OutTrigger(collision);
     }
     
     // 이벤트 함수
     // ============================================================
     
-    public override void Interact(IInteractor interactor)
-    {
-        if (!CanWork()) return;
-        _playerInteractor = interactor;
-        StartBoil();
-    }
-
-    public override void Interact(IInteractor interactor, IHoldable holdable)
-    {
-        if (!CanWork(holdable)) return;
-        _playerInteractor = interactor;
-        holdable.Release();
-        holdable.Hold(this, PLAYER_ID.NONE);
-        StartBoil();
-    }
 
     protected override bool CheckRecipe(Food food)
     {
@@ -71,6 +43,11 @@ public class CookingPot : Cookware
         if (food.FoodId == "05") return true;
         if (food.FoodId == "10") return true;
         return false;
+    }
+
+    protected override void StartCooking()
+    {
+        StartBoil();
     }
 
     // 공개 메서드

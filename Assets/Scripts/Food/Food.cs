@@ -32,7 +32,15 @@ public class Food : MonoBehaviour, IFood, IHoldable
 
     public void Hold(IHolder holder, PLAYER_ID playerID)
     {
-        if (playerID != PLAYER_ID.NONE) LastHolder = holder;
+        if (playerID != PLAYER_ID.NONE)
+        {
+            LastHolder = holder;
+            CanHolding = false;
+        }
+        else
+        {
+            CanHolding = true;
+        }
         _lastHoldingPlayerID = playerID;
         HoldItemPosition(holder);
     }
@@ -64,6 +72,7 @@ public class Food : MonoBehaviour, IFood, IHoldable
         transform.SetParent(null);
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.constraints = RigidbodyConstraints.None;
+        CanHolding = true;
         IsHolding = false;
     }
 
