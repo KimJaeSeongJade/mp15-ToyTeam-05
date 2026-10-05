@@ -70,10 +70,10 @@ public class CookingPot : Cookware
         else
         {
             _foodData.Release();
-            // 오브젝트 풀로 반환
             ProcessFood();
         }
         _cookProgress = (int)_cookingFloat;
+        Debug.Log($"냄비 진행도 : {_cookProgress}");
     }
 
     private void ProcessFood()
