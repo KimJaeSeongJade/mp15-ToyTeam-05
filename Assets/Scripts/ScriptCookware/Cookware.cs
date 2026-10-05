@@ -8,8 +8,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     
     protected int _playerLayer = 6;
     protected int _foodLayer = 12;
-
-    
+    protected char _recipeChar;
     
     protected int _cookProgress = (int)CookwareJobEnum.Idle;
     protected IInteractor _playerInteractor;
@@ -44,8 +43,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
 
     public abstract void Interact(IInteractor interactor, IHoldable holdable);
     
-    public abstract bool CanWork();
-    public abstract bool CanWork(IHoldable holdable);
+    protected abstract bool CheckRecipe(Food food);
     
     // 추상 메서드
     // ============================================================
@@ -103,6 +101,18 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     protected void UnSetFood()
     {
         _foodData = null;
+    }
+    
+    public bool CanWork()
+    {
+        if (!IsHolding) return false;
+        return CheckRecipe(_foodData);
+    }
+
+    public bool CanWork(IHoldable holdable)
+    {
+        if (IsHolding) return false;
+        return CheckRecipe(holdable.FoodData);
     }
 
     public void RemoveData(Food food)
