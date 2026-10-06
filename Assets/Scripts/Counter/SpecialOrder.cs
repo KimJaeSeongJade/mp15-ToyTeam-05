@@ -6,7 +6,17 @@ using UnityEngine.UI;
 public class SpecialOrder : MonoBehaviour
 {
     [SerializeField] private Image[] _ink = new Image[2];
-    // [SerializeField] private PlayerMovement _playerMovement;
+    
+    // ---------------------- 벨트 스폰 X 관련
+    [SerializeField] private GameObject[] _stopImage = new GameObject[4];
+    [SerializeField] public bool _beltStop1 = false;
+    [SerializeField] public bool _beltStop2 = false;
+    // ---------------------- 벨트 스폰 X 관련
+    
+    // ---------------------- 플레이어 슬로우
+    [SerializeField] private PlayerMovement _playerMovement;
+    // ---------------------- 플레이어 슬로우
+    
     
     private void Start()
     {
@@ -32,10 +42,12 @@ public class SpecialOrder : MonoBehaviour
             
             // 벨트 막힘
             case 2:
+                StartCoroutine(BeltStop(Damageplayer));
                 break;
             
             // 속도 둔화
             case 3:
+                StartCoroutine(PlayerSlow(Damageplayer));
                 break;
         }
     }
@@ -69,6 +81,45 @@ public class SpecialOrder : MonoBehaviour
             InputManager.Instance._moveDirectionP2 *= -1;
             yield return new WaitForSeconds(3f);
             InputManager.Instance._moveDirectionP2 *= -1;
+
+    private IEnumerator BeltStop(int Damageplayer)
+    {
+        if (Damageplayer == 0)
+        {
+            _beltStop1 = true;
+            //_stopImage[0].SetActive(true);
+            //_stopImage[1].SetActive(true);
+            yield return new WaitForSeconds(3f);
+            _beltStop1 = false;
+            //_stopImage[0].SetActive(false);
+            //_stopImage[1].SetActive(false);
+        }
+        else
+        {
+            _beltStop2 = true;
+            //_stopImage[2].SetActive(true);
+            //_stopImage[3].SetActive(true);
+            yield return new WaitForSeconds(3f);
+            _beltStop2 = false;
+            //_stopImage[2].SetActive(false);
+            //_stopImage[3].SetActive(false);
+        }
+    }
+
+    private IEnumerator PlayerSlow(int Damageplayer)
+    {
+        if (Damageplayer == 0)
+        {
+            
+            yield return new WaitForSeconds(3f);
+            
+        }
+        else
+        {
+            
+            yield return new WaitForSeconds(3f);
+            
+            
         }
     }
 }

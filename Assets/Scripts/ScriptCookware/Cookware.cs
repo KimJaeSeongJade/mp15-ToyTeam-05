@@ -91,10 +91,10 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     protected void CheckTrigger(Collider collision)
     {
         if (IsHolding) return;
-        
         if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
         {
             Food food = collision.gameObject.GetComponent<Food>();
+            if (food.IsHolding) return;
             if (CheckRecipe(food)) SetFood(food);
         }
     }
@@ -112,7 +112,6 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     protected void SetFood(Food food)
     {
         _foodData = food;
-            
         _foodData.transform.position = TargetTransform.position;
         _foodData.transform.rotation = TargetTransform.rotation;
         _foodData.Hold(this, PLAYER_ID.NONE);

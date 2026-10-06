@@ -32,7 +32,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         else
         {
             _instance = this as T;
-            DestroyOnLoad();
+            // DestroyOnLoad();
         }
     }
 
