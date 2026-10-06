@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image _p1Ready;
     [SerializeField] private Image _p2Ready;
     
+    [SerializeField] private GameObject _popCreditUI;
+    [SerializeField] private GameObject _popHowToPlayUI;
+    
     public GameData GameData => _gameData;
     private bool _P1Ready = false;
     private bool _P2Ready = false;
@@ -23,14 +26,6 @@ public class GameManager : MonoBehaviour
     private void temp2() => GameStartP2(_p2Ready);
     
 
-    private void OnEnable()
-    {
-        InputManager.Instance.OnIntaractP1 += temp1;
-        InputManager.Instance.OnCookP1 += temp1;
-        InputManager.Instance.OnIntaractP2 += temp2;
-        InputManager.Instance.OnCookP2 += temp2;
-    }
-
     private void OnDisable()
     {
         InputManager.Instance.OnIntaractP1 -= temp1;
@@ -39,6 +34,26 @@ public class GameManager : MonoBehaviour
         InputManager.Instance.OnCookP2 -= temp2;
     }
 
+    public void HowToPopup()
+    {
+        InputManager.Instance.OnIntaractP1 += temp1;
+        InputManager.Instance.OnCookP1 += temp1;
+        InputManager.Instance.OnIntaractP2 += temp2;
+        InputManager.Instance.OnCookP2 += temp2;
+        
+        _popHowToPlayUI.SetActive(true);
+    }
+
+    public void CreditPopup()
+    {
+        _popCreditUI.SetActive(true);
+    }
+
+    public void ClosePopup()
+    {
+        _popCreditUI.SetActive(false);
+    }
+    
     // 타이틀로 돌아가기
     public void TitleScene()
     {
