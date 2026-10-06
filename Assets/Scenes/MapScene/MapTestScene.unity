@@ -491,7 +491,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6136151340162530520, guid: d7f55f620511c7e4ab8aaf6f42b85fe1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1032502417}
   m_SourcePrefab: {fileID: 100100000, guid: d7f55f620511c7e4ab8aaf6f42b85fe1, type: 3}
 --- !u!4 &205502981 stripped
 Transform:
@@ -648,6 +651,10 @@ PrefabInstance:
       propertyPath: _poolManager
       value: 
       objectReference: {fileID: 1436845228}
+    - target: {fileID: 8306275130273928242, guid: 2429d8a260702c5478da0508ad0f5988, type: 3}
+      propertyPath: _specialOrder
+      value: 
+      objectReference: {fileID: 1032502417}
     - target: {fileID: 8306275130273928242, guid: 2429d8a260702c5478da0508ad0f5988, type: 3}
       propertyPath: _foodSpawnData.Array.size
       value: 5
@@ -1221,6 +1228,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.6000004, y: 0.29972082, z: 8.048585}
   m_Center: {x: 0, y: 0, z: -0.00000023841858}
+--- !u!1 &1032502411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6136151340162530520, guid: d7f55f620511c7e4ab8aaf6f42b85fe1, type: 3}
+  m_PrefabInstance: {fileID: 205502980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1032502417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032502411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3564f15b288fd33459b1036713ac500d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ink:
+  - {fileID: 0}
+  - {fileID: 0}
+  _trashcan:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _beltStop1: 0
+  _beltStop2: 0
 --- !u!1001 &1122946325
 PrefabInstance:
   m_ObjectHideFlags: 0

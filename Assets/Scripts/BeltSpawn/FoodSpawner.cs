@@ -18,14 +18,10 @@ public class FoodSpawner : MonoBehaviour
 
     [SerializeField] private int num;
     
-    
-    
-    
-    
-    
-    
-    
     // --------------- 오브젝트풀
+    
+    
+    [SerializeField] private SpecialOrder _specialOrder;
     
     private bool _changeSpawn = true;
 
@@ -81,13 +77,27 @@ public class FoodSpawner : MonoBehaviour
 
             if (_changeSpawn)
             {
-                SpawnFood(firstfood, _topLeft);
-                SpawnFood(sceondfood, _bottomRight);
+                if (_specialOrder._beltStop1 == false)
+                {
+                    SpawnFood(firstfood, _topLeft);    
+                }
+
+                if (_specialOrder._beltStop2 == false)
+                {
+                    SpawnFood(sceondfood, _bottomRight);
+                }
             }
             else
             {
-                SpawnFood(firstfood, _topRight);
-                SpawnFood(sceondfood, _bottomLeft);
+                if (_specialOrder._beltStop1 == false)
+                {
+                    SpawnFood(firstfood, _bottomLeft);
+                }
+
+                if (_specialOrder._beltStop2 == false)
+                {
+                    SpawnFood(sceondfood, _topRight);
+                }
             }
 
 
