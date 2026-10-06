@@ -52,6 +52,11 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
+
+    public void ChangeSpeed(float speed)
+    {
+        _moveSpeed = speed;
+    }
     
     private void Move(Vector3 dir)
     {

@@ -127,7 +127,7 @@ public class PoolManager : MonoBehaviour
         orderUI.SetActive(false);
     }
 
-    public GameObject GetUI(GameObject orderUI)
+    public GameObject GetUI(GameObject orderUI, Transform _orderuitransform)
     {
         int index = Array.IndexOf(_orderUIObjects, orderUI);
         GameObject select = null;
@@ -142,6 +142,7 @@ public class PoolManager : MonoBehaviour
                 // 변수에 할당
                 select = o;
                 select.gameObject.SetActive(true);
+                select.transform.SetParent(_orderuitransform, false);
                 break;
             }
         }
@@ -150,7 +151,7 @@ public class PoolManager : MonoBehaviour
         if (!select)
         {
             // 새롭게 생성하고 select 변수에 할당
-            select = Instantiate(_orderUIObjects[index], transform);
+            select = Instantiate(_orderUIObjects[index], _orderuitransform);
             _orderUIPools[index].Add(select);
         }
 

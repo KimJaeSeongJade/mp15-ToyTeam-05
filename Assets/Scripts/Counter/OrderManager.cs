@@ -30,14 +30,15 @@ public class OrderManager : Singleton<OrderManager>
     
     private void AddOrderUi()
     {
-            if(OrderList[OrderList.Count-1] == null) return;
+        if(OrderList[OrderList.Count-1] == null) return;
             
-            // 마지막꺼 인덱스 번호 라인업안에서 찾고
-            int index = FoodPrefab.IndexOf(OrderList[OrderList.Count-1]); 
-            if (index != -1)
-            {
-                Instantiate(FoodImageprefab[index], _OrderUi);
-            }
+       // 마지막꺼 인덱스 번호 라인업안에서 찾고
+        int index = FoodPrefab.IndexOf(OrderList[OrderList.Count-1]); 
+        if (index != -1)
+        {
+            Instantiate(FoodImageprefab[index], _OrderUi);
+            //PoolManager.Instance.GetUI(FoodImageprefab[index], _OrderUi);
+        }
     }
     
     private void RandomOrder()

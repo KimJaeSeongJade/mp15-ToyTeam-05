@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class SpecialOrder : MonoBehaviour
@@ -12,17 +13,28 @@ public class SpecialOrder : MonoBehaviour
     [SerializeField] public bool _beltStop1 = false;
     [SerializeField] public bool _beltStop2 = false;
     // ---------------------- 벨트 스폰 X 관련
-    
+
     // ---------------------- 플레이어 슬로우
-    [SerializeField] private PlayerMovement _playerMovement;
+    [SerializeField] private PlayerMovement _player1;
+    [SerializeField] private PlayerMovement _player2;
     // ---------------------- 플레이어 슬로우
-    
-    
+
+
     private void Start()
     {
         _ink[0].enabled = false;
         _ink[1].enabled = false;
     }
+
+    // ------------------------ 테스트
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            //StartCoroutine(PlayerSlow(0));
+        }
+    }
+    // ------------------------ 테스트
 
     // int 플레이어 0 이면 P1 , 플레이어 1 이면 P2가 당함.
     public void RandomSpecial(int Damageplayer)
@@ -89,6 +101,7 @@ public class SpecialOrder : MonoBehaviour
         if (Damageplayer == 0)
         {
             _beltStop1 = true;
+            // 스폰안된다고 표시할 이미지???
             //_stopImage[0].SetActive(true);
             //_stopImage[1].SetActive(true);
             yield return new WaitForSeconds(3f);
@@ -112,16 +125,16 @@ public class SpecialOrder : MonoBehaviour
     {
         if (Damageplayer == 0)
         {
-            
+            _player1.ChangeSpeed(100);
             yield return new WaitForSeconds(3f);
-            
+            _player1.ChangeSpeed(300);
         }
         else
         {
-            
+            _player2.ChangeSpeed(100);
             yield return new WaitForSeconds(3f);
-            
-            
+            _player2.ChangeSpeed(300);
+
         }
     }
 }
