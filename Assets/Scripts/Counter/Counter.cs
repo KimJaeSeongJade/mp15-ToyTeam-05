@@ -8,6 +8,8 @@ public class Counter : MonoBehaviour, IInteractable
 {
     public RemoveOrderUI _removeOrderUI;
     public GameData _gameData;
+    
+    [SerializeField] private SpecialOrder _specialOrder;
     public void Interact(IInteractor interactor)
     {
     }
@@ -28,7 +30,7 @@ public class Counter : MonoBehaviour, IInteractable
             {
                 if (holdable.FoodData.FoodId == "020411")
                 {
-                    // 스페셜 효과 발동
+                    _specialOrder.RandomSpecial(1);
                 }
                 
                 _gameData.Player1Score += holdable.FoodData._foodPoint;
@@ -38,7 +40,7 @@ public class Counter : MonoBehaviour, IInteractable
             {
                 if (holdable.FoodData.FoodId == "020411")
                 {
-                    // 스페셜 효과 발동
+                    _specialOrder.RandomSpecial(0);
                 }
                 
                 _gameData.Player2Score += holdable.FoodData._foodPoint;
