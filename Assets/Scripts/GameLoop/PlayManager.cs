@@ -6,7 +6,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayManager : MonoBehaviour
-{    
+{
+
+    [SerializeField] private GameData _gameData;
+
+
+
+
+
+
+
+
+
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private GameObject _resultPopup;
     [SerializeField] private TextMeshProUGUI _startCountText;
@@ -42,23 +53,23 @@ public class PlayManager : MonoBehaviour
     {
         if (!_isGameStart || _isGameEnd) return;
 
-        GameManager.Instance.GameData.GameTimeLeft -= Time.deltaTime;
+        _gameData.GameTimeLeft -= Time.deltaTime;
 
-        if (GameManager.Instance.GameData.GameTimeLeft <= 0f)
+        if (_gameData.GameTimeLeft <= 0f)
         {
-            GameManager.Instance.GameData.GameTimeLeft = 0f;
+            _gameData.GameTimeLeft = 0f;
             GameEnd();
         }
 
         InGameScore();
 
-        _timeText.text = Mathf.CeilToInt(GameManager.Instance.GameData.GameTimeLeft).ToString();
+        _timeText.text = Mathf.CeilToInt(_gameData.GameTimeLeft).ToString();
     }
     //----------------------
 
     private IEnumerator TextColorChange()
     {
-        yield return new WaitForSeconds(GameManager.Instance.GameData.GameTimeLeft - 6f);
+        yield return new WaitForSeconds(_gameData.GameTimeLeft - 6f);
         _timeText.color = Color.red;
     }
 
@@ -66,8 +77,8 @@ public class PlayManager : MonoBehaviour
 
     private void InGameScore()
     {
-        _p1InGameScore.text = GameManager.Instance.GameData.Player1Score.ToString();
-        _p2InGameScore.text = GameManager.Instance.GameData.Player2Score.ToString();
+        _p1InGameScore.text = _gameData.Player1Score.ToString();
+        _p2InGameScore.text = _gameData.Player2Score.ToString();
     }
 
     private IEnumerator StartCountDown()
@@ -98,11 +109,11 @@ public class PlayManager : MonoBehaviour
     {
         ResultScoreUI();
         
-        int player1Score = GameManager.Instance.GameData.Player1Score;
-        int player2Score = GameManager.Instance.GameData.Player2Score;
+        int player1Score = _gameData.Player1Score;
+        int player2Score = _gameData.Player2Score;
         
-        int player1Food = GameManager.Instance.GameData.Player1Food;
-        int player2food = GameManager.Instance.GameData.Player2Food;
+        int player1Food = _gameData.Player1Food;
+        int player2food = _gameData.Player2Food;
 
         if (player1Score > player2Score) Player1Win();
         else if (player1Score < player2Score) Player2Win();
@@ -116,11 +127,11 @@ public class PlayManager : MonoBehaviour
 
     private void ResultScoreUI()
     {
-        _player1Score.text = "player1 Score : " + GameManager.Instance.GameData.Player1Score.ToString();
-        _player1Bilge.text = "player1 Bilge : " + GameManager.Instance.GameData.Player1Food.ToString();
+        _player1Score.text = "player1 Score : " + _gameData.Player1Score.ToString();
+        _player1Bilge.text = "player1 Bilge : " + _gameData.Player1Food.ToString();
 
-        _player2Score.text = "player2 Score : " + GameManager.Instance.GameData.Player2Score.ToString();
-        _player2Bilge.text = "player2 Bilge : " + GameManager.Instance.GameData.Player2Food.ToString();
+        _player2Score.text = "player2 Score : " + _gameData.Player2Score.ToString();
+        _player2Bilge.text = "player2 Bilge : " + _gameData.Player2Food.ToString();
     }
 
     private void Player1Win()
@@ -156,17 +167,35 @@ public class PlayManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        GameManager.Instance.ResetGameData();
+        ResetGameData();
 
         SceneManager.LoadScene(1);
     }
+
+    private void ResetGameData()
+    {
+        _gameData.Player1Score = 0;
+        _gameData.Player2Score = 0;
+
+        _gameData.Player1Food = 0;
+        _gameData.Player2Food = 0;
+
+        _gameData.GameTimeLeft = GameData.START_GAMETIME;
+    }
+
     public void TitleScene()
     {
-        GameManager.Instance.TitleScene();
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()
     {
-        GameManager.Instance.QuitGame();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }
