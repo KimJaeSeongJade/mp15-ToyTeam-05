@@ -81,6 +81,8 @@ public class SpecialOrder : MonoBehaviour
             InputManager.Instance._moveDirectionP2 *= -1;
             yield return new WaitForSeconds(3f);
             InputManager.Instance._moveDirectionP2 *= -1;
+        }
+    }
 
     private IEnumerator BeltStop(int Damageplayer)
     {
