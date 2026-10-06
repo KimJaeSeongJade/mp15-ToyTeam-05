@@ -37,6 +37,7 @@ public class SpecialOrder : MonoBehaviour
             
             // 플레이어 조작 방해
             case 1:
+                MixGetkey(Damageplayer);
                 break;
             
             // 벨트 막힘
@@ -67,6 +68,19 @@ public class SpecialOrder : MonoBehaviour
         }
     }
 
+    private IEnumerator MixGetkey(int Damageplayer)
+    {
+        if (Damageplayer == 0)
+        {
+            InputManager.Instance._moveDirectionP1 *= -1;
+            yield return new WaitForSeconds(3f);
+            InputManager.Instance._moveDirectionP1 *= -1;
+        }
+        else
+        {
+            InputManager.Instance._moveDirectionP2 *= -1;
+            yield return new WaitForSeconds(3f);
+            InputManager.Instance._moveDirectionP2 *= -1;
 
     private IEnumerator BeltStop(int Damageplayer)
     {
