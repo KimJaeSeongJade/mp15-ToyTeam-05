@@ -95,7 +95,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         {
             Food food = collision.gameObject.GetComponent<Food>();
             if (food.IsHolding) return;
-            SetFood(food);
+            if (CheckRecipe(food)) SetFood(food);
         }
     }
 

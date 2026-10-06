@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class OrderManager : Singleton<OrderManager>
 {
-    [SerializeField] private List<Food> FoodPrefab = new List<Food>(5); // 요리들 라인업
-    [SerializeField] private List<GameObject> FoodImageprefab = new List<GameObject>(5); // 주문서 UI 라인업
+    [SerializeField] private List<Food> FoodPrefab = new List<Food>(6); // 요리들 라인업
+    [SerializeField] private List<GameObject> FoodImageprefab = new List<GameObject>(6); // 주문서 UI 라인업
     
     [SerializeField] public List<Food> OrderList = new List<Food>(6); // 실제 주문서들
     
