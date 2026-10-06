@@ -95,7 +95,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
         {
             Food food = collision.gameObject.GetComponent<Food>();
-            SetFood(food);
+            if (CheckRecipe(food)) SetFood(food);
         }
     }
 
