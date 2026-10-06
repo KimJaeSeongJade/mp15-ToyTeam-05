@@ -14,10 +14,20 @@ public class Counter : MonoBehaviour, IInteractable
 
     public void Interact(IInteractor interactor, IHoldable holdable)
     {
-        int index = OrderManager.Instance.OrderList.IndexOf(holdable.FoodData); // 오더리스트에 있나
+        Food food = holdable.FoodData;
+
+        int index = -1;
+        string foodId = holdable.FoodData.FoodId;
        
-        if (index == -1) return;
-        else
+        for (int i = 0; i < OrderManager.Instance.OrderList.Count; i++)
+        {
+            if (OrderManager.Instance.OrderList[i].FoodId == foodId)
+            {
+                index = i;
+            }
+        }
+        
+        if(index != -1)
         {
             OrderManager.Instance._successIndex = index;
             _removeOrderUI.RemoveOrderUi();
@@ -33,8 +43,7 @@ public class Counter : MonoBehaviour, IInteractable
                 _gameData.Player2Score += holdable.FoodData._foodPoint;
                 _gameData.Player2Food++;
             }
-            
-            Destroy(holdable.FoodData);
+            holdable.FoodData.ReturnToPool();
         }
     }
 }
