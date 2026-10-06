@@ -17,6 +17,7 @@ public class RemoveOrderUI : MonoBehaviour
         _index = OrderManager.Instance._successIndex;
         
         Destroy(orderList[_index]);
+        //orderList[_index].SetActive(false);
         orderList.RemoveAt(_index);
     }
 }
