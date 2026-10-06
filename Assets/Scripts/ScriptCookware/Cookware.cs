@@ -43,7 +43,6 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     {
         if (!CanWork()) return;
         _playerInteractor = interactor;
-        IsPressed = interactor.IsPressed;
         StartCooking();
     }
 
@@ -112,8 +111,6 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     protected void SetFood(Food food)
     {
         _foodData = food;
-        _foodData.transform.position = TargetTransform.position;
-        _foodData.transform.rotation = TargetTransform.rotation;
         _foodData.Hold(this, PLAYER_ID.NONE);
     }
     
@@ -123,6 +120,11 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     protected void UnSetFood()
     {
         _foodData = null;
+    }
+    
+    protected void RemoveFood(Food food)
+    {
+        food.ReturnToPool();
     }
 
     // 공개 메서드
