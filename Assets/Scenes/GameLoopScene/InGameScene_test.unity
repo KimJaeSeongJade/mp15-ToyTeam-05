@@ -692,12 +692,14 @@ MonoBehaviour:
   - {fileID: 64828546169510501, guid: 5f610705cfe163a46a3325af44bf1446, type: 3}
   - {fileID: 8946043380537882058, guid: f361c767274faae42b24b70b7beb9df2, type: 3}
   - {fileID: 35409992414997902, guid: 4c278f28c8934c64181a2450105648fa, type: 3}
+  - {fileID: 0}
   FoodImageprefab:
   - {fileID: 5301012646465071118, guid: 3df8cb95073f81f4ca190d219205edde, type: 3}
   - {fileID: 5301012646465071118, guid: 71d9a32188c9da948aef59cdb3129394, type: 3}
   - {fileID: 5301012646465071118, guid: 3ed9bb36d74ee8947bc712dc0ac9e5a6, type: 3}
   - {fileID: 5301012646465071118, guid: 0c4b6c4a65c5d3c4aab3deef80632a90, type: 3}
   - {fileID: 5301012646465071118, guid: 74a5c1da31bfb334ca1e7af4b69fd0d9, type: 3}
+  - {fileID: 5301012646465071118, guid: 4b7ca856feb67584997bc3c004a7f2e1, type: 3}
   OrderList: []
   _OrderUi: {fileID: 209962420}
   _successIndex: 0
@@ -3192,6 +3194,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 209962420}
+  - {fileID: 2069507467}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3810,7 +3813,6 @@ RectTransform:
   m_Children:
   - {fileID: 213180425}
   - {fileID: 1830911324}
-  - {fileID: 2069507467}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3916,7 +3918,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069507466}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3927,7 +3929,7 @@ RectTransform:
   - {fileID: 224213035}
   - {fileID: 538905522}
   - {fileID: 705016480}
-  m_Father: {fileID: 1908184262}
+  m_Father: {fileID: 1737475300}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
