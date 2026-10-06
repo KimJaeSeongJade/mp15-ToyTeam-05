@@ -169,7 +169,7 @@ public class PoolManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
     
 }
