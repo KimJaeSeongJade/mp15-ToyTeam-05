@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.EditorTools;
 using UnityEngine;
 
-public class Desk : MonoBehaviour, IInteractable
+public class Desk : MonoBehaviour, IInteractable, IHolder
 {
     [SerializeField] private Food _currentFood;
     public Food CurrentFood => _currentFood;
     
     [SerializeField] private Transform _spawnPoint;
     private BoxCollider _boxCollider;
+
+    public Transform TargetTransform => _spawnPoint;
+    public bool IsHolding => _currentFood != null;
+    public bool CanHold => false;
+    public bool CanRelease => false;
 
 
     private void Awake()
@@ -42,21 +48,28 @@ public class Desk : MonoBehaviour, IInteractable
         if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
         {
             _currentFood = collision.gameObject.GetComponent<Food>();
-            
+            if(_currentFood.IsHolding) return;
             _currentFood.transform.position = _spawnPoint.position;
             _currentFood.transform.rotation = _spawnPoint.rotation;
+            _currentFood.Hold(this, PLAYER_ID.NONE);
         }
     }
 
     private void OnTriggerExit(Collider collision)
     {
         if (_currentFood == null) return;
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
+        if (collision.gameObject.GetComponent<Food>() == _currentFood)
         {
             _currentFood = null;
         }
     }
-    
+
+    public void RemoveData(Food food)
+    {
+        if (food == _currentFood)
+            _currentFood = null;
+    }
+
 
     public void Interact(IInteractor interactor)
     {
@@ -88,12 +101,12 @@ public class Desk : MonoBehaviour, IInteractable
             holdable.Release();
 
             // 손에 있는 음식 비활성화 
-            holdable.FoodData.gameObject.SetActive(false);
+            holdable.FoodData.ReturnToPool();
 
             // Merge이후 주석처리 해제 예정
             //interactor.ReleaseItem();
 
-            _currentFood.gameObject.SetActive(false);
+            _currentFood.ReturnToPool();
 
             // 오브젝트풀로 변경
             // Destroy(_currentFood.gameObject);
