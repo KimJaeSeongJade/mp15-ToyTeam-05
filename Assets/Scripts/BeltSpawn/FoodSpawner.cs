@@ -108,7 +108,6 @@ public class FoodSpawner : MonoBehaviour
         
         ob.transform.position = spawnpoint.position;
         ob.transform.rotation = randomRotation;
-        ob.ActiveThisFood();
     }
 
 
