@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
@@ -41,10 +42,16 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     // [SerializeField] private Cookware _cookware;
 
     [SerializeField] public IInteractable _cookware { get; private set; }
-    [SerializeField] private bool _CanCookware;
+    
+    [SerializeField] private LayerMask _cookwareLayerMask;
+    private IInteractable _interactablePos;
+    private Transform _currentInteractablePos;
     
     private PlayerMovement _playerMovement;
     private Rigidbody _foodRigidbody;
+    
+    private float _checkDistance = 1.5f;
+    private float _checkDistanceYpos = 0.5f;
     
     private void Awake() => Init();
     
@@ -63,9 +70,45 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         CheckExitTrigger(other);
     }
 
+    private void Update()
+    {
+        // if (_interactables[0] != null) return;
+        
+        DrawCheckRay();
+        CheckDesk();
+    }
+
     private void OnDisable()
     {
         UnBindHoldInputEvents();
+    }
+
+    private void DrawCheckRay()
+    {
+        Vector3 pos = new Vector3(0, 1f, 0);
+        Debug.DrawRay(transform.position + pos, transform.forward * _checkDistance, Color.red);
+    }
+    
+    private void CheckDesk()
+    {
+        Vector3 pos = new Vector3(0, 1f, 0);
+        Ray ray = new Ray((transform.position + pos), transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, _checkDistance, _cookwareLayerMask))
+        {
+            // if (hit.collider.GetComponent<IInteractable>() == null) return;
+            int count = 0;
+            
+            _currentInteractablePos = hit.transform;
+            
+            Vector3 dis = hit.point - transform.position;
+            Vector3 currentDis = _currentInteractablePos.position - transform.position;
+
+            {
+                count++;
+                Debug.Log($"{hit.collider.name} : {count} : 멀당");
+            }
+        }
     }
     
     // 들어올리기 / 내려놓기 함수
@@ -174,7 +217,14 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
             food.OnReturnPool += RemoveData;
         }
         
-        if (other.GetComponent<IInteractable>() != null) _cookware = other.GetComponent<IInteractable>();
+        if (other.GetComponent<IInteractable>() != null)
+        {
+            // if (_currentInteractablePos == null)
+            // {
+            //     CheckDesk();
+            // }
+            // _cookware = other.GetComponent<IInteractable>();
+        }
     }
     
     private void CheckExitTrigger(Collider other)
@@ -187,6 +237,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         if (other.GetComponent<IInteractable>() != null)
         {
             _cookware = null;
+            
+            _currentInteractablePos = null;
             IsPressed = false;
         }
     }
