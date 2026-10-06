@@ -34,6 +34,9 @@ public class Food : MonoBehaviour, IFood, IHoldable
 
     public void Hold(IHolder holder, PLAYER_ID playerID)
     {
+        _lastHoldingPlayerID = playerID;
+        Debug.Log($"잡은놈 : {holder}");
+        HoldItemPosition(holder);
         if (playerID != PLAYER_ID.NONE)
         {
             LastHolder = holder;
@@ -43,12 +46,11 @@ public class Food : MonoBehaviour, IFood, IHoldable
         {
             CanHolding = true;
         }
-        _lastHoldingPlayerID = playerID;
-        HoldItemPosition(holder);
     }
 
     public void Release()
     {
+        Debug.Log($"놔라");
         UnHoldItemPosition();
     }
 
@@ -67,7 +69,7 @@ public class Food : MonoBehaviour, IFood, IHoldable
     public void ReturnToPool()
     {
         this.gameObject.SetActive(false);
-        Debug.Log($"{this.name}이 비명을 지르며 오브젝트 풀 너머로 사라집니다...");
+        // Debug.Log($"{this.name}이 비명을 지르며 오브젝트 풀 너머로 사라집니다...");
         OnReturnPool?.Invoke(this);
         UnHoldItemPosition();
     }

@@ -79,6 +79,7 @@ public class CuttingBoard : Cookware
 
     protected override void StartCooking()
     {
+        IsPressed = _playerInteractor.IsPressed;
         StartCoroutine(_choppingCoroutine());
     }
 
@@ -99,25 +100,19 @@ public class CuttingBoard : Cookware
         if (_recipeChar == '1')
         {
             Food ob = PoolManager.Instance.Get(ChoppedLettuce);
-            ob.transform.position = TargetTransform.position;
-            ob.transform.rotation = Quaternion.identity;
-            ob.gameObject.SetActive(true);
+            ob.Hold(this, PLAYER_ID.NONE);
+            ob.ActiveThisFood();
         }
         if (_recipeChar == '3')
         {
             Food ob = PoolManager.Instance.Get(ChoppedTomato);
-            ob.transform.position = TargetTransform.position;
-            ob.transform.rotation = Quaternion.identity;
-            ob.gameObject.SetActive(true);
+            ob.Hold(this, PLAYER_ID.NONE);
+            ob.ActiveThisFood();
         }
         _recipeChar = 'N';
         _cookProgress = (int)CookwareJobEnum.Idle;
         _isStillHoldKey = false;
-    }
-
-    private void RemoveFood(Food food)
-    {
-        food.ReturnToPool();
+        Debug.Log(_foodData);
         UnSetFood();
     }
 
