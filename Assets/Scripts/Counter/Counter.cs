@@ -8,6 +8,8 @@ public class Counter : MonoBehaviour, IInteractable
 {
     public RemoveOrderUI _removeOrderUI;
     public GameData _gameData;
+    
+    [SerializeField] private SpecialOrder _specialOrder;
     public void Interact(IInteractor interactor)
     {
     }
@@ -31,15 +33,26 @@ public class Counter : MonoBehaviour, IInteractable
         {
             OrderManager.Instance._successIndex = index;
             _removeOrderUI.RemoveOrderUi();
+            
             OrderManager.Instance.OrderList.RemoveAt(index);  // 리스트에서 삭제
             
             if (interactor.PlayerCheck == PLAYER_ID.PLAYER_1P)
             {
+                if (holdable.FoodData.FoodId == "020411")
+                {
+                    _specialOrder.RandomSpecial(1);
+                }
+                
                 _gameData.Player1Score += holdable.FoodData._foodPoint;
                 _gameData.Player1Food++;
             }
             else if (interactor.PlayerCheck == PLAYER_ID.PLAYER_2P)
             {
+                if (holdable.FoodData.FoodId == "020411")
+                {
+                    _specialOrder.RandomSpecial(0);
+                }
+                
                 _gameData.Player2Score += holdable.FoodData._foodPoint;
                 _gameData.Player2Food++;
             }

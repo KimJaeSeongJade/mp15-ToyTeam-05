@@ -205,7 +205,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timer: {fileID: 1343753675767598209}
-  _State: 0
 --- !u!1 &7734489661040946397
 GameObject:
   m_ObjectHideFlags: 0
