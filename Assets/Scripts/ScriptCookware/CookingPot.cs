@@ -13,7 +13,6 @@ public class CookingPot : Cookware
     
     private bool _isCooking => _cookProgress >= (int)CookwareJobEnum.Start;
     private bool _isWaitingTimer;
-    private bool _readyToPick;
     [SerializeField] private float _cookingFloat;
     private int _cookingSpeed = 10; // 1 = 100초 / 5 = 20초;
     private Vector3 _shrink = new Vector3(0.1f, 0.1f, 0.1f);
@@ -53,7 +52,7 @@ public class CookingPot : Cookware
     protected override void StartCooking()
     {
         Debug.Log("냄비 시도");
-        if (_cookProgress == -1) StartBoil();
+        if (_cookProgress == -1 && _recipeChar != 'N') StartBoil();
     }
 
     // 공개 메서드
@@ -63,8 +62,8 @@ public class CookingPot : Cookware
     {
         _lastHolder = _foodData.LastHolder;
         _cookProgress = (int)CookwareJobEnum.Start;
+        _foodData.CanHolding = false;
         _recipeChar = _foodData.FoodId[1];
-        _readyToPick = false;
     }
 
     private void Boil()
@@ -72,14 +71,12 @@ public class CookingPot : Cookware
         if (_cookProgress == -1) return;
         if (_cookProgress < 100)
         {
-            _foodData.CanHolding = false;
             _cookingFloat += Time.deltaTime * _cookingSpeed;
         }
         else
         {
             RemoveFood(_foodData);
             FoodProcess();
-            Debug.Log(_cookingFloat);
         }
         _cookProgress = (int)_cookingFloat;
         Debug.Log($"냄비 진행도 : {_cookProgress}");
@@ -90,19 +87,19 @@ public class CookingPot : Cookware
         if (_recipeChar == '3')
         {
             Food ob = PoolManager.Instance.Get(TomatoSauce);
+            ob.ActiveCookFood();
             ob.Hold(this, PLAYER_ID.NONE);
-            ob.ActiveThisFood();
         }
         if (_recipeChar == '8')
         {
             Food ob = PoolManager.Instance.Get(OnionStock);
+            ob.ActiveCookFood();
             ob.Hold(this, PLAYER_ID.NONE);
-            ob.ActiveThisFood();
         }
         _playerInteractor = null;
-        _readyToPick = true;
         _recipeChar = 'N';
         _cookingFloat = -1;
+        _cookProgress = (int)_cookingFloat;
     }
     // 비공개 메서드
     // ============================================================

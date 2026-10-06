@@ -63,6 +63,12 @@ public class Food : MonoBehaviour, IFood, IHoldable
         _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
+    public void ActiveCookFood()
+    {
+        this.gameObject.SetActive(true);
+        _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
     /// <summary>
     /// 오브젝트 풀로 돌아감
     /// </summary>

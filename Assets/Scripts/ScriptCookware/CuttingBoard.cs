@@ -100,14 +100,14 @@ public class CuttingBoard : Cookware
         if (_recipeChar == '1')
         {
             Food ob = PoolManager.Instance.Get(ChoppedLettuce);
+            ob.ActiveCookFood();
             ob.Hold(this, PLAYER_ID.NONE);
-            ob.ActiveThisFood();
         }
         if (_recipeChar == '3')
         {
             Food ob = PoolManager.Instance.Get(ChoppedTomato);
+            ob.ActiveCookFood();
             ob.Hold(this, PLAYER_ID.NONE);
-            ob.ActiveThisFood();
         }
         _recipeChar = 'N';
         _cookProgress = (int)CookwareJobEnum.Idle;
