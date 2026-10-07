@@ -15,18 +15,18 @@ public class CookingPot : Cookware
     private bool _isWaitingTimer;
     [SerializeField] private float _cookingFloat;
     private int _cookingSpeed = 10; // 1 = 100초 / 5 = 20초;
-    private Vector3 _shrink = new Vector3(0.1f, 0.1f, 0.1f);
-    private Vector3 _normalize = new Vector3(1, 1, 1);
     
     // 비공개 필드
     // ============================================================
 
     private void Update()
     {
+        CheckCookStatus();
+        GrabFood();
         if (_isCooking) Boil(); 
     }
     
-    private void OnTriggerStay(Collider collision)
+    private void OnTriggerEnter(Collider collision)
     {
         CheckTrigger(collision);
     }
@@ -42,7 +42,6 @@ public class CookingPot : Cookware
 
     protected override bool CheckRecipe(Food food)
     {
-        Debug.Log($"레시피 확인 {food.FoodId}");
         if (food == null) return false;
         if (food.FoodId == "03") return true;
         if (food.FoodId == "08") return true;
@@ -51,7 +50,7 @@ public class CookingPot : Cookware
 
     protected override void StartCooking()
     {
-        Debug.Log("냄비 시도");
+        Debug.Log("냄비 요리 시작 시도");
         if (_cookProgress == -1 && _recipeChar != 'N') StartBoil();
     }
 
@@ -60,10 +59,11 @@ public class CookingPot : Cookware
 
     private void StartBoil()
     {
-        _lastHolder = _foodData.LastHolder;
+        Debug.Log($"냄비 요리 시작");
+        _lastHolder = _currentFood.LastHolder;
         _cookProgress = (int)CookwareJobEnum.Start;
-        _foodData.CanHolding = false;
-        _recipeChar = _foodData.FoodId[1];
+        _currentFood.CanHolding = false;
+        _recipeChar = _currentFood.FoodId[1];
     }
 
     private void Boil()
@@ -75,11 +75,11 @@ public class CookingPot : Cookware
         }
         else
         {
-            RemoveFood(_foodData);
+            Debug.Log($"냄비 요리 완성");
+            RemoveFood(_currentFood);
             FoodProcess();
         }
         _cookProgress = (int)_cookingFloat;
-        Debug.Log($"냄비 진행도 : {_cookProgress}");
     }
 
     private void FoodProcess()
@@ -88,13 +88,13 @@ public class CookingPot : Cookware
         {
             Food ob = PoolManager.Instance.Get(TomatoSauce);
             ob.ActiveCookFood();
-            ob.Hold(this, PLAYER_ID.NONE);
+            SetFood(ob);
         }
         if (_recipeChar == '8')
         {
             Food ob = PoolManager.Instance.Get(OnionStock);
             ob.ActiveCookFood();
-            ob.Hold(this, PLAYER_ID.NONE);
+            SetFood(ob);
         }
         _playerInteractor = null;
         _recipeChar = 'N';

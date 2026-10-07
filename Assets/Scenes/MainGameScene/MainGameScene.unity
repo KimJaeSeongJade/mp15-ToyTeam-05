@@ -685,6 +685,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2978995868450779204, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
+      propertyPath: m_Radius
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 7288854053227203913, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
       propertyPath: m_Name
       value: PotStove

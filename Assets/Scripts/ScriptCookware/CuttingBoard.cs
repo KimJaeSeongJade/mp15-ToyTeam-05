@@ -32,16 +32,16 @@ public class CuttingBoard : Cookware
             switch (_cookProgress)
             {
                 case (int)CookwareJobEnum.Idle:
-                    _lastHolder = _foodData.LastHolder;
+                    _lastHolder = _currentFood.LastHolder;
                     _cookProgress = (int)CookwareJobEnum.Start;
-                    _recipeChar = _foodData.FoodId[1];
-                    _foodData.CanHolding = false;
+                    _recipeChar = _currentFood.FoodId[1];
+                    _currentFood.CanHolding = false;
                     break;
                 case (int)CookwareJobEnum.ThreeFourth:
                     yield return _choppingTime;
                     if (_isStillHoldKey)
                     {
-                        RemoveFood(_foodData);
+                        RemoveFood(_currentFood);
                         FoodProcess();
                     }
                     break;
@@ -59,7 +59,7 @@ public class CuttingBoard : Cookware
     // 코루틴
     // ============================================================
     
-    private void OnTriggerStay(Collider collision)
+    private void OnTriggerEnter(Collider collision)
     {
         CheckTrigger(collision);
     }
@@ -72,6 +72,8 @@ public class CuttingBoard : Cookware
     private void Update()
     {
         CheckPress();
+        CheckCookStatus();
+        GrabFood();
     }
     
     // 이벤트 함수
@@ -88,8 +90,6 @@ public class CuttingBoard : Cookware
     
     protected override bool CheckRecipe(Food food)
     {
-        Debug.Log($"레시피 확인 {food.FoodId}");
-        if (food == null) return false;
         if (food.FoodId == "01") return true;
         if (food.FoodId == "03") return true;
         return false;
@@ -112,7 +112,6 @@ public class CuttingBoard : Cookware
         _recipeChar = 'N';
         _cookProgress = (int)CookwareJobEnum.Idle;
         _isStillHoldKey = false;
-        Debug.Log(_foodData);
         UnSetFood();
     }
 
