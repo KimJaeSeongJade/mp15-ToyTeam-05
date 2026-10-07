@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class SelectedButton : MonoBehaviour
 {
     [SerializeField] private Animator _dropDown;
-    [SerializeField] private List<Canvas> _info;
     public List<Button> _buttons = new List<Button>(4);
 
     private static int _index = 0;
@@ -21,7 +20,6 @@ public class SelectedButton : MonoBehaviour
     private void Update()
     {
         Getkey();
-        OnClick();
     }
 
     private void Getkey()
@@ -56,23 +54,16 @@ public class SelectedButton : MonoBehaviour
         {
             if (_selectedButton == t)
             {
-                // 선택 상태
-                t.GetComponent<RectTransform>().localScale = new Vector3(7f, 7f, 1.3f);
-                t.GetComponent<Image>().color = Color.red;
-                
-                if (_selectedButton == _buttons[0])
-                {
-                    Debug.Log("시작버튼");
-                    _dropDown.SetBool("isSelect", true);
-                }
-
+                t.GetComponent<RectTransform>().localScale = new Vector3(6f, 6f, 1f);
+                t.GetComponent<Image>().color = Color.white;
+                t.GetComponent<Outline>().enabled = true;
             }
             else
             {
-                _dropDown.SetBool("isSelect", false);
                 // 기본 상태
                 t.GetComponent<RectTransform>().localScale = new Vector3(5f, 5f, 1f);
-                t.GetComponent<Image>().color = Color.white;
+                t.GetComponent<Image>().color = new Color32(255, 227, 192, 255);
+                t.GetComponent<Outline>().enabled = false;
             }
         }
     }
@@ -83,19 +74,19 @@ public class SelectedButton : MonoBehaviour
         {
             if (_index == 0)
             {
-                TitleManager.Instance.HowToPopup();
+                // 협동모드 -하우투
             }
             else if (_index == 1)
             {
-                TitleManager.Instance.QuitGame();
+                // 경쟁모드 -하우투
             }
             else if (_index == 2)
             { 
-                TitleManager.Instance.CreditPopup();
+                // 세팅 -사운드
             }
             else
             {
-                // 셋팅 팝업
+                TitleManager.Instance.QuitGame();
             }
         }
     }
