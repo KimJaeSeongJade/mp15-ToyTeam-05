@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour
 {
+    public static TitleManager Instance { get; private set; }
     [SerializeField] private GameData _gameData;
     [SerializeField] private Image _p1Ready;
     [SerializeField] private Image _p2Ready;
@@ -23,8 +24,20 @@ public class TitleManager : MonoBehaviour
 
     private void Awake()
     {
+        SetSingleton();
         _p1Ready.color = new Color32(255, 140, 85, 255);
         _p2Ready.color = new Color32(255, 140, 85, 255);
+    }
+
+    private void SetSingleton()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
     }
     
     public void HowToPopup()
