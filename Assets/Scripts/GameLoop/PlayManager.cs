@@ -47,6 +47,9 @@ public class PlayManager : MonoBehaviour
     // --------------------------------------------------- 협동
     private bool _isGameStart;
     private bool _isGameEnd;
+    
+    public bool IsGameStart => _isGameStart;
+    public bool IsGameEnd => _isGameEnd;
 
     private void Start()
     {
@@ -95,7 +98,7 @@ public class PlayManager : MonoBehaviour
         }
     }
 
-    private IEnumerator StartCountDown()
+    public IEnumerator StartCountDown()
     {
         _isGameStart = false;
 

@@ -18,6 +18,7 @@ public class InputManager : Singleton<InputManager>
    private bool _holdP2;  // P2 상호작용1 잡기 놓기
    private bool _intaractDownP2; // P2 상호작용2 조리
    private bool _intaractUpP2;
+   private bool _pauseBreak;
    //------------------------------------------------------
    
    // 플레이어 이동 관련 이벤트
@@ -31,6 +32,9 @@ public class InputManager : Singleton<InputManager>
    public event Action OnIntaractP2;
    public event Action OnCookP2;
    public event Action OnStopCookP2;
+   
+   // 일시정지 이벤트
+   public event Action OnPauseBreak;
    //-------------------------------------------------------
    
    private void Awake()
@@ -47,6 +51,7 @@ public class InputManager : Singleton<InputManager>
       OnInputP2?.Invoke(_moveDirectionP2);
 
       // 해당 키 입력시 해당 이벤트 구독중인 함수 실행.
+      if (_pauseBreak) OnPauseBreak?.Invoke();
       if (_holdP1) OnIntaractP1?.Invoke();
       if (_intaractDownP1)  OnCookP1?.Invoke();
       if (_intaractUpP1) OnStopCookP1?.Invoke();
@@ -59,6 +64,8 @@ public class InputManager : Singleton<InputManager>
 
    private void ReadInputs()
    {
+       _pauseBreak = Input.GetKeyDown(KeyCode.Escape);
+      
        _HorizP1 = Input.GetAxisRaw("HorizontalP1");
        _VertP1 = Input.GetAxisRaw("VerticalP1");
    

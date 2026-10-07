@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
@@ -14,7 +13,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     /// <summary>
     /// 물건을 잡고 있는지 여부
     /// </summary>
-    public bool IsHolding { get; private set; }
+    public bool IsHolding => _currentHoldable != null;
 
     /// <summary>
     /// 물건을 잡을 수 있는지 여부
@@ -34,7 +33,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     /// <summary>
     /// 상호작용 가능 여부
     /// </summary>
-    public bool CanInteract { get; private set; } // 상호작용 가능한지 여부 (다른 상호작용중이라던가 하면 X)
+    public bool CanInteract => _canFindInteractable; // 상호작용 가능한지 여부 (다른 상호작용중이라던가 하면 X)
 
     public bool IsPressed { get; private set; } // 버튼 누르고 있는지 여부
 
@@ -51,6 +50,9 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private Rigidbody _foodRigidbody;
 
     private float _checkDistance = 1.5f;
+    
+    [SerializeField] private Vector3 _drawPointPos;
+    [SerializeField] private Transform _drawPoint;
 
     private void Awake() => Init();
 
@@ -71,9 +73,15 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private void Update()
     {
-        // 레이저 그리는 함수 (테스트용)
+        GetInteractable();
         DrawCheckRay();
     }
+
+    // private void Update()
+    // {
+    //     // 레이저 그리는 함수 (테스트용)
+    //     // DrawCheckRay();
+    // }
 
     private void OnDisable()
     {
@@ -86,21 +94,24 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         Vector3 pos = new Vector3(0, 1f, 0);
         Debug.DrawRay(transform.position + pos, transform.forward * _checkDistance, Color.red);
     }
-
+    
     private void DeskCheckRay()
     {
         Vector3 pos = new Vector3(0, 1f, 0);
         Ray ray = new Ray((transform.position + pos), transform.forward);
-
+    
         if (Physics.Raycast(ray, out RaycastHit hit, _checkDistance, _deskLayerMask))
         {
             _IsDesk = true;
-            _cookware = hit.collider.gameObject.GetComponent<IInteractable>();
+            _cookware = hit.transform.GetComponent<IInteractable>();
+            _drawPoint.position = hit.transform.position + _drawPointPos;
+            _drawPoint.gameObject.SetActive(true);
         }
         else
         {
             _IsDesk = false;
             _cookware = null;
+            _drawPoint.gameObject.SetActive(false);
         }
     }
 
@@ -109,8 +120,10 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     {
         if (IsHolding)
         {
-            ThrowHoldItem(_currentHoldable, 100f);
             ReleaseItem();
+            if (_holdables.Count <=0 ) return;
+            
+            ThrowHoldItem(_holdables[0], 100f);
         }
         else
         {
@@ -121,7 +134,6 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void ReleaseItem()
     {
         _currentHoldable.Release();
-        IsHolding = false;
         _currentHoldable = null;
     }
 
@@ -134,7 +146,6 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
             {
                 holdable.Hold(this, _playerMovement._playerID);
                 _currentHoldable = holdable;
-                IsHolding = true;
                 return;
             }
         }
@@ -142,7 +153,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private void ThrowHoldItem(Food currentHoldItem, float forcePower)
     {
-        if (currentHoldItem == null) return;
+        // if (!IsHolding) return;
 
         _foodRigidbody = currentHoldItem.GetComponent<Rigidbody>();
         _foodRigidbody.AddForce(transform.forward * forcePower);
@@ -152,13 +163,11 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     {
         if (CanCook())
         {
-            IsPressed = true;
-            Debug.Log($"{IsPressed} : Cook");
+            CanCookTrue();
         }
         else
         {
-            IsPressed = false;
-            Debug.Log($"{IsPressed} : UnCook");
+            CanCookFalse();
         }
     }
 
@@ -170,33 +179,35 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private bool CanCook()
     {
-        if (_cookware != null && _IsDesk)
+        return (CurrentInteractable != null);
+    }
+
+    private void CanCookTrue()
+    {
+        if (IsHolding)
         {
-            if (IsHolding)
-            {
-                _cookware.Interact(this, _currentHoldable);
-            }
-            else
-            {
-                _cookware.Interact(this);
-            }
-            Debug.Log("Cookware");
-            return true;
+            CurrentInteractable.Interact(this, _currentHoldable);
         }
         else
         {
-            if (IsHolding)
-            {
-                ThrowHoldItem(_currentHoldable, 1000f);
-                ReleaseItem();
-                Debug.Log("UnCookware");
-                return false;
-            }
-            else
-            {
-                return false;
-            }
+            CurrentInteractable.Interact(this);
         }
+        // Debug.Log("Cookware");
+        IsPressed = true;
+        // Debug.Log($"{IsPressed} : Cook");
+    }
+
+    private void CanCookFalse()
+    {
+        if (IsHolding)
+        {
+            ReleaseItem();
+            if (_holdables.Count <=0 ) return;
+            ThrowHoldItem(_holdables[0], 1000f);
+        }
+        // Debug.Log("UnCookware");
+        IsPressed = false;
+        // Debug.Log($"{IsPressed} : UnCook");
     }
 
     private void CheckEnterTrigger(Collider other)
@@ -207,10 +218,11 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
             food.OnReturnPool += RemoveData;
         }
 
-        if (other.GetComponent<IInteractable>() != null)
+        if (other.TryGetComponent(out IInteractable inter))
         {
-            // _cookware = other.GetComponent<IInteractable>();
+            CheckEnterTrigger(inter);
             DeskCheckRay();
+            // _cookware = inter;
         }
     }
 
@@ -221,11 +233,14 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
             RemoveData(food);
         }
 
-        if (other.GetComponent<IInteractable>() != null)
+        if (other.TryGetComponent(out IInteractable inter))
         {
-            // _cookware = null;
+            CheckoutTrigger(inter);
             DeskCheckRay();
+            /*
+            _cookware = null;
             IsPressed = false;
+            */
         }
     }
 
@@ -266,6 +281,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void Init()
     {
         _playerMovement = GetComponent<PlayerMovement>();
+        _drawPoint.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -273,10 +289,46 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     /// </summary>
     public void RemoveData(Food food)
     {
+        if (food == _currentHoldable) _currentHoldable = null;
         if (_holdables.Contains(food))
         {
             _holdables.Remove(food);
             food.OnReturnPool -= RemoveData;
         }
     }
+    
+    // =============================================================
+
+    private bool _isInterListEmpty => _interactables.Count <= 0;
+    private bool _canFindInteractable => CurrentInteractable != null;
+
+    private List<IInteractable> _interactables = new();
+    public IInteractable CurrentInteractable;
+    
+    private void CheckEnterTrigger(IInteractable inter)
+    {
+        _interactables.Add(inter);
+    }
+
+    private void CheckoutTrigger(IInteractable inter)
+    {
+        if (_interactables.Contains(inter))
+        {
+            _interactables.Remove(inter);
+            if (inter ==  CurrentInteractable)
+            {
+                CurrentInteractable = null;
+            }
+        }
+    }
+
+    private void GetInteractable()
+    {
+        if (_canFindInteractable || _isInterListEmpty) return;
+        CurrentInteractable = _interactables[0];
+    }
+
+
+
+
 }
