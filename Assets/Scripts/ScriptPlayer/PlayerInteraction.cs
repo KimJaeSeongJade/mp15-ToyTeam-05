@@ -8,18 +8,19 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     /// <summary>
     /// 물체가 위치할 트랜스폼
     /// </summary>
-    [field: SerializeField] public Transform TargetTransform { get; private set; }
-    
+    [field: SerializeField]
+    public Transform TargetTransform { get; private set; }
+
     /// <summary>
     /// 물건을 잡고 있는지 여부
     /// </summary>
     public bool IsHolding { get; private set; }
-    
+
     /// <summary>
     /// 물건을 잡을 수 있는지 여부
     /// </summary>
     public bool CanHold { get; private set; }
-    
+
     /// <summary>
     /// 물건을 놓을 수 있는지 여부
     /// </summary>
@@ -29,32 +30,30 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     [SerializeField] private List<Food> _holdables;
     [SerializeField] private Food _currentHoldable;
-    
+
     /// <summary>
     /// 상호작용 가능 여부
     /// </summary>
     public bool CanInteract { get; private set; } // 상호작용 가능한지 여부 (다른 상호작용중이라던가 하면 X)
-    
+
     public bool IsPressed { get; private set; } // 버튼 누르고 있는지 여부
-    
+
     public bool IsPlayer1 { get; private set; }
-    
+
     // [SerializeField] private Cookware _cookware;
 
     [SerializeField] public IInteractable _cookware { get; private set; }
-    
-    [SerializeField] private LayerMask _cookwareLayerMask;
-    private IInteractable _interactablePos;
-    private Transform _currentInteractablePos;
-    
+
+    [SerializeField] private LayerMask _deskLayerMask;
+    [SerializeField] private bool _IsDesk;
+
     private PlayerMovement _playerMovement;
     private Rigidbody _foodRigidbody;
-    
+
     private float _checkDistance = 1.5f;
-    private float _checkDistanceYpos = 0.5f;
-    
+
     private void Awake() => Init();
-    
+
     private void OnEnable()
     {
         BindHoldInputEvents();
@@ -64,7 +63,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     {
         CheckEnterTrigger(other);
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         CheckExitTrigger(other);
@@ -72,45 +71,39 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private void Update()
     {
-        // if (_interactables[0] != null) return;
-        
+        // 레이저 그리는 함수 (테스트용)
         DrawCheckRay();
-        CheckDesk();
     }
 
     private void OnDisable()
     {
         UnBindHoldInputEvents();
     }
-
+    
+    // 레이저 그리는 함수 (테스트용)
     private void DrawCheckRay()
     {
         Vector3 pos = new Vector3(0, 1f, 0);
         Debug.DrawRay(transform.position + pos, transform.forward * _checkDistance, Color.red);
     }
-    
-    private void CheckDesk()
+
+    private void DeskCheckRay()
     {
         Vector3 pos = new Vector3(0, 1f, 0);
         Ray ray = new Ray((transform.position + pos), transform.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, _checkDistance, _cookwareLayerMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, _checkDistance, _deskLayerMask))
         {
-            // if (hit.collider.GetComponent<IInteractable>() == null) return;
-            int count = 0;
-            
-            _currentInteractablePos = hit.transform;
-            
-            Vector3 dis = hit.point - transform.position;
-            Vector3 currentDis = _currentInteractablePos.position - transform.position;
-
-            {
-                count++;
-                Debug.Log($"{hit.collider.name} : {count} : 멀당");
-            }
+            _IsDesk = true;
+            _cookware = hit.collider.gameObject.GetComponent<IInteractable>();
+        }
+        else
+        {
+            _IsDesk = false;
+            _cookware = null;
         }
     }
-    
+
     // 들어올리기 / 내려놓기 함수
     private void PutItDown()
     {
@@ -131,7 +124,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         IsHolding = false;
         _currentHoldable = null;
     }
-    
+
     private void HoldItem()
     {
         if (_holdables.Count <= 0) return;
@@ -150,7 +143,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void ThrowHoldItem(Food currentHoldItem, float forcePower)
     {
         if (currentHoldItem == null) return;
-        
+
         _foodRigidbody = currentHoldItem.GetComponent<Rigidbody>();
         _foodRigidbody.AddForce(transform.forward * forcePower);
     }
@@ -160,13 +153,11 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         if (CanCook())
         {
             IsPressed = true;
-            CanInteract = false;
             Debug.Log($"{IsPressed} : Cook");
         }
         else
         {
             IsPressed = false;
-            CanInteract = true;
             Debug.Log($"{IsPressed} : UnCook");
         }
     }
@@ -174,13 +165,12 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void UnCookInteraction()
     {
         IsPressed = false;
-        CanInteract = true;
         Debug.Log($"{IsPressed} : UnCook");
     }
 
     private bool CanCook()
     {
-        if (_cookware != null)
+        if (_cookware != null && _IsDesk)
         {
             if (IsHolding)
             {
@@ -216,33 +206,29 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
             _holdables.Add(food);
             food.OnReturnPool += RemoveData;
         }
-        
+
         if (other.GetComponent<IInteractable>() != null)
         {
-            // if (_currentInteractablePos == null)
-            // {
-            //     CheckDesk();
-            // }
             // _cookware = other.GetComponent<IInteractable>();
+            DeskCheckRay();
         }
     }
-    
+
     private void CheckExitTrigger(Collider other)
     {
         if (other.TryGetComponent(out Food food))
         {
             RemoveData(food);
         }
-        
+
         if (other.GetComponent<IInteractable>() != null)
         {
-            _cookware = null;
-            
-            _currentInteractablePos = null;
+            // _cookware = null;
+            DeskCheckRay();
             IsPressed = false;
         }
     }
-    
+
     private void BindHoldInputEvents()
     {
         switch (_playerMovement._playerID)
