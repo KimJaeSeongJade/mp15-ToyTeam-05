@@ -69,11 +69,11 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         CheckExitTrigger(other);
     }
 
-    private void Update()
-    {
-        // 레이저 그리는 함수 (테스트용)
-        DrawCheckRay();
-    }
+    // private void Update()
+    // {
+    //     // 레이저 그리는 함수 (테스트용)
+    //     // DrawCheckRay();
+    // }
 
     private void OnDisable()
     {
@@ -81,28 +81,28 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     }
     
     // 레이저 그리는 함수 (테스트용)
-    private void DrawCheckRay()
-    {
-        Vector3 pos = new Vector3(0, 1f, 0);
-        Debug.DrawRay(transform.position + pos, transform.forward * _checkDistance, Color.red);
-    }
-
-    private void DeskCheckRay()
-    {
-        Vector3 pos = new Vector3(0, 1f, 0);
-        Ray ray = new Ray((transform.position + pos), transform.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, _checkDistance, _deskLayerMask))
-        {
-            _IsDesk = true;
-            _cookware = hit.collider.gameObject.GetComponent<IInteractable>();
-        }
-        else
-        {
-            _IsDesk = false;
-            _cookware = null;
-        }
-    }
+    // private void DrawCheckRay()
+    // {
+    //     Vector3 pos = new Vector3(0, 1f, 0);
+    //     Debug.DrawRay(transform.position + pos, transform.forward * _checkDistance, Color.red);
+    // }
+    //
+    // private void DeskCheckRay()
+    // {
+    //     Vector3 pos = new Vector3(0, 1f, 0);
+    //     Ray ray = new Ray((transform.position + pos), transform.forward);
+    //
+    //     if (Physics.Raycast(ray, out RaycastHit hit, _checkDistance, _deskLayerMask))
+    //     {
+    //         _IsDesk = true;
+    //         _cookware = hit.collider.GetComponent<IInteractable>();
+    //     }
+    //     else
+    //     {
+    //         _IsDesk = false;
+    //         _cookware = null;
+    //     }
+    // }
 
     // 들어올리기 / 내려놓기 함수
     private void PutItDown()
@@ -170,7 +170,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private bool CanCook()
     {
-        if (_cookware != null && _IsDesk)
+        if (_cookware != null)
         {
             if (IsHolding)
             {
@@ -180,22 +180,16 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
             {
                 _cookware.Interact(this);
             }
+
             Debug.Log("Cookware");
             return true;
         }
         else
         {
-            if (IsHolding)
-            {
-                ThrowHoldItem(_currentHoldable, 1000f);
-                ReleaseItem();
-                Debug.Log("UnCookware");
-                return false;
-            }
-            else
-            {
-                return false;
-            }
+            ThrowHoldItem(_currentHoldable, 1000f);
+            ReleaseItem();
+            Debug.Log("UnCookware");
+            return false;
         }
     }
 
@@ -209,8 +203,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
         if (other.GetComponent<IInteractable>() != null)
         {
-            // _cookware = other.GetComponent<IInteractable>();
-            DeskCheckRay();
+            _cookware = other.GetComponent<IInteractable>();
         }
     }
 
@@ -223,8 +216,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
         if (other.GetComponent<IInteractable>() != null)
         {
-            // _cookware = null;
-            DeskCheckRay();
+            _cookware = null;
             IsPressed = false;
         }
     }
