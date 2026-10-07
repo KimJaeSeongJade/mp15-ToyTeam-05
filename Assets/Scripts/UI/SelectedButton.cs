@@ -14,6 +14,7 @@ public class SelectedButton : MonoBehaviour
     private void Start()
     {
         _selectedButton = _buttons[_index];
+        Selected();
     }
     
     private void Update()
