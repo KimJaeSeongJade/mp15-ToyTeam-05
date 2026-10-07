@@ -31,7 +31,7 @@ public class SpecialOrder : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            //StartCoroutine(PlayerSlow(0));
+            RandomSpecial(1);
         }
     }
     // ------------------------ 테스트
@@ -39,27 +39,35 @@ public class SpecialOrder : MonoBehaviour
     // int 플레이어 0 이면 P1 , 플레이어 1 이면 P2가 당함.
     public void RandomSpecial(int Damageplayer)
     {
+        Debug.Log("스페셜 오더");
+        
         int _special = Random.Range(0, 4);
+        Debug.Log(_special);
+        
         switch (_special)
         {
             // 시야 방해하기
             case 0:
                 StartCoroutine(Ink(Damageplayer));
+                Debug.Log("시야방해");
                 break;
             
             // 플레이어 조작 방해
             case 1:
                 MixGetkey(Damageplayer);
+                Debug.Log("조작방해");
                 break;
             
             // 벨트 막힘
             case 2:
                 StartCoroutine(BeltStop(Damageplayer));
+                Debug.Log("벨트 막힘");
                 break;
             
             // 속도 둔화
             case 3:
                 StartCoroutine(PlayerSlow(Damageplayer));
+                Debug.Log("둔화");
                 break;
         }
     }

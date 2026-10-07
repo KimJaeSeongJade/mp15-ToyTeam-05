@@ -9,7 +9,13 @@ public class Counter : MonoBehaviour, IInteractable
     public RemoveOrderUI _removeOrderUI;
     public GameData _gameData;
     
-    [SerializeField] private SpecialOrder _specialOrder;
+    private SpecialOrder _specialOrder;
+
+    private void Start()
+    {
+        _specialOrder = GetComponent<SpecialOrder>();
+    }
+
     public void Interact(IInteractor interactor)
     {
     }
