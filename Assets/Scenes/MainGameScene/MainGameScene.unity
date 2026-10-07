@@ -301,10 +301,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1648298990}
     - target: {fileID: 7833429661766851574, guid: d7f55f620511c7e4ab8aaf6f42b85fe1, type: 3}
-      propertyPath: _gameData
-      value: 
-      objectReference: {fileID: 11400000, guid: ea709e8573ce15145a6f3ed5bc971b7a, type: 2}
-    - target: {fileID: 7833429661766851574, guid: d7f55f620511c7e4ab8aaf6f42b85fe1, type: 3}
       propertyPath: _ink.Array.data[0]
       value: 
       objectReference: {fileID: 7660275961322672545}
@@ -2865,8 +2861,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4b7bbd43d6355434aa1f66f80db587ef, type: 2}
-  m_sharedMaterial: {fileID: -2822964291320350283, guid: 4b7bbd43d6355434aa1f66f80db587ef, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
