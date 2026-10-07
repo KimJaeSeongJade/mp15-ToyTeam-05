@@ -51,6 +51,9 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private Rigidbody _foodRigidbody;
 
     private float _checkDistance = 1.5f;
+    
+    [SerializeField] private Vector3 _drawPointPos;
+    [SerializeField] private Transform _drawPoint;
 
     private void Awake() => Init();
 
@@ -72,6 +75,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void Update()
     {
         GetInteractable();
+        DrawCheckRay();
     }
 
     // private void Update()
@@ -86,28 +90,31 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     }
     
     // 레이저 그리는 함수 (테스트용)
-    // private void DrawCheckRay()
-    // {
-    //     Vector3 pos = new Vector3(0, 1f, 0);
-    //     Debug.DrawRay(transform.position + pos, transform.forward * _checkDistance, Color.red);
-    // }
-    //
-    // private void DeskCheckRay()
-    // {
-    //     Vector3 pos = new Vector3(0, 1f, 0);
-    //     Ray ray = new Ray((transform.position + pos), transform.forward);
-    //
-    //     if (Physics.Raycast(ray, out RaycastHit hit, _checkDistance, _deskLayerMask))
-    //     {
-    //         _IsDesk = true;
-    //         _cookware = hit.collider.GetComponent<IInteractable>();
-    //     }
-    //     else
-    //     {
-    //         _IsDesk = false;
-    //         _cookware = null;
-    //     }
-    // }
+    private void DrawCheckRay()
+    {
+        Vector3 pos = new Vector3(0, 1f, 0);
+        Debug.DrawRay(transform.position + pos, transform.forward * _checkDistance, Color.red);
+    }
+    
+    private void DeskCheckRay()
+    {
+        Vector3 pos = new Vector3(0, 1f, 0);
+        Ray ray = new Ray((transform.position + pos), transform.forward);
+    
+        if (Physics.Raycast(ray, out RaycastHit hit, _checkDistance, _deskLayerMask))
+        {
+            _IsDesk = true;
+            _cookware = hit.transform.GetComponent<IInteractable>();
+            _drawPoint.position = hit.transform.position + _drawPointPos;
+            _drawPoint.gameObject.SetActive(true);
+        }
+        else
+        {
+            _IsDesk = false;
+            _cookware = null;
+            _drawPoint.gameObject.SetActive(false);
+        }
+    }
 
     // 들어올리기 / 내려놓기 함수
     private void PutItDown()
@@ -215,6 +222,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         if (other.TryGetComponent(out IInteractable inter))
         {
             CheckEnterTrigger(inter);
+            DeskCheckRay();
             // _cookware = inter;
         }
     }
@@ -229,6 +237,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         if (other.TryGetComponent(out IInteractable inter))
         {
             CheckoutTrigger(inter);
+            DeskCheckRay();
             /*
             _cookware = null;
             IsPressed = false;
@@ -273,6 +282,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void Init()
     {
         _playerMovement = GetComponent<PlayerMovement>();
+        _drawPoint.gameObject.SetActive(false);
     }
 
     /// <summary>
