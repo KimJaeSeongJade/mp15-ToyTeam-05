@@ -115,15 +115,7 @@ public class TitleManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         ResetGameData();
-        if(_gameData.GameMode == 0)
-        {
-            SceneManager.LoadScene(1);
-        }
-        else
-        {
-            SceneManager.LoadScene(2);
-        }
-        
+        SceneManager.LoadScene(1);
         
         InputManager.Instance.OnIntaractP1 -= temp1;
         InputManager.Instance.OnCookP1 -= temp1;
