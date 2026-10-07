@@ -50,7 +50,7 @@ public class CuttingBoard : Cookware
                     if (_isStillHoldKey) NextChop();
                     break;
             }
-            Debug.Log($"요리 진행도 : {(int)_cookProgress}");
+            Debug.Log($"썰기 진행도 : {(int)_cookProgress}");
         }
         _playerInteractor = null;
     }
