@@ -39,10 +39,10 @@ public class Food : MonoBehaviour, IFood, IHoldable
         {
             LastHolder = holder;
             CanHolding = false;
+            OnPlayerHold?.Invoke(this);
         }
         else
         {
-            OnPlayerHold?.Invoke(this);
             CanHolding = true;
         }
         HoldItemPosition(holder);

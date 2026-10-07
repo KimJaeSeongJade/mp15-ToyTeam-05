@@ -73,15 +73,11 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     
     public void RemoveData(Food food)
     {
-        PlayerPickupRemove(food);
+        PlayerPickup(food);
         if (_foods.Contains(food))
         {
             _foods.Remove(food);
             food.OnReturnPool -= RemoveData;
-        }
-        if (food == _currentFood)
-        {
-            UnSetFood();
         }
     }
     
@@ -110,27 +106,28 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         if (!CanHold||_foods.Count == 0) return;
         foreach (Food food in _foods)
         {
+            if (!CheckRecipe(food)) continue;
             SetFood(food);
         }
     }
     
     protected void SetFood(Food food)
     {
-        Debug.Log($"음식 잡기 시도 / {food.name} : {food.CanHolding}");
         if (!food.CanHolding) return;
         _currentFood = food;
         food.Hold(this, PLAYER_ID.NONE);
+        food.OnPlayerHold += PlayerPickup;
     }
 
     protected void UnSetFood()
     {
-        _currentFood.Release();
         _currentFood = null;
     }
     
     protected void RemoveFood(Food food)
     {
         food.ReturnToPool();
+        PlayerPickup(food);
     }
     
     /// <summary>
@@ -141,16 +138,12 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         if (!IsHolding) _cookProgress = (int)CookwareJobEnum.Idle;
         else _currentFood.CanHolding = !IsCooking;
     }
-
-    protected void PlayerPickupAdd(Food food)
-    {
-        food.OnPlayerHold += PlayerPickupRemove;
-    }
-    protected void PlayerPickupRemove(Food food)
+    protected void PlayerPickup(Food food)
     {
         if (food == _currentFood)
         {
-            food.OnPlayerHold -= PlayerPickupRemove;
+            UnSetFood();
+            food.OnPlayerHold -= PlayerPickup;
         }
     }
     
