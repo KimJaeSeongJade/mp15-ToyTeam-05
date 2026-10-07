@@ -26,15 +26,7 @@ public class TitleManager : MonoBehaviour
         _p1Ready.color = new Color32(255, 140, 85, 255);
         _p2Ready.color = new Color32(255, 140, 85, 255);
     }
-
-    private void OnDisable()
-    {
-        InputManager.Instance.OnIntaractP1 -= temp1;
-        InputManager.Instance.OnCookP1 -= temp1;
-        InputManager.Instance.OnIntaractP2 -= temp2;
-        InputManager.Instance.OnCookP2 -= temp2;
-    }
-
+    
     public void HowToPopup()
     {
         InputManager.Instance.OnIntaractP1 += temp1;
@@ -111,6 +103,11 @@ public class TitleManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         ResetGameData();
         SceneManager.LoadScene(1);
+        
+        InputManager.Instance.OnIntaractP1 -= temp1;
+        InputManager.Instance.OnCookP1 -= temp1;
+        InputManager.Instance.OnIntaractP2 -= temp2;
+        InputManager.Instance.OnCookP2 -= temp2;
     }
 
     // 게임 종료하기
