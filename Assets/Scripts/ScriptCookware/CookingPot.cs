@@ -59,7 +59,6 @@ public class CookingPot : Cookware
 
     private void StartBoil()
     {
-        Debug.Log($"냄비 요리 시작");
         _playerHolder = _currentFood.LastHolder;
         _cookProgress = (int)CookwareJobEnum.Start;
         _currentFood.CanHolding = false;
@@ -75,7 +74,6 @@ public class CookingPot : Cookware
         }
         else
         {
-            Debug.Log($"냄비 요리 완성");
             RemoveFood(_currentFood);
             FoodProcess();
         }

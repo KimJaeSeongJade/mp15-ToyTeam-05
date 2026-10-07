@@ -58,7 +58,6 @@ public class Fryingpan : Cookware
 
     private void StartFrying()
     {
-        Debug.Log($"팬 요리 시작");
         _playerHolder = _currentFood.LastHolder;
         _cookProgress = (int)CookwareJobEnum.Start;
         _currentFood.CanHolding = false;
@@ -74,7 +73,6 @@ public class Fryingpan : Cookware
         }
         else
         {
-            Debug.Log($"팬 요리 완성");
             RemoveFood(_currentFood);
             FoodProcess();
         }
