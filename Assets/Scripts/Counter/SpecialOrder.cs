@@ -22,8 +22,8 @@ public class SpecialOrder : MonoBehaviour
 
     private void Start()
     {
-        _ink[0].enabled = false;
-        _ink[1].enabled = false;
+        /*_ink[0].enabled = false;
+        _ink[1].enabled = false;*/
     }
 
     // ------------------------ 테스트
