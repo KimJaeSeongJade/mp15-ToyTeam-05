@@ -12,7 +12,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     
     protected int _cookProgress = (int)CookwareJobEnum.Idle;
     protected IInteractor _playerInteractor;
-    protected IHolder _lastHolder;
+    protected IHolder _playerHolder;
 
     protected bool _canRealeaseItem;
 

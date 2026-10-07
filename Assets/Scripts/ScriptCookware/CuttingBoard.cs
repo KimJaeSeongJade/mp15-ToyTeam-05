@@ -32,7 +32,7 @@ public class CuttingBoard : Cookware
             switch (_cookProgress)
             {
                 case (int)CookwareJobEnum.Idle:
-                    _lastHolder = _currentFood.LastHolder;
+                    _playerHolder = _currentFood.LastHolder;
                     _cookProgress = (int)CookwareJobEnum.Start;
                     _recipeChar = _currentFood.FoodId[1];
                     _currentFood.CanHolding = false;

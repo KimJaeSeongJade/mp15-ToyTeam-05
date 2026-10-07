@@ -236,6 +236,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e5f085764a71145ba6cf08719e24e4, type: 3}
+--- !u!1 &317130302 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5038231718976921442, guid: 623c67ac9d3e86c46a1487e5fdb08f94, type: 3}
+  m_PrefabInstance: {fileID: 2125676965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &384788951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -692,6 +697,14 @@ PrefabInstance:
     - target: {fileID: 7288854053227203913, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
       propertyPath: m_Name
       value: PotStove
+      objectReference: {fileID: 0}
+    - target: {fileID: 7543924304454837857, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7543924304454837857, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
+      propertyPath: m_Center.y
+      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1893,7 +1906,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5038231718976921442, guid: 623c67ac9d3e86c46a1487e5fdb08f94, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 8915003623032090990}
   m_SourcePrefab: {fileID: 100100000, guid: 623c67ac9d3e86c46a1487e5fdb08f94, type: 3}
 --- !u!33 &20185826824550853
 MeshFilter:
@@ -15434,6 +15450,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1367969223357247144, guid: 623c67ac9d3e86c46a1487e5fdb08f94, type: 3}
   m_PrefabInstance: {fileID: 2125676965}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &8915003623032090990
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317130302}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5, y: 0.4, z: 1.5}
+  m_Center: {x: 0, y: 0.65, z: 0}
 --- !u!33 &8923393944828586699
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class CookingPot : Cookware
     {
         CheckCookStatus();
         GrabFood();
-        if (_isCooking) Boil(); 
+        if (_isCooking) Boil();
     }
     
     private void OnTriggerEnter(Collider collision)
@@ -51,7 +51,8 @@ public class CookingPot : Cookware
     protected override void StartCooking()
     {
         Debug.Log("냄비 요리 시작 시도");
-        if (_cookProgress == -1 && _recipeChar != 'N') StartBoil();
+        if (_cookProgress == -1 
+            && CheckRecipe(_currentFood)) StartBoil();
     }
 
     // 공개 메서드
@@ -60,7 +61,7 @@ public class CookingPot : Cookware
     private void StartBoil()
     {
         Debug.Log($"냄비 요리 시작");
-        _lastHolder = _currentFood.LastHolder;
+        _playerHolder = _currentFood.LastHolder;
         _cookProgress = (int)CookwareJobEnum.Start;
         _currentFood.CanHolding = false;
         _recipeChar = _currentFood.FoodId[1];
