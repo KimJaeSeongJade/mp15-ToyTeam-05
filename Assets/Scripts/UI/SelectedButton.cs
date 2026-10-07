@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SelectedButton : MonoBehaviour
 {
+    [SerializeField] private Animator _dropDown;
     [SerializeField] private List<Canvas> _info;
     public List<Button> _buttons = new List<Button>(4);
 
@@ -58,10 +59,17 @@ public class SelectedButton : MonoBehaviour
                 // 선택 상태
                 t.GetComponent<RectTransform>().localScale = new Vector3(7f, 7f, 1.3f);
                 t.GetComponent<Image>().color = Color.red;
+                
+                if (_selectedButton == _buttons[0])
+                {
+                    Debug.Log("시작버튼");
+                    _dropDown.SetBool("isSelect", true);
+                }
 
             }
             else
             {
+                _dropDown.SetBool("isSelect", false);
                 // 기본 상태
                 t.GetComponent<RectTransform>().localScale = new Vector3(5f, 5f, 1f);
                 t.GetComponent<Image>().color = Color.white;
