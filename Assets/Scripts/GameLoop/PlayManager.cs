@@ -42,6 +42,9 @@ public class PlayManager : MonoBehaviour
 
     private bool _isGameStart;
     private bool _isGameEnd;
+    
+    public bool IsGameStart => _isGameStart;
+    public bool IsGameEnd => _isGameEnd;
 
     private void Start()
     {
@@ -81,7 +84,7 @@ public class PlayManager : MonoBehaviour
         _p2InGameScore.text = _gameData.Player2Score.ToString();
     }
 
-    private IEnumerator StartCountDown()
+    public IEnumerator StartCountDown()
     {
         _isGameStart = false;
 
