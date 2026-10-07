@@ -32,16 +32,16 @@ public class CuttingBoard : Cookware
             switch (_cookProgress)
             {
                 case (int)CookwareJobEnum.Idle:
-                    _lastHolder = _foodData.LastHolder;
+                    _playerHolder = _currentFood.LastHolder;
                     _cookProgress = (int)CookwareJobEnum.Start;
-                    _recipeChar = _foodData.FoodId[1];
-                    _foodData.CanHolding = false;
+                    _recipeChar = _currentFood.FoodId[1];
+                    _currentFood.CanHolding = false;
                     break;
                 case (int)CookwareJobEnum.ThreeFourth:
                     yield return _choppingTime;
                     if (_isStillHoldKey)
                     {
-                        RemoveFood(_foodData);
+                        RemoveFood(_currentFood);
                         FoodProcess();
                     }
                     break;
@@ -50,7 +50,7 @@ public class CuttingBoard : Cookware
                     if (_isStillHoldKey) NextChop();
                     break;
             }
-            Debug.Log($"요리 진행도 : {(int)_cookProgress}");
+            Debug.Log($"썰기 진행도 : {(int)_cookProgress}");
         }
         _playerInteractor = null;
     }
@@ -59,7 +59,7 @@ public class CuttingBoard : Cookware
     // 코루틴
     // ============================================================
     
-    private void OnTriggerStay(Collider collision)
+    private void OnTriggerEnter(Collider collision)
     {
         CheckTrigger(collision);
     }
@@ -72,6 +72,8 @@ public class CuttingBoard : Cookware
     private void Update()
     {
         CheckPress();
+        CheckCookStatus();
+        GrabFood();
     }
     
     // 이벤트 함수
@@ -88,8 +90,6 @@ public class CuttingBoard : Cookware
     
     protected override bool CheckRecipe(Food food)
     {
-        Debug.Log($"레시피 확인 {food.FoodId}");
-        if (food == null) return false;
         if (food.FoodId == "01") return true;
         if (food.FoodId == "03") return true;
         return false;
@@ -100,19 +100,18 @@ public class CuttingBoard : Cookware
         if (_recipeChar == '1')
         {
             Food ob = PoolManager.Instance.Get(ChoppedLettuce);
+            ob.ActiveCookFood();
             ob.Hold(this, PLAYER_ID.NONE);
-            ob.ActiveThisFood();
         }
         if (_recipeChar == '3')
         {
             Food ob = PoolManager.Instance.Get(ChoppedTomato);
+            ob.ActiveCookFood();
             ob.Hold(this, PLAYER_ID.NONE);
-            ob.ActiveThisFood();
         }
         _recipeChar = 'N';
         _cookProgress = (int)CookwareJobEnum.Idle;
         _isStillHoldKey = false;
-        Debug.Log(_foodData);
         UnSetFood();
     }
 

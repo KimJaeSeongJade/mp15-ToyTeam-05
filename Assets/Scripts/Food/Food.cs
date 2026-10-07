@@ -5,6 +5,7 @@ using UnityEngine;
 public class Food : MonoBehaviour, IFood, IHoldable
 {
     public event System.Action<Food> OnReturnPool;
+    public event System.Action<Food> OnPlayerHold;
     
     [SerializeField] private string _foodName;
     [SerializeField] private string _foodId;
@@ -34,23 +35,22 @@ public class Food : MonoBehaviour, IFood, IHoldable
 
     public void Hold(IHolder holder, PLAYER_ID playerID)
     {
-        _lastHoldingPlayerID = playerID;
-        Debug.Log($"잡은놈 : {holder}");
-        HoldItemPosition(holder);
         if (playerID != PLAYER_ID.NONE)
         {
             LastHolder = holder;
             CanHolding = false;
+            OnPlayerHold?.Invoke(this);
         }
         else
         {
             CanHolding = true;
         }
+        HoldItemPosition(holder);
+        _lastHoldingPlayerID = playerID;
     }
 
     public void Release()
     {
-        Debug.Log($"놔라");
         UnHoldItemPosition();
     }
 
@@ -61,6 +61,12 @@ public class Food : MonoBehaviour, IFood, IHoldable
     {
         this.gameObject.SetActive(true);
         _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+    }
+
+    public void ActiveCookFood()
+    {
+        this.gameObject.SetActive(true);
+        _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     /// <summary>
@@ -84,8 +90,8 @@ public class Food : MonoBehaviour, IFood, IHoldable
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         
-        _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         IsHolding = true;
+        _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     /// <summary>

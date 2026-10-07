@@ -10,28 +10,28 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     protected int _foodLayer = 12;
     protected char _recipeChar;
     
-    [SerializeField] protected int _cookProgress = (int)CookwareJobEnum.Idle;
-    [SerializeField] protected IInteractor _playerInteractor;
-    [SerializeField] protected IHolder _lastHolder;
+    protected int _cookProgress = (int)CookwareJobEnum.Idle;
+    protected IInteractor _playerInteractor;
+    protected IHolder _playerHolder;
 
-    [SerializeField] protected bool _canHoldItem;
-    [SerializeField] protected bool _canRealeaseItem;
-    
-    [SerializeField] protected Food _foodData;
+    protected bool _canRealeaseItem;
+
+    [SerializeField] protected List<Food> _foods = new();
+    [SerializeField] protected Food _currentFood;
     
     // 비공개 필드
     // ============================================================
 
 
     public Transform TargetTransform => _targetTransform;
-    
-    public bool CanHold => _canHoldItem;
+
+    public bool CanHold => _currentFood == null;
     public bool CanRelease => _canRealeaseItem;
     public bool IsPressed { get; set; }
     
-    public Food FoodData => _foodData;
+    public Food FoodData => _currentFood;
 
-    public bool IsHolding => _foodData != null;
+    public bool IsHolding => _currentFood != null;
     public bool IsCooking => _cookProgress != (int)CookwareJobEnum.Idle;
     
     public int CookProgress => _cookProgress;
@@ -49,10 +49,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     public void Interact(IInteractor interactor, IHoldable holdable)
     {
         if (!CanWork(holdable)) return;
-        _playerInteractor = interactor;
         holdable.Release();
-        SetFood(holdable.FoodData);
-        StartCooking();
     }
 
     protected abstract void StartCooking();
@@ -61,19 +58,11 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     
     // 추상 메서드
     // ============================================================
-
-    private void Update()
-    {
-        CheckCookStatus();
-    }
-        
-    // 이벤트 함수
-    // ============================================================
     
     public bool CanWork()
     {
         if (!IsHolding) return false;
-        return CheckRecipe(_foodData);
+        return CheckRecipe(_currentFood);
     }
 
     public bool CanWork(IHoldable holdable)
@@ -81,64 +70,87 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
         if (IsHolding) return false;
         return CheckRecipe(holdable.FoodData);
     }
-
+    
     public void RemoveData(Food food)
     {
-        if (_foodData == food) UnSetFood();
-    }
-
-    protected void CheckTrigger(Collider collision)
-    {
-        if (IsHolding) return;
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Food"))
+        PlayerPickup(food);
+        if (_foods.Contains(food))
         {
-            Food food = collision.gameObject.GetComponent<Food>();
-            if (food.IsHolding) return;
-            if (CheckRecipe(food)) SetFood(food);
+            _foods.Remove(food);
+            food.OnReturnPool -= RemoveData;
+        }
+    }
+    
+    // public 메서드
+    // ============================================================
+
+    protected void CheckTrigger(Collider other)
+    {
+        if (other.TryGetComponent(out Food food))
+        {
+            _foods.Add(food);
+            food.OnReturnPool += RemoveData;
         }
     }
 
-    protected void OutTrigger(Collider collision)
+    protected void OutTrigger(Collider other)
     {
-        if (!IsHolding) return;
-        if (collision.gameObject.GetComponent<Food>() == _foodData) UnSetFood();
+        if (other.TryGetComponent(out Food food))
+        {
+            RemoveData(food);
+        }
+    }
+
+    protected void GrabFood()
+    {
+        if (!CanHold||_foods.Count == 0) return;
+        foreach (Food food in _foods)
+        {
+            if (!CheckRecipe(food)) continue;
+            SetFood(food);
+        }
     }
     
-    /// <summary>
-    /// 해당 음식을 등록
-    /// </summary>
-    /// <param name="food">등록할 음식</param>
     protected void SetFood(Food food)
     {
-        _foodData = food;
-        _foodData.Hold(this, PLAYER_ID.NONE);
+        if (!food.CanHolding) return;
+        _currentFood = food;
+        food.Hold(this, PLAYER_ID.NONE);
+        food.OnPlayerHold += PlayerPickup;
     }
-    
-    /// <summary>
-    /// 등록된 음식값을 없앰
-    /// </summary>
+
     protected void UnSetFood()
     {
-        _foodData = null;
+        _currentFood = null;
     }
     
     protected void RemoveFood(Food food)
     {
         food.ReturnToPool();
+        PlayerPickup(food);
     }
-
-    // 공개 메서드
-    // ============================================================
-
     
     /// <summary>
     /// 요리중일때 음식을 못집어 올리게 bool값을 설정하는 함수
     /// </summary>
-    private void CheckCookStatus()
+    protected void CheckCookStatus()
     {
         if (!IsHolding) _cookProgress = (int)CookwareJobEnum.Idle;
-        else FoodData.CanHolding = !IsCooking;
+        else _currentFood.CanHolding = !IsCooking;
     }
+    protected void PlayerPickup(Food food)
+    {
+        if (food == _currentFood)
+        {
+            UnSetFood();
+            food.OnPlayerHold -= PlayerPickup;
+        }
+    }
+    
+    
+    // protected 메서드
+    // ============================================================
+    
     
     // private 메서드
     // ============================================================
