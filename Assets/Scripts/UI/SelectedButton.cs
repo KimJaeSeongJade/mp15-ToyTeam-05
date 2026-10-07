@@ -54,6 +54,7 @@ public class SelectedButton : MonoBehaviour
         {
             if (_selectedButton == t)
             {
+                t.transform.SetAsLastSibling();
                 t.GetComponent<RectTransform>().localScale = new Vector3(6f, 6f, 1f);
                 t.GetComponent<Image>().color = Color.white;
                 t.GetComponent<Outline>().enabled = true;
