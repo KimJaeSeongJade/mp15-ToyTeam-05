@@ -19,5 +19,6 @@ public class RemoveOrderUI : MonoBehaviour
         Destroy(orderList[_index]);
         //orderList[_index].SetActive(false);
         orderList.RemoveAt(_index);
+        orderList.Clear();
     }
 }
