@@ -975,6 +975,10 @@ PrefabInstance:
       propertyPath: _gameData
       value: 
       objectReference: {fileID: 11400000, guid: ea709e8573ce15145a6f3ed5bc971b7a, type: 2}
+    - target: {fileID: 3970236985694691481, guid: 97710b43f342c2749b1b04084ee6f7a7, type: 3}
+      propertyPath: _deskLayerMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 6016143190019501987, guid: 97710b43f342c2749b1b04084ee6f7a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.95
@@ -1432,6 +1436,10 @@ PrefabInstance:
     - target: {fileID: 5284206649210517524, guid: e027476f8ccf3b44eb4c2cc44bee2baa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230929943574593121, guid: e027476f8ccf3b44eb4c2cc44bee2baa, type: 3}
+      propertyPath: _deskLayerMask.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 7395227675634457240, guid: e027476f8ccf3b44eb4c2cc44bee2baa, type: 3}
       propertyPath: _gameData
@@ -1900,6 +1908,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4054247765988800426, guid: 623c67ac9d3e86c46a1487e5fdb08f94, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 642766552}
     - target: {fileID: 5038231718976921442, guid: 623c67ac9d3e86c46a1487e5fdb08f94, type: 3}
       propertyPath: m_Name
       value: Cutting_Board
