@@ -17,4 +17,3 @@ MonoBehaviour:
   Player1Food: 0
   Player2Food: 0
   GameTimeLeft: 180
-  GameMode: 0
