@@ -480,6 +480,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 220561372}
     m_Modifications:
+    - target: {fileID: 5315258186879030711, guid: 16242b855c4ed914592e3a9cd73a52d9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5948139149197784665, guid: 16242b855c4ed914592e3a9cd73a52d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 28.201323
@@ -2667,7 +2671,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1318398456}
   - component: {fileID: 1318398457}
-  - component: {fileID: 1318398458}
   m_Layer: 0
   m_Name: MoveObject
   m_TagString: Untagged
@@ -2711,18 +2714,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectToMoveTransform: {fileID: 1891898749}
   _objectToMoveTransform2: {fileID: 827054656}
---- !u!114 &1318398458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1318398455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce06117459f980428533ba06b0c305a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1323415762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4319,6 +4310,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1209988671}
     m_Modifications:
     - target: {fileID: 3124122277232864400, guid: 16242b855c4ed914592e3a9cd73a52d9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5315258186879030711, guid: 16242b855c4ed914592e3a9cd73a52d9, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
