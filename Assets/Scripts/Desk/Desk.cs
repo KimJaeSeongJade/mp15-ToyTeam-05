@@ -96,8 +96,6 @@ public class Desk : MonoBehaviour, IInteractable, IHolder
             Food resultfood = RecipeManager.Instance.GetRecipe(list);
 
             if (resultfood == null) return;
-            
-            SoundManager.Instance.SFXPlay(SFXType.Desk);
 
             holdable.Release();
 

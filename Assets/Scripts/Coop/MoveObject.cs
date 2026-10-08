@@ -25,11 +25,11 @@ public class MoveObject : MonoBehaviour
 
             while ((transform.position - _objectToMoveTransform.position).magnitude >= 0.1)
             {
-                //Debug.Log("움직임 시작1");
+                Debug.Log("움직임 시작1");
                 transform.position = Vector3.MoveTowards(gameObject.transform.position, _objectToMoveTransform.transform.position, _moveSpeed * Time.deltaTime);
                 yield return null;
             }
-            //Debug.Log("움직임 종료1");
+            Debug.Log("움직임 종료1");
             transform.position = _objectToMoveTransform.transform.position;
 
             yield return new WaitForSeconds(_stopTime);
@@ -38,10 +38,10 @@ public class MoveObject : MonoBehaviour
 
             while ((transform.position - _objectToMoveTransform2.position).magnitude >= 0.1)
             {
-                //Debug.Log("움직임 시작2");
+                Debug.Log("움직임 시작2");
                 transform.position = Vector3.MoveTowards(gameObject.transform.position, _objectToMoveTransform2.transform.position, _moveSpeed * Time.deltaTime);
                 yield return null;
-                //Debug.Log("움직임 종료2");
+                Debug.Log("움직임 종료2");
             }
 
             transform.position = _objectToMoveTransform2.transform.position;

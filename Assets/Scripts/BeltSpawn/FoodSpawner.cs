@@ -73,7 +73,7 @@ public class FoodSpawner : MonoBehaviour
             if (_spawnData.Count < 2) continue;
 
             FoodSpawnData firstfood = _spawnData.Dequeue();
-            FoodSpawnData sceondfood = _spawnData.Dequeue();
+            // FoodSpawnData sceondfood = _spawnData.Dequeue();
 
             if (_changeSpawn)
             {
@@ -84,7 +84,7 @@ public class FoodSpawner : MonoBehaviour
 
                 if (_specialOrder._beltStop2 == false)
                 {
-                    SpawnFood(sceondfood, _bottomRight);
+                    SpawnFood(firstfood, _bottomRight);
                 }
             }
             else
@@ -96,7 +96,7 @@ public class FoodSpawner : MonoBehaviour
 
                 if (_specialOrder._beltStop2 == false)
                 {
-                    SpawnFood(sceondfood, _topRight);
+                    SpawnFood(firstfood, _topRight);
                 }
             }
 

@@ -29,11 +29,8 @@ public class CuttingBoard : Cookware
         _isStillHoldKey = true;
         while (_isStillHoldKey)
         {
-            // 칼질 사운드
-            SoundManager.Instance.SFXPlay(SFXType.Cutting);
             switch (_cookProgress)
             {
-                
                 case (int)CookwareJobEnum.Idle:
                     _playerHolder = _currentFood.LastHolder;
                     _cookProgress = (int)CookwareJobEnum.Start;
@@ -99,7 +96,6 @@ public class CuttingBoard : Cookware
 
     private void FoodProcess()
     {
-        SoundManager.Instance.SFXPlay(SFXType.Dish);
         if (_recipeChar == '1')
         {
             Food ob = PoolManager.Instance.Get(ChoppedLettuce);

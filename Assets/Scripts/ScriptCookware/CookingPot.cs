@@ -59,7 +59,6 @@ public class CookingPot : Cookware
 
     private void StartBoil()
     {
-        SoundManager.Instance.SFXPlay(SFXType.Pot);
         _playerHolder = _currentFood.LastHolder;
         _cookProgress = (int)CookwareJobEnum.Start;
         _currentFood.CanHolding = false;
@@ -83,7 +82,6 @@ public class CookingPot : Cookware
 
     private void FoodProcess()
     {
-        SoundManager.Instance.SFXPlay(SFXType.Dish);
         if (_recipeChar == '3')
         {
             Food ob = PoolManager.Instance.Get(TomatoSauce);

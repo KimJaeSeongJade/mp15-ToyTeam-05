@@ -58,7 +58,6 @@ public class Fryingpan : Cookware
 
     private void StartFrying()
     {
-        SoundManager.Instance.SFXPlay(SFXType.Pan);
         _playerHolder = _currentFood.LastHolder;
         _cookProgress = (int)CookwareJobEnum.Start;
         _currentFood.CanHolding = false;
@@ -82,7 +81,6 @@ public class Fryingpan : Cookware
 
     private void FoodProcess()
     {
-        SoundManager.Instance.SFXPlay(SFXType.Dish);
         if (_recipeChar == '6')
         {
             Food ob = PoolManager.Instance.Get(BeefCooked);
