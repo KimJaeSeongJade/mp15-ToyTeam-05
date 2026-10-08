@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class InputManager : Singleton<InputManager>
 {
-   public float _HorizP1;
-   public float _VertP1;
+   private float _HorizP1;
+   private float _VertP1;
    public Vector3 _moveDirectionP1;
    private bool _holdP1;  // P1 상호작용1 잡기 놓기
    private bool _intaractDownP1;  // P2 상호작용2 조리
    private bool _intaractUpP1;
    
-   public float _HorizP2;
-   public float _VertP2;
+   private float _HorizP2;
+   private float _VertP2;
    public Vector3 _moveDirectionP2;
    private bool _holdP2;  // P2 상호작용1 잡기 놓기
    private bool _intaractDownP2; // P2 상호작용2 조리
