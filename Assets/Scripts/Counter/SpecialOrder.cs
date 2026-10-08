@@ -29,9 +29,13 @@ public class SpecialOrder : MonoBehaviour
     // ------------------------ 테스트
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            RandomSpecial(1);
+            StartCoroutine(MixGetkey(0));
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            StartCoroutine(MixGetkey(1));
         }
     }
     // ------------------------ 테스트
@@ -54,7 +58,7 @@ public class SpecialOrder : MonoBehaviour
             
             // 플레이어 조작 방해
             case 1:
-                MixGetkey(Damageplayer);
+                StartCoroutine(MixGetkey(Damageplayer));
                 Debug.Log("조작방해");
                 break;
             
@@ -92,15 +96,19 @@ public class SpecialOrder : MonoBehaviour
     {
         if (Damageplayer == 0)
         {
-            InputManager.Instance._moveDirectionP1 *= -1;
+            //InputManager.Instance._moveDirectionP1 *= -1;
+            InputManager.Instance.num = 1;
             yield return new WaitForSeconds(3f);
-            InputManager.Instance._moveDirectionP1 *= -1;
+            //InputManager.Instance._moveDirectionP1 *= -1;
+            InputManager.Instance.num = 0;
         }
         else
         {
-            InputManager.Instance._moveDirectionP2 *= -1;
+            // InputManager.Instance._moveDirectionP2 *= -1;
+            InputManager.Instance.num = 2;
             yield return new WaitForSeconds(3f);
-            InputManager.Instance._moveDirectionP2 *= -1;
+            //InputManager.Instance._moveDirectionP2 *= -1;
+            InputManager.Instance.num = 0;
         }
     }
 

@@ -5,20 +5,22 @@ using UnityEngine;
 
 public class InputManager : Singleton<InputManager>
 {
-   private float _HorizP1;
-   private float _VertP1;
+   public float _HorizP1;
+   public float _VertP1;
    public Vector3 _moveDirectionP1;
    private bool _holdP1;  // P1 상호작용1 잡기 놓기
    private bool _intaractDownP1;  // P2 상호작용2 조리
    private bool _intaractUpP1;
    
-   private float _HorizP2;
-   private float _VertP2;
+   public float _HorizP2;
+   public float _VertP2;
    public Vector3 _moveDirectionP2;
    private bool _holdP2;  // P2 상호작용1 잡기 놓기
    private bool _intaractDownP2; // P2 상호작용2 조리
    private bool _intaractUpP2;
    private bool _pauseBreak;
+
+   public int num = 0;
    //------------------------------------------------------
    
    // 플레이어 이동 관련 이벤트
@@ -65,12 +67,32 @@ public class InputManager : Singleton<InputManager>
    private void ReadInputs()
    {
        _pauseBreak = Input.GetKeyDown(KeyCode.Escape);
-      
-       _HorizP1 = Input.GetAxisRaw("HorizontalP1");
-       _VertP1 = Input.GetAxisRaw("VerticalP1");
+
+       if (num == 0)
+       {
+          _HorizP1 = Input.GetAxisRaw("HorizontalP1");
+          _VertP1 = Input.GetAxisRaw("VerticalP1");
    
-       _HorizP2 = Input.GetAxisRaw("HorizontalP2");
-       _VertP2 = Input.GetAxisRaw("VerticalP2");
+          _HorizP2 = Input.GetAxisRaw("HorizontalP2");
+          _VertP2 = Input.GetAxisRaw("VerticalP2");
+       }
+       else if(num == 1)
+       {
+          _HorizP1 = Input.GetAxisRaw("HorizontalP1") * -1;
+          _VertP1 = Input.GetAxisRaw("VerticalP1") * -1;
+          
+          _HorizP2 = Input.GetAxisRaw("HorizontalP2");
+          _VertP2 = Input.GetAxisRaw("VerticalP2");
+       }
+       else if (num == 2)
+       {
+          _HorizP1 = Input.GetAxisRaw("HorizontalP1");
+          _VertP1 = Input.GetAxisRaw("VerticalP1");
+          
+          _HorizP2 = Input.GetAxisRaw("HorizontalP2") * -1;
+          _VertP2 = Input.GetAxisRaw("VerticalP2") * -1;
+       }
+       
       
       // 입력받은 이동키 변수에 담기
       _moveDirectionP1 = new Vector3(_HorizP1, 0, _VertP1);
