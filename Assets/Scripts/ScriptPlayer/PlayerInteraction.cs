@@ -51,8 +51,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private float _checkDistance = 1.5f;
     
-    [SerializeField] private Vector3 _drawPointPos;
-    [SerializeField] private Transform _drawPoint;
+    [SerializeField] private GameObject _pointLightPrefab;
+    private GameObject _pointLight;
 
     private void Awake() => Init();
 
@@ -74,14 +74,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void Update()
     {
         GetInteractable();
-        DrawCheckRay();
+        // DrawCheckRay();
     }
-
-    // private void Update()
-    // {
-    //     // 레이저 그리는 함수 (테스트용)
-    //     // DrawCheckRay();
-    // }
 
     private void OnDisable()
     {
@@ -104,14 +98,14 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         {
             _IsDesk = true;
             _cookware = hit.transform.GetComponent<IInteractable>();
-            _drawPoint.position = hit.transform.position + _drawPointPos;
-            _drawPoint.gameObject.SetActive(true);
+            _pointLight.transform.position = hit.transform.position;
+            _pointLight.gameObject.SetActive(true);
         }
         else
         {
             _IsDesk = false;
             _cookware = null;
-            _drawPoint.gameObject.SetActive(false);
+            _pointLight.gameObject.SetActive(false);
         }
     }
 
@@ -281,7 +275,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void Init()
     {
         _playerMovement = GetComponent<PlayerMovement>();
-        _drawPoint.gameObject.SetActive(false);
+        _pointLight = Instantiate(_pointLightPrefab);
+        _pointLight.gameObject.SetActive(false);
     }
 
     /// <summary>
