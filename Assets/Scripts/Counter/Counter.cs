@@ -44,7 +44,7 @@ public class Counter : MonoBehaviour, IInteractable
             
             if (interactor.PlayerCheck == PLAYER_ID.PLAYER_1P)
             {
-                if (holdable.FoodData.FoodId == "020411")
+                if (holdable.FoodData.FoodId == "020411" && _gameData.GameMode == 0)
                 {
                     _specialOrder.RandomSpecial(1);
                 }
@@ -54,7 +54,7 @@ public class Counter : MonoBehaviour, IInteractable
             }
             else if (interactor.PlayerCheck == PLAYER_ID.PLAYER_2P)
             {
-                if (holdable.FoodData.FoodId == "020411")
+                if (holdable.FoodData.FoodId == "020411" && _gameData.GameMode == 0)
                 {
                     _specialOrder.RandomSpecial(0);
                 }
