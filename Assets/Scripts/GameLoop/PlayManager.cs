@@ -48,6 +48,10 @@ public class PlayManager : MonoBehaviour
     [SerializeField] private GameObject _star2;
     [SerializeField] private GameObject _star3;
 
+    [SerializeField] private GameObject _ingamestar1;
+    [SerializeField] private GameObject _ingamestar2;
+    [SerializeField] private GameObject _ingamestar3;
+
     [SerializeField] private int _star1Score;
     [SerializeField] private int _star2Score;
     [SerializeField] private int _star3Score;
@@ -101,8 +105,31 @@ public class PlayManager : MonoBehaviour
         // 협동
         else
         {
-            _p1InGameScore.text = (_gameData.Player1Score + _gameData.Player2Score).ToString();
-            _p2InGameScore.text = (_gameData.Player1Score + _gameData.Player2Score).ToString();
+            // 합쳐진 점수
+            int PlayerScore = _gameData.Player1Score + _gameData.Player2Score;
+            // 이거는 사용 하실일 없을거 같음
+            _p1InGameScore.text = PlayerScore.ToString();
+
+            // 여기를 만지셔야하는
+            if (PlayerScore < _star1Score)
+            {
+                _p2InGameScore.text = (_star1Score - PlayerScore).ToString();
+            }
+            else if (_star1Score <= PlayerScore && PlayerScore < _star2Score)
+            {
+                _ingamestar1.SetActive(true);
+                _p2InGameScore.text = (_star2Score - PlayerScore).ToString();
+            }
+            else if (_star2Score <= PlayerScore && PlayerScore < _star3Score)
+            {
+                _ingamestar2.SetActive(true);
+                _p2InGameScore.text = (_star3Score - PlayerScore).ToString();
+            }
+            else
+            {
+                _ingamestar3.SetActive(true);
+                _p2InGameScore.text = PlayerScore.ToString();
+            }
         }
     }
 
