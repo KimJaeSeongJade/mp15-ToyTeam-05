@@ -105,8 +105,8 @@ public class InputManager : Singleton<InputManager>
       _intaractUpP1 = Input.GetKeyUp(KeyCode.H);
 
       _holdP2 = Input.GetKeyDown(KeyCode.Keypad0); // 잡기 놓기
-      _intaractDownP2 = Input.GetKeyDown(KeyCode.Keypad1);
-      _intaractUpP2 = Input.GetKeyUp(KeyCode.Keypad1);
+      _intaractDownP2 = Input.GetKeyDown(KeyCode.KeypadPeriod);
+      _intaractUpP2 = Input.GetKeyUp(KeyCode.KeypadPeriod);
       
    }
 }
