@@ -17,7 +17,9 @@ public class Fryingpan : Cookware
     
     // 비공개 필드
     // ============================================================
-
+    
+    private void Awake() => SetTransform(transform);
+    
     private void Update()
     {
         CheckCookStatus();
