@@ -14,12 +14,18 @@ public class SelectedButton : MonoBehaviour
     private void Start()
     {
         _selectedButton = _buttons[_index];
-        Selected();
+        StartCoroutine(StartUI());
     }
     
     private void Update()
     {
         Getkey();
+    }
+
+    private IEnumerator StartUI()
+    {
+        yield return new WaitForSeconds(1f);
+        Selected();
     }
 
     private void Getkey()
