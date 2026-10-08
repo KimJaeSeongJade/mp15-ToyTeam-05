@@ -94,7 +94,7 @@ public class SpecialOrder : MonoBehaviour
 
     private IEnumerator MixGetkey(int Damageplayer)
     {
-        if (Damageplayer == 0)
+        if (Damageplayer == 1)
         {
             //InputManager.Instance._moveDirectionP1 *= -1;
             InputManager.Instance.num += 1;
