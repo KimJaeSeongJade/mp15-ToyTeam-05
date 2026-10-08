@@ -68,32 +68,32 @@ public class InputManager : Singleton<InputManager>
    {
        _pauseBreak = Input.GetKeyDown(KeyCode.Escape);
 
-       if (num == 0)
+       // 가정 동시에 4개이상 제출을 못한다
+       
+       if (num % 4 > 0)
        {
-          _HorizP1 = Input.GetAxisRaw("HorizontalP1");
-          _VertP1 = Input.GetAxisRaw("VerticalP1");
-   
-          _HorizP2 = Input.GetAxisRaw("HorizontalP2");
-          _VertP2 = Input.GetAxisRaw("VerticalP2");
-       }
-       else if(num == 1)
-       {
-          _HorizP1 = Input.GetAxisRaw("HorizontalP1") * -1;
-          _VertP1 = Input.GetAxisRaw("VerticalP1") * -1;
-          
-          _HorizP2 = Input.GetAxisRaw("HorizontalP2");
-          _VertP2 = Input.GetAxisRaw("VerticalP2");
-       }
-       else if (num == 2)
-       {
-          _HorizP1 = Input.GetAxisRaw("HorizontalP1");
-          _VertP1 = Input.GetAxisRaw("VerticalP1");
-          
           _HorizP2 = Input.GetAxisRaw("HorizontalP2") * -1;
           _VertP2 = Input.GetAxisRaw("VerticalP2") * -1;
        }
-       
+       else
+       {
+          _HorizP2 = Input.GetAxisRaw("HorizontalP2");
+          _VertP2 = Input.GetAxisRaw("VerticalP2");
+       }
+
+       if (num / 4 > 0)
+       {
+          _HorizP1 = Input.GetAxisRaw("HorizontalP1") * -1;
+          _VertP1 = Input.GetAxisRaw("VerticalP1") * -1;
+       }
+       else
+       {
+          _HorizP1 = Input.GetAxisRaw("HorizontalP1");
+          _VertP1 = Input.GetAxisRaw("VerticalP1");
+       }
       
+       
+       
       // 입력받은 이동키 변수에 담기
       _moveDirectionP1 = new Vector3(_HorizP1, 0, _VertP1);
       _moveDirectionP1.Normalize();

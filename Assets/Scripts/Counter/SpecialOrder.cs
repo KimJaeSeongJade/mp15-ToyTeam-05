@@ -97,18 +97,18 @@ public class SpecialOrder : MonoBehaviour
         if (Damageplayer == 0)
         {
             //InputManager.Instance._moveDirectionP1 *= -1;
-            InputManager.Instance.num = 1;
+            InputManager.Instance.num += 1;
             yield return new WaitForSeconds(3f);
             //InputManager.Instance._moveDirectionP1 *= -1;
-            InputManager.Instance.num = 0;
+            InputManager.Instance.num -= 1;
         }
         else
         {
             // InputManager.Instance._moveDirectionP2 *= -1;
-            InputManager.Instance.num = 2;
+            InputManager.Instance.num += 4;
             yield return new WaitForSeconds(3f);
             //InputManager.Instance._moveDirectionP2 *= -1;
-            InputManager.Instance.num = 0;
+            InputManager.Instance.num -= 4;
         }
     }
 
