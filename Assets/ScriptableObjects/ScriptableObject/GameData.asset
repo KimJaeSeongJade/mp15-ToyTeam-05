@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e777adb5472ff540936f6b4dd15a5da, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  Player1Score: 0
-  Player2Score: 0
+  Player1Score: 50
+  Player2Score: 250
   Player1Food: 0
   Player2Food: 0
-  GameTimeLeft: 180
-  GameMode: 0
+  GameTimeLeft: 0
+  GameMode: 1

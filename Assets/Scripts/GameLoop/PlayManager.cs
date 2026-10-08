@@ -39,10 +39,18 @@ public class PlayManager : MonoBehaviour
 
     // --------------------------------------------------- 협동
 
-    [Header("협동전용")]
-
+    [Header("협동전용")] 
+    //[SerializeField] private GameObject _coopResult;
     [SerializeField] private TextMeshProUGUI _coopScore;
     [SerializeField] private TextMeshProUGUI _coopBilge;
+
+    [SerializeField] private GameObject _star1;
+    [SerializeField] private GameObject _star2;
+    [SerializeField] private GameObject _star3;
+
+    [SerializeField] private int _star1Score;
+    [SerializeField] private int _star2Score;
+    [SerializeField] private int _star3Score;
 
     // --------------------------------------------------- 협동
     private bool _isGameStart;
@@ -148,6 +156,19 @@ public class PlayManager : MonoBehaviour
         else
         {
             // 구현 뭐할지 상의
+            if (_gameData.Player1Score + _gameData.Player2Score >= _star1Score)
+            {
+                _star1.SetActive(true);
+            }
+            if (_gameData.Player1Score + _gameData.Player2Score >= _star2Score)
+            {
+                _star2.SetActive(true);
+            }
+            if (_gameData.Player1Score + _gameData.Player2Score >= _star3Score)
+            {
+                _star3.SetActive(true);
+            }
+            
         }
 
         
