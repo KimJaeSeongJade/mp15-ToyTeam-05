@@ -15,18 +15,11 @@ public class CookingPot : Cookware
     private bool _isWaitingTimer;
     private float _cookingFloat;
     private int _cookingSpeed = 10; // 1 = 100초 / 5 = 20초;
-
+    
     // 비공개 필드
     // ============================================================
 
-    private AudioSource _audioSource;
-
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
-        SetTransform(transform);
-    }
-
+    private void Awake() => SetTransform(transform);
     private void Update()
     {
         CheckCookStatus();
@@ -67,9 +60,7 @@ public class CookingPot : Cookware
 
     private void StartBoil()
     {
-        //SoundManager.Instance.SFXPlay(SFXType.Pot);
-        _audioSource.Play();
-
+        SoundManager.Instance.SFXPlay(SFXType.Pot);
         _playerHolder = _currentFood.LastHolder;
         _cookProgress = (int)CookwareJobEnum.Start;
         _currentFood.CanHolding = false;
@@ -93,7 +84,6 @@ public class CookingPot : Cookware
 
     private void FoodProcess()
     {
-        _audioSource.Stop();
         SoundManager.Instance.SFXPlay(SFXType.Dish);
         if (_recipeChar == '3')
         {
@@ -107,8 +97,6 @@ public class CookingPot : Cookware
             ob.ActiveCookFood();
             SetFood(ob);
         }
-
-        
         _playerInteractor = null;
         _recipeChar = 'N';
         _cookingFloat = -1;

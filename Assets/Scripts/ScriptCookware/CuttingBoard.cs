@@ -16,17 +16,10 @@ public class CuttingBoard : Cookware
     private bool _isStillHoldKey;
     
     private WaitForSeconds _choppingTime = new  WaitForSeconds(0.5f);
-
+    
     // 비공개 필드
     // ============================================================
-
-    private AudioSource _audioSource;
-
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
-        SetTransform(transform);
-    }
+    private void Awake() => SetTransform(transform);
     
     // 프로퍼티
     // ============================================================
@@ -34,11 +27,10 @@ public class CuttingBoard : Cookware
     private IEnumerator _choppingCoroutine()
     {
         _isStillHoldKey = true;
-        // 칼질 사운드
-        _audioSource.Play();
-        //SoundManager.Instance.SFXPlay(SFXType.Cutting);
         while (_isStillHoldKey)
         {
+            // 칼질 사운드
+            SoundManager.Instance.SFXPlay(SFXType.Cutting);
             switch (_cookProgress)
             {
                 
@@ -107,7 +99,6 @@ public class CuttingBoard : Cookware
 
     private void FoodProcess()
     {
-        _audioSource.Stop();
         SoundManager.Instance.SFXPlay(SFXType.Dish);
         if (_recipeChar == '1')
         {
@@ -136,8 +127,6 @@ public class CuttingBoard : Cookware
         {
             _isStillHoldKey = false;
             _playerInteractor.Player.isChopping = false;
-
-            _audioSource.Stop();
         }
     }
 

@@ -60,8 +60,9 @@ public class SoundManager : MonoBehaviour
         {
             Debug.Log(index);
             Debug.Log(SFXArr[index]);
-            SFX.PlayOneShot(SFXArr[index],0.3f);
+            SFX.PlayOneShot(SFXArr[index]);
         }
     }
+    
     
 }
