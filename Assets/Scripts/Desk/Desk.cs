@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Desk : MonoBehaviour, IInteractable, IHolder
 {
+    public Transform TransformInteract { get; private set; }
+    
     [SerializeField] private Food _currentFood;
     public Food CurrentFood => _currentFood;
     
@@ -20,6 +22,7 @@ public class Desk : MonoBehaviour, IInteractable, IHolder
     private void Awake()
     {
         _boxCollider = GetComponentInChildren<BoxCollider>();
+        TransformInteract = transform;
     }
     
     // -------------------- 테스트
