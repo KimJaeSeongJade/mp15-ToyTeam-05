@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectedButton : MonoBehaviour
 {
     [SerializeField] private GameObject _howToPlay;
+    [SerializeField] private TextMeshProUGUI _howToPlayText;
     public List<Button> _buttons = new List<Button>(4);
 
     private static int _index = 0;
@@ -85,11 +87,13 @@ public class SelectedButton : MonoBehaviour
             if (_index == 0)
             {
                 _howToPlay.SetActive(true);
+                _howToPlayText.text = "동료 쉐프와 함께 식당을 운영합니다!\n3스타 식당이 되기 위해 더 많은 주문을 처리하세요.\n요리 준비가 되었다면 [조리]버튼을 눌러주세요.";
                 
             }
             else if (_index == 1)
             {
                 _howToPlay.SetActive(true);
+                _howToPlayText.text = "우리는 서로 경쟁 식당입니다!\n상대보다 더 빠르게 요리하고 주문을 처리하세요.\n요리 준비가 되었다면 [조리]버튼을 눌러주세요.";
             }
             else if (_index == 2)
             { 

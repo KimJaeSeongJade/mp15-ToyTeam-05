@@ -214,56 +214,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &300773904
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 300773906}
-  - component: {fileID: 300773905}
-  m_Layer: 0
-  m_Name: Test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &300773905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300773904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29af6e7ebd1a7d04fad8d0e7c0e040f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _howToPlay: {fileID: 1171548130}
-  _buttons:
-  - {fileID: 1262027895}
-  - {fileID: 564047968}
-  - {fileID: 989209280}
-  - {fileID: 1072352017}
---- !u!4 &300773906
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300773904}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 752.4186, y: 499.4543, z: 3678.1616}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &361909630
 GameObject:
   m_ObjectHideFlags: 0
@@ -2730,6 +2680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1628629701}
   - component: {fileID: 1628629702}
+  - component: {fileID: 1628629703}
   m_Layer: 0
   m_Name: TitleManager
   m_TagString: Untagged
@@ -2769,6 +2720,25 @@ MonoBehaviour:
   _p2Ready: {fileID: 890957980}
   _popCreditUI: {fileID: 0}
   _popHowToPlayUI: {fileID: 1171548130}
+--- !u!114 &1628629703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628629699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29af6e7ebd1a7d04fad8d0e7c0e040f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _howToPlay: {fileID: 1171548130}
+  _howToPlayText: {fileID: 2015080237}
+  _buttons:
+  - {fileID: 1262027895}
+  - {fileID: 564047968}
+  - {fileID: 989209280}
+  - {fileID: 1072352017}
 --- !u!1 &1665500539
 GameObject:
   m_ObjectHideFlags: 0
@@ -3636,7 +3606,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 9.555054, y: -258}
+  m_AnchoredPosition: {x: 9.555054, y: -281.64}
   m_SizeDelta: {x: 1415, y: 227.40002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2015080237
@@ -3750,4 +3720,3 @@ SceneRoots:
   - {fileID: 31405028}
   - {fileID: 1628629701}
   - {fileID: 100766692}
-  - {fileID: 300773906}
