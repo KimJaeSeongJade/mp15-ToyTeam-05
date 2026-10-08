@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class SpecialOrder : MonoBehaviour
 {
-    [SerializeField] private Image[] _ink = new Image[2];
-    
+    [SerializeField] private GameObject[] _ink = new GameObject[2];
+  
     // ---------------------- 벨트 스폰 X 관련
     [SerializeField] private GameObject[] _stopImage = new GameObject[4];
     [SerializeField] public bool _beltStop1 = false;
@@ -22,16 +22,14 @@ public class SpecialOrder : MonoBehaviour
 
     private void Start()
     {
-        /*_ink[0].enabled = false;
-        _ink[1].enabled = false;*/
     }
 
     // ------------------------ 테스트
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            RandomSpecial(1);
+            StartCoroutine(Ink(0));
         }
     }
     // ------------------------ 테스트
@@ -39,8 +37,6 @@ public class SpecialOrder : MonoBehaviour
     // int 플레이어 0 이면 P1 , 플레이어 1 이면 P2가 당함.
     public void RandomSpecial(int Damageplayer)
     {
-        Debug.Log("스페셜 오더");
-        
         int _special = Random.Range(0, 4);
         Debug.Log(_special);
         
@@ -74,23 +70,41 @@ public class SpecialOrder : MonoBehaviour
 
     private IEnumerator Ink(int Damageplayer)
     {
-        if (Damageplayer == 0)
+        Debug.Log("잉크 튀기기");
+        if (Damageplayer != 1)
         {
-            _ink[0].enabled = true;
+            _ink[0].SetActive(true);
             yield return new WaitForSeconds(3f);
-            _ink[0].enabled = false;
+            _ink[0].GetComponent<Image>().color = new Color32(255, 255, 255, 230);
+            yield return new WaitForSeconds(0.7f);
+            _ink[0].GetComponent<Image>().color = new Color32(255, 255, 255, 200);
+            yield return new WaitForSeconds(0.7f);
+            _ink[0].GetComponent<Image>().color = new Color32(255, 255, 255, 170);
+            yield return new WaitForSeconds(0.7f);
+            _ink[0].GetComponent<Image>().color = new Color32(255, 255, 255, 140);
+            _ink[0].SetActive(false);
+            _ink[0].GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         }
         else
         {
-            _ink[1].enabled = true;
+            _ink[1].SetActive(true);
             yield return new WaitForSeconds(3f);
-            _ink[1].enabled = false;
+            _ink[1].GetComponent<Image>().color = new Color32(255, 255, 255, 230);
+            yield return new WaitForSeconds(0.7f);
+            _ink[1].GetComponent<Image>().color = new Color32(255, 255, 255, 200);
+            yield return new WaitForSeconds(0.7f);
+            _ink[1].GetComponent<Image>().color = new Color32(255, 255, 255, 170);
+            yield return new WaitForSeconds(0.7f);
+            _ink[1].GetComponent<Image>().color = new Color32(255, 255, 255, 140);
+            _ink[1].SetActive(false);
+            _ink[1].GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         }
     }
 
     private IEnumerator MixGetkey(int Damageplayer)
     {
-        if (Damageplayer == 0)
+        Debug.Log("이동키 반전");
+        if (Damageplayer != 1)
         {
             InputManager.Instance._moveDirectionP1 *= -1;
             yield return new WaitForSeconds(3f);
@@ -112,7 +126,7 @@ public class SpecialOrder : MonoBehaviour
             // 스폰안된다고 표시할 이미지???
             //_stopImage[0].SetActive(true);
             //_stopImage[1].SetActive(true);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(10f);
             _beltStop1 = false;
             //_stopImage[0].SetActive(false);
             //_stopImage[1].SetActive(false);
@@ -122,7 +136,7 @@ public class SpecialOrder : MonoBehaviour
             _beltStop2 = true;
             //_stopImage[2].SetActive(true);
             //_stopImage[3].SetActive(true);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(10f);
             _beltStop2 = false;
             //_stopImage[2].SetActive(false);
             //_stopImage[3].SetActive(false);
