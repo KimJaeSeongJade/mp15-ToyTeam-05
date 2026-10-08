@@ -42,6 +42,7 @@ public class Counter : MonoBehaviour, IInteractable
         if(index != -1)
         {
             OrderManager.Instance._successIndex = index;
+            SoundManager.Instance.SFXPlay(SFXType.Counter);
             _removeOrderUI.RemoveOrderUi();
             
             OrderManager.Instance.OrderList.RemoveAt(index);  // 리스트에서 삭제
