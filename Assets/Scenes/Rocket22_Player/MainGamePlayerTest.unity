@@ -1114,6 +1114,14 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4809220962383143703, guid: 97710b43f342c2749b1b04084ee6f7a7, type: 3}
+      propertyPath: m_Size.z
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809220962383143703, guid: 97710b43f342c2749b1b04084ee6f7a7, type: 3}
+      propertyPath: m_Center.z
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6016143190019501987, guid: 97710b43f342c2749b1b04084ee6f7a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.95
@@ -1589,6 +1597,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7191534318575997439}
     m_Modifications:
+    - target: {fileID: 4275737844042300754, guid: e027476f8ccf3b44eb4c2cc44bee2baa, type: 3}
+      propertyPath: m_Size.z
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4275737844042300754, guid: e027476f8ccf3b44eb4c2cc44bee2baa, type: 3}
+      propertyPath: m_Center.z
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4764409694536295086, guid: e027476f8ccf3b44eb4c2cc44bee2baa, type: 3}
       propertyPath: m_Name
       value: Player2p

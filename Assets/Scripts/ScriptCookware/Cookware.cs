@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
 {
+    public Transform TransformInteract { get; private set; }
+    
     [SerializeField] protected Transform _targetTransform;
     
     protected int _playerLayer = 6;
@@ -22,6 +24,10 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
     // 비공개 필드
     // ============================================================
 
+    public void SetTransform(Transform tr)
+    {
+        this.TransformInteract = tr;
+    }
 
     public Transform TargetTransform => _targetTransform;
 

@@ -38,28 +38,16 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     public bool IsPressed { get; private set; } // 버튼 누르고 있는지 여부
 
     public bool IsPlayer1 { get; private set; }
-
-    // [SerializeField] private Cookware _cookware;
-
-    [SerializeField] public IInteractable _cookware { get; private set; }
-
-    [SerializeField] private LayerMask _deskLayerMask;
-    [SerializeField] private bool _IsDesk;
-
+    
     private PlayerMovement _playerMovement;
     private Rigidbody _foodRigidbody;
-
-    private float _checkDistance = 1.5f;
     
     [SerializeField] private GameObject _pointLightPrefab;
     private GameObject _pointLight;
 
     private void Awake() => Init();
 
-    private void OnEnable()
-    {
-        BindHoldInputEvents();
-    }
+    private void OnEnable() => BindHoldInputEvents();
 
     private void OnTriggerEnter(Collider other)
     {
@@ -71,41 +59,28 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         CheckExitTrigger(other);
     }
 
-    private void Update()
+    private void Update() => GetInteractable();
+
+    private void OnDisable() => UnBindHoldInputEvents();
+    
+    private void OnEnableInteractPoint()
     {
-        GetInteractable();
-        // DrawCheckRay();
+        if (CurrentInteractable != null)
+        {
+            _pointLight.transform.position = CurrentInteractable.TransformInteract.position;
+            _pointLight.gameObject.SetActive(true);
+        }
     }
 
-    private void OnDisable()
+    private void OnDisableInteractPoint()
     {
-        UnBindHoldInputEvents();
-    }
-    
-    // 레이저 그리는 함수 (테스트용)
-    private void DrawCheckRay()
-    {
-        Vector3 pos = new Vector3(0, 1f, 0);
-        Debug.DrawRay(transform.position + pos, transform.forward * _checkDistance, Color.red);
-    }
-    
-    private void DeskCheckRay()
-    {
-        Vector3 pos = new Vector3(0, 1f, 0);
-        Ray ray = new Ray((transform.position + pos), transform.forward);
-    
-        if (Physics.Raycast(ray, out RaycastHit hit, _checkDistance, _deskLayerMask))
+        if (CurrentInteractable == null)
         {
-            _IsDesk = true;
-            _cookware = hit.transform.GetComponent<IInteractable>();
-            _pointLight.transform.position = hit.transform.position;
-            _pointLight.gameObject.SetActive(true);
+            _pointLight.gameObject.SetActive(false);
         }
         else
         {
-            _IsDesk = false;
-            _cookware = null;
-            _pointLight.gameObject.SetActive(false);
+            OnEnableInteractPoint();
         }
     }
 
@@ -147,8 +122,6 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
 
     private void ThrowHoldItem(Food currentHoldItem, float forcePower)
     {
-        // if (!IsHolding) return;
-
         _foodRigidbody = currentHoldItem.GetComponent<Rigidbody>();
         _foodRigidbody.AddForce(transform.forward * forcePower);
     }
@@ -215,8 +188,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         if (other.TryGetComponent(out IInteractable inter))
         {
             CheckEnterTrigger(inter);
-            DeskCheckRay();
-            // _cookware = inter;
+            OnEnableInteractPoint();
         }
     }
 
@@ -230,11 +202,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         if (other.TryGetComponent(out IInteractable inter))
         {
             CheckoutTrigger(inter);
-            DeskCheckRay();
-            /*
-            _cookware = null;
-            IsPressed = false;
-            */
+            OnDisableInteractPoint();
         }
     }
 
@@ -322,8 +290,4 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         if (_canFindInteractable || _isInterListEmpty) return;
         CurrentInteractable = _interactables[0];
     }
-
-
-
-
 }

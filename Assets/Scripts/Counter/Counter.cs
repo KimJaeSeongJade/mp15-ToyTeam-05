@@ -6,10 +6,14 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour, IInteractable
 {
+    public Transform TransformInteract { get; private set; }
+
     public RemoveOrderUI _removeOrderUI;
     public GameData _gameData;
     
     private SpecialOrder _specialOrder;
+    
+    private void Awake() => TransformInteract = transform;
 
     private void Start()
     {
