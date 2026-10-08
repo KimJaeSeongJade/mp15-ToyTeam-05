@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    private PlayerInteraction _player;
     private PLAYER_ID _playerID;
     private Animator _animator;
-    private InputManager _inputManager;
+
+    private bool _isMoving;
+    private bool _isHolding;
+    private bool _isChopping;
 
     private void Awake()
     {
@@ -15,32 +19,22 @@ public class PlayerAnimation : MonoBehaviour
 
     private void CacheComponents()  
     {  
+        _player = GetComponent<PlayerInteraction>();
         _animator = GetComponent<Animator>();  
-        _inputManager = InputManager.Instance;
     }
 
-    private void OnEnable() => SetDelegate();
-    private void OnDisable() => UnSetDelegate();
-
-
-
-    private void SetDelegate()
+    private void IsPlayerMoving()
     {
-        _inputManager.OnCookP1 += TryChopping;
-        _inputManager.OnStopCookP1 += StopChopping;
-        _inputManager.OnCookP2 += TryChopping;
-        _inputManager.OnStopCookP2 += StopChopping;
+        
+    }
+
+    private void HandsIdle()
+    {
+        
     }
     
-    private void UnSetDelegate()
-    {
-        _inputManager.OnCookP1 -= TryChopping;
-        _inputManager.OnStopCookP1 -= StopChopping;
-        _inputManager.OnCookP2 -= TryChopping;
-        _inputManager.OnStopCookP2 -= StopChopping;
-    }
 
-    private void TryChopping()
+    private void StartChopping()
     {
         
     }
