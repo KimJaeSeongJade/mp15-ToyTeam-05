@@ -26,7 +26,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
 
     public void SetTransform(Transform tr)
     {
-        this.TransformInteract = tr;
+        TransformInteract = tr;
     }
 
     public Transform TargetTransform => _targetTransform;
