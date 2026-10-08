@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SelectedButton : MonoBehaviour
 {
-    [SerializeField] private Animator _dropDown;
+    [SerializeField] private GameObject _howToPlay;
     public List<Button> _buttons = new List<Button>(4);
 
     private static int _index = 0;
@@ -19,7 +19,9 @@ public class SelectedButton : MonoBehaviour
     
     private void Update()
     {
-        Getkey();
+        GetkeySelect();
+        OnClick();
+        CloseUI();
     }
 
     private IEnumerator StartUI()
@@ -28,8 +30,9 @@ public class SelectedButton : MonoBehaviour
         Selected();
     }
 
-    private void Getkey()
+    private void GetkeySelect()
     {
+        if (_howToPlay.activeSelf) return;
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (_index == _buttons.Count - 1)
@@ -81,11 +84,12 @@ public class SelectedButton : MonoBehaviour
         {
             if (_index == 0)
             {
-                // 협동모드 -하우투
+                _howToPlay.SetActive(true);
+                
             }
             else if (_index == 1)
             {
-                // 경쟁모드 -하우투
+                _howToPlay.SetActive(true);
             }
             else if (_index == 2)
             { 
@@ -95,6 +99,14 @@ public class SelectedButton : MonoBehaviour
             {
                 TitleManager.Instance.QuitGame();
             }
+        }
+    }
+
+    private void CloseUI()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && _howToPlay.activeSelf)
+        {
+            _howToPlay.SetActive(false);
         }
     }
 }
