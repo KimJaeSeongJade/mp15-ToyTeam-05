@@ -25,6 +25,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     /// </summary>
     public bool CanRelease { get; private set; }
 
+    public PlayerInteraction Player => this;
+
     public PLAYER_ID PlayerCheck => _playerMovement._playerID;
 
     [SerializeField] private List<Food> _holdables;
@@ -194,6 +196,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     {
         if (IsHolding)
         {
+            OnThrow?.Invoke();
             ReleaseItem();
             if (_holdables.Count <=0 ) return;
             ThrowHoldItem(_holdables[0], 1000f);
@@ -289,8 +292,10 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     
     // =============================================================
 
+    public event System.Action OnThrow;
     private bool _isInterListEmpty => _interactables.Count <= 0;
     private bool _canFindInteractable => CurrentInteractable != null;
+    public bool isChopping;
 
     private List<IInteractable> _interactables = new();
     public IInteractable CurrentInteractable;

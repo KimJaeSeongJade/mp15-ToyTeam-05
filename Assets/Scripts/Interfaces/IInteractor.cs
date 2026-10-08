@@ -18,4 +18,6 @@ public interface IInteractor
     /// 플레이어 여부 / 번호를 체크하는 프로퍼티
     /// </summary>
     public PLAYER_ID PlayerCheck { get; }
+    
+    public PlayerInteraction Player { get; }
 }
