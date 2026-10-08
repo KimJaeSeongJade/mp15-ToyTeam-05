@@ -15,7 +15,9 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private Image _p1Ready;
     [SerializeField] private Sprite _cabbage;
     [SerializeField] private Sprite _Uncabbage;
+    [SerializeField] private GameObject _p1ReadyBG;
     [SerializeField] private Image _p2Ready;
+    [SerializeField] private GameObject _p2ReadyBG;
     [SerializeField] private Sprite _tomato;
     [SerializeField] private Sprite _Untomato;
     
@@ -28,11 +30,6 @@ public class TitleManager : MonoBehaviour
     private Button _selectedButton;
     private static int _buttonIndex = 0;
     
-
-
-    private void temp1() => GameStartP1(_p1Ready);
-    private void temp2() => GameStartP2(_p2Ready);
-
     private void Awake()
     {
         SetSingleton();
@@ -76,17 +73,19 @@ public class TitleManager : MonoBehaviour
     }
 
     // 플레이어 1 게임 레디
-    public void GameStartP1(Image _ready)
+    public void GameStartP1()
     {
         _P1Ready = !_P1Ready;
 
         if (_P1Ready)
         {
-            _ready.sprite = _Uncabbage;
+            _p1Ready.sprite = _Uncabbage;
+            _p1ReadyBG.SetActive(true);
         }
         else
         {
-            _ready.sprite = _cabbage;
+            _p1Ready.sprite = _cabbage;
+             _p1ReadyBG.SetActive(false);
         }
 
         if (_P1Ready && _P2Ready)
@@ -96,17 +95,19 @@ public class TitleManager : MonoBehaviour
     }
 
     // 플레이어 2 게임 레디
-    public void GameStartP2(Image _ready)
+    public void GameStartP2()
     {
         _P2Ready = !_P2Ready;
 
         if (_P2Ready)
         {
-            _ready.sprite = _Untomato;
+            _p2Ready.sprite = _Untomato;
+            _p2ReadyBG.SetActive(true);
         }
         else
         {
-            _ready.sprite = _tomato;
+            _p2Ready.sprite = _tomato;
+            _p2ReadyBG.SetActive(false);
         }
 
         if (_P1Ready && _P2Ready)
@@ -129,8 +130,8 @@ public class TitleManager : MonoBehaviour
             SceneManager.LoadScene(2);
         }
 
-        InputManager.Instance.OnCookP1 -= temp1;
-        InputManager.Instance.OnCookP2 -= temp2;
+        InputManager.Instance.OnCookP1 -= GameStartP1;
+        InputManager.Instance.OnCookP2 -= GameStartP2;
     }
 
     // 게임 종료하기
@@ -223,20 +224,21 @@ public class TitleManager : MonoBehaviour
         {
             if (_buttonIndex == 0)
             {
-                InputManager.Instance.OnCookP1 += temp1;
-                InputManager.Instance.OnCookP2 += temp2;
+                InputManager.Instance.OnCookP1 += GameStartP1;
+                InputManager.Instance.OnCookP2 += GameStartP2;
                 
                 _popHowToPlayUI.SetActive(true);
                 _howToPlayText.text = "동료 쉐프와 함께 식당을 운영합니다!\n3스타 식당이 되기 위해 더 많은 주문을 처리하세요.\n요리 준비가 되었다면 [요리]버튼을 눌러주세요.";
-                
+                _gameData.GameMode = 1;
             }
             else if (_buttonIndex == 1)
             {
-                InputManager.Instance.OnCookP1 += temp1;
-                InputManager.Instance.OnCookP2 += temp2;
+                InputManager.Instance.OnCookP1 += GameStartP1;
+                InputManager.Instance.OnCookP2 += GameStartP2;
                 
                 _popHowToPlayUI.SetActive(true);
                 _howToPlayText.text = "옆 식당은 당신의 라이벌입니다!\n상대보다 더 빠르게 요리하고 주문을 처리하세요.\n요리 준비가 되었다면 [요리]버튼을 눌러주세요.";
+                _gameData.GameMode = 0;
             }
             else if (_buttonIndex == 2)
             { 
@@ -255,8 +257,8 @@ public class TitleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && _popHowToPlayUI.activeSelf)
         {
             _popHowToPlayUI.SetActive(false);
-            InputManager.Instance.OnCookP1 -= temp1;
-            InputManager.Instance.OnCookP2 -= temp2;
+            InputManager.Instance.OnCookP1 -= GameStartP1;
+            InputManager.Instance.OnCookP2 -= GameStartP2;
         }
     }
 }
