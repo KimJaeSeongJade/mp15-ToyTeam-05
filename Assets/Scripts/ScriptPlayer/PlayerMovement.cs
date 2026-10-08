@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool IsMoving => _moveVector.magnitude > 0.1f;
+    private Vector3 _moveVector;
     private Rigidbody _rigidbody;
     private float _moveSpeed = 300f;
     private float _rotSpeed = 20f;
@@ -61,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
     private void Move(Vector3 dir)
     {
         _rigidbody.velocity = Vector3.zero;
+        _moveVector = dir;
+        
         Vector3 movement = (dir * _moveSpeed * Time.deltaTime);
         
         _rigidbody.AddForce(movement, ForceMode.Impulse);

@@ -115,13 +115,19 @@ public class CuttingBoard : Cookware
         _recipeChar = 'N';
         _cookProgress = (int)CookwareJobEnum.Idle;
         _isStillHoldKey = false;
+        _playerInteractor.Player.isChopping = false;
         UnSetFood();
     }
 
     private void CheckPress()
     {
         if (!_isStillHoldKey) return;
-        if (!_playerInteractor.IsPressed) _isStillHoldKey = false;
+        _playerInteractor.Player.isChopping = true;
+        if (!_playerInteractor.IsPressed)
+        {
+            _isStillHoldKey = false;
+            _playerInteractor.Player.isChopping = false;
+        }
     }
 
     private void NextChop()
