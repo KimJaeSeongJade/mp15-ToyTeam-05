@@ -245,6 +245,7 @@ public class PlayManager : MonoBehaviour
 
     private void GameEnd()
     {
+        SoundManager.Instance.SFXPlay(SFXType.Result);
         _isGameEnd = true;
         _resultPopup.SetActive(true);
         PlayerWin();
