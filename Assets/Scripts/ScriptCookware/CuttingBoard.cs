@@ -33,6 +33,7 @@ public class CuttingBoard : Cookware
 
     private IEnumerator _choppingCoroutine()
     {
+        _isCooking = true;
         _isStillHoldKey = true;
         // 칼질 사운드
         _audioSource.Play();
@@ -63,6 +64,7 @@ public class CuttingBoard : Cookware
             }
         }
         _playerInteractor = null;
+        _isCooking = false;
     }
     
     
@@ -100,6 +102,7 @@ public class CuttingBoard : Cookware
     
     protected override bool CheckRecipe(Food food)
     {
+        if (_isCooking) return false;
         if (food.FoodId == "01") return true;
         if (food.FoodId == "03") return true;
         return false;
