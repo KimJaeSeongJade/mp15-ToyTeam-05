@@ -65,6 +65,7 @@ public class PlayManager : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.Instance.BGMPlay(BGMType.Game);
         // 경쟁 협동 동일
         StartCoroutine(StartCountDown());
         StartCoroutine(TextColorChange());
