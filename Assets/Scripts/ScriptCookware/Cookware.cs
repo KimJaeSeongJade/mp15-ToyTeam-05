@@ -88,6 +88,9 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
             food.OnReturnPool -= RemoveData;
         }
     }
+
+    public virtual void RemoveData(IInteractor interactor)
+    {}
     
     // public 메서드
     // ============================================================

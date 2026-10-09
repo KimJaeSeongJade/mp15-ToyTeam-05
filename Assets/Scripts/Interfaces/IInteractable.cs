@@ -16,6 +16,8 @@ public interface IInteractable
     /// <param name="interactor">상호작용 주체</param>
     /// <param name="Hold">상호작용에 사용될 대상</param>
     public void Interact(IInteractor interactor, IHoldable holdable);
+    
+    public void RemoveData(IInteractor interactor);
 
     public Transform TransformInteract { get; }
 }

@@ -97,6 +97,12 @@ public class CuttingBoard : Cookware
         StartCoroutine(_choppingCoroutine());
     }
 
+    public override void RemoveData(IInteractor interactor)
+    {
+        if (interactor != _playerInteractor) return;
+        _isStillHoldKey = false;
+    }
+
     // 공개 메서드
     // ============================================================
     
