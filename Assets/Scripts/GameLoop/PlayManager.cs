@@ -242,11 +242,11 @@ public class PlayManager : MonoBehaviour
         // 경쟁
         if(_gameData.GameMode == 0)
         {
-            _player1Score.text = "player1 Score : " + _gameData.Player1Score.ToString();
-            _player1Bilge.text = "player1 Bilge : " + _gameData.Player1Food.ToString();
+            _player1Score.text = "Score : " + _gameData.Player1Score.ToString();
+            _player1Bilge.text = "Bilge : " + _gameData.Player1Food.ToString();
 
-            _player2Score.text = "player2 Score : " + _gameData.Player2Score.ToString();
-            _player2Bilge.text = "player2 Bilge : " + _gameData.Player2Food.ToString();
+            _player2Score.text = "Score : " + _gameData.Player2Score.ToString();
+            _player2Bilge.text = "Bilge : " + _gameData.Player2Food.ToString();
         }
         // 협동
         else
