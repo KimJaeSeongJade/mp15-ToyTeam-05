@@ -19,7 +19,7 @@ public enum SFXType
     // Counter : 사운드 45
     // Throw : 사운드 47?
     // Result : 사운드 18
-    Cutting=0, Pan, Pot, Dish, Desk, Counter, Result, GameStart
+    Cutting=0, Pan, Pot, Dish, Desk, Counter, Result, GameStart, Belt,Squid,Debuff
 }
 
 public class SoundManager : MonoBehaviour
