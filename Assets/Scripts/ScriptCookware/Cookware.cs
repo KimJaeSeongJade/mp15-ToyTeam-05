@@ -47,6 +47,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
 
     public void Interact(IInteractor interactor)
     {
+        if (_playerInteractor != null && _playerInteractor != interactor) return;
         if (!CanWork()) return;
         _playerInteractor = interactor;
         StartCooking();
@@ -54,6 +55,7 @@ public abstract class Cookware : MonoBehaviour, IInteractable, IHolder
 
     public void Interact(IInteractor interactor, IHoldable holdable)
     {
+        if (_playerInteractor != null && _playerInteractor != interactor) return;
         if (!CanWork(holdable)) return;
         holdable.Release();
     }
