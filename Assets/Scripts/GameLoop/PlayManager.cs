@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayManager : MonoBehaviour
@@ -11,7 +12,10 @@ public class PlayManager : MonoBehaviour
     [SerializeField] private GameData _gameData;
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private GameObject _resultPopup;
-    [SerializeField] private TextMeshProUGUI _startCountText;
+    [SerializeField] private Image _countImage;
+    [SerializeField] private Image _startImage;
+    [SerializeField] private Sprite[] _count1 = new Sprite[4]; // 협동
+    [SerializeField] private Sprite[] _count0 = new Sprite[4]; // 경쟁
 
 
     // --------------------------------------------------- 경쟁
@@ -133,27 +137,55 @@ public class PlayManager : MonoBehaviour
         }
     }
 
+    // 카운트다운
     public IEnumerator StartCountDown()
     {
         _isGameStart = false;
 
-        _startCountText.gameObject.SetActive(true);
+        if (_gameData.GameMode == 0) // 경쟁모드
+        {
+            _countImage.gameObject.SetActive(true);
 
-        _startCountText.text = "3";
-        yield return new WaitForSeconds(1f);
+            _countImage.sprite = _count0[0];
+            yield return new WaitForSeconds(1f);
 
-        _startCountText.text = "2";
-        yield return new WaitForSeconds(1f);
+            _countImage.sprite = _count0[1];
+            yield return new WaitForSeconds(1f);
 
-        _startCountText.text = "1";
-        yield return new WaitForSeconds(1f);
+            _countImage.sprite = _count0[2];
+            yield return new WaitForSeconds(1f);
 
-        _startCountText.text = "START!";
-        yield return new WaitForSeconds(1f);
+            _countImage.gameObject.SetActive(false);
+            _startImage.gameObject.SetActive(true);
+            _startImage.sprite = _count0[3];
+            yield return new WaitForSeconds(1f);
 
-        _startCountText.gameObject.SetActive(false);
+            _startImage.gameObject.SetActive(false);
 
-        _isGameStart = true;
+            _isGameStart = true;
+        }
+        if (_gameData.GameMode == 1) // 협동모드
+        {
+            _countImage.gameObject.SetActive(true);
+
+            _countImage.sprite = _count1[0];
+            yield return new WaitForSeconds(1f);
+
+            _countImage.sprite = _count1[1];
+            yield return new WaitForSeconds(1f);
+
+            _countImage.sprite = _count1[2];
+            yield return new WaitForSeconds(1f);
+
+            _countImage.gameObject.SetActive(false);
+            _startImage.gameObject.SetActive(true);
+            _startImage.sprite = _count1[3];
+            yield return new WaitForSeconds(1f);
+
+            _startImage.gameObject.SetActive(false);
+
+            _isGameStart = true;
+        }
     }
 
 
