@@ -65,6 +65,7 @@ public class PlayManager : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.Instance.BGMPlay(BGMType.Game);
         // 경쟁 협동 동일
         StartCoroutine(StartCountDown());
         StartCoroutine(TextColorChange());
@@ -135,6 +136,7 @@ public class PlayManager : MonoBehaviour
 
     public IEnumerator StartCountDown()
     {
+        SoundManager.Instance.SFXPlay(SFXType.GameStart);
         _isGameStart = false;
 
         _startCountText.gameObject.SetActive(true);
@@ -249,6 +251,8 @@ public class PlayManager : MonoBehaviour
         _isGameEnd = true;
         _resultPopup.SetActive(true);
         PlayerWin();
+        SoundManager.Instance.BGMStop(BGMType.Game);
+        SoundManager.Instance.BGMPlay(BGMType.End);
 
         Time.timeScale = 0f;
     }

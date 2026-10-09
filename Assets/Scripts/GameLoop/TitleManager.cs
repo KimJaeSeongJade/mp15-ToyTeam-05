@@ -29,7 +29,17 @@ public class TitleManager : MonoBehaviour
     private bool _P2Ready = false;
     private Button _selectedButton;
     private static int _buttonIndex = 0;
-    
+
+
+    // -----------------사운드 테스트
+
+
+    [SerializeField] private GameObject _soundUI;
+
+
+
+    // -----------------사운드 테스트
+
     private void Awake()
     {
         SetSingleton();
@@ -37,6 +47,7 @@ public class TitleManager : MonoBehaviour
     
     private void Start()
     {
+        SoundManager.Instance.BGMPlay(BGMType.Title);
         _selectedButton = _buttons[_buttonIndex];
         StartCoroutine(StartUI());
     }
@@ -119,6 +130,7 @@ public class TitleManager : MonoBehaviour
     // 약간 딜레이 후 게임 시작
     private IEnumerator GameStartDelay()
     {
+        SoundManager.Instance.BGMStop(BGMType.Title);
         yield return new WaitForSeconds(0.5f);
         ResetGameData();
         if(_gameData.GameMode == 0)
@@ -241,7 +253,7 @@ public class TitleManager : MonoBehaviour
                 _gameData.GameMode = 0;
             }
             else if (_buttonIndex == 2)
-            { 
+            {
                 // 세팅 -사운드
             }
             else
@@ -260,5 +272,20 @@ public class TitleManager : MonoBehaviour
             InputManager.Instance.OnCookP1 -= GameStartP1;
             InputManager.Instance.OnCookP2 -= GameStartP2;
         }
+    }
+
+
+    public void OpenSound()
+    {
+        _soundUI.SetActive(true);
+    }
+    public void ClseSound()
+    {
+        _soundUI.SetActive(false);
+    }
+
+    public void SFXSound()
+    {
+        SoundManager.Instance.SFXPlay(SFXType.Dish);
     }
 }

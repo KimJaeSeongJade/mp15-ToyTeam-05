@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+public enum BGMType
+{
+    Title,Game,End
+}
+
 public enum SFXType
 {
     // SFX 사운드 넣어야함
@@ -14,7 +19,7 @@ public enum SFXType
     // Counter : 사운드 45
     // Throw : 사운드 47?
     // Result : 사운드 18
-    Cutting=0, Pan, Pot, Dish, Desk, Counter, Result,
+    Cutting=0, Pan, Pot, Dish, Desk, Counter, Result, GameStart
 }
 
 public class SoundManager : MonoBehaviour
@@ -23,6 +28,10 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource BGM, SFX;
     public AudioClip[] BGMArr,  SFXArr;
+
+    public float masterVolume = 1f;
+    public float bgmVolume = 1f;
+    public float sfxVolume = 1f;
 
     private void Awake()
     {
@@ -37,16 +46,16 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void BGMPlay(int numb)
+    public void BGMPlay(BGMType type)
     {
-        if (BGM.isPlaying)
-        {
-            BGM.Stop();
-        }
+        int index = (int)type;
 
-        if (numb >= 0 && numb < BGMArr.Length)
+        BGM.Stop();
+
+        if (index >= 0 && index < BGMArr.Length)
         {
-            BGM.clip = BGMArr[numb];
+            BGM.clip = BGMArr[index];
+            BGM.loop = true;
             BGM.Play();
         }
     }
@@ -60,8 +69,14 @@ public class SoundManager : MonoBehaviour
         {
             Debug.Log(index);
             Debug.Log(SFXArr[index]);
-            SFX.PlayOneShot(SFXArr[index],0.3f);
+            SFX.PlayOneShot(SFXArr[index]);
         }
     }
     
+
+    public void BGMStop(BGMType type)
+    {
+        int index = (int)type;
+        BGM.Stop();
+    }
 }
