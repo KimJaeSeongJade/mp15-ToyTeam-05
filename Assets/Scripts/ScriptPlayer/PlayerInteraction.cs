@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,6 +48,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     [SerializeField] private GameObject _pointLightPrefab;
     private GameObject _pointLight;
 
+    private IHolder _holdFood;
+
     private void Awake() => Init();
 
     private void OnEnable() => BindHoldInputEvents();
@@ -56,12 +59,21 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         CheckEnterTrigger(other);
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        CheckStayTrigger(other);
+    }
+
     private void OnTriggerExit(Collider other)
     {
         CheckExitTrigger(other);
     }
 
-    private void Update() => GetInteractable();
+    private void Update()
+    { 
+        GetInteractable();
+        CheckCanInteract();
+    }
 
     private void OnDisable() => UnBindHoldInputEvents();
     
@@ -180,6 +192,18 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         // Debug.Log($"{IsPressed} : UnCook");
     }
 
+    private void CheckCanInteract()
+    {
+        if (isChopping)
+        {
+            _playerMovement.enabled = false;
+        }
+        else
+        {
+            _playerMovement.enabled = true;
+        }
+    }
+
     private void CheckEnterTrigger(Collider other)
     {
         if (other.TryGetComponent(out Food food))
@@ -195,6 +219,11 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         }
     }
 
+    private void CheckStayTrigger(Collider other)
+    {
+        OnEnableInteractPoint();
+    }
+
     private void CheckExitTrigger(Collider other)
     {
         if (other.TryGetComponent(out Food food))
@@ -206,6 +235,12 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
         {
             CheckoutTrigger(inter);
             OnDisableInteractPoint();
+            if (_interactables == null)
+            {
+                CurrentInteractable = null;
+                IsPressed = false;
+                isChopping = false;
+            }
         }
     }
 
@@ -285,6 +320,8 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
             _interactables.Remove(inter);
             if (inter ==  CurrentInteractable)
             {
+                inter.RemoveData(this);
+                isChopping = false;
                 CurrentInteractable = null;
             }
         }

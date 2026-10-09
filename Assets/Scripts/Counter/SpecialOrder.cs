@@ -50,24 +50,28 @@ public class SpecialOrder : MonoBehaviour
         {
             // 시야 방해하기
             case 0:
+                StartCoroutine(PlaySquid());
                 StartCoroutine(Ink(Damageplayer));
                 Debug.Log("시야방해");
                 break;
             
             // 플레이어 조작 방해
             case 1:
+                StartCoroutine(PlaySound());
                 StartCoroutine(MixGetkey(Damageplayer));
                 Debug.Log("조작방해");
                 break;
             
             // 벨트 막힘
             case 2:
+                StartCoroutine(PlaySound());
                 StartCoroutine(BeltStop(Damageplayer));
                 Debug.Log("벨트 막힘");
                 break;
             
             // 속도 둔화
             case 3:
+                StartCoroutine(PlaySound());
                 StartCoroutine(PlayerSlow(Damageplayer));
                 Debug.Log("둔화");
                 break;
@@ -186,4 +190,15 @@ public class SpecialOrder : MonoBehaviour
         Playerpos.gameObject.SetActive(false);
     }
 
+    private IEnumerator PlaySound()
+    {
+        yield return new WaitForSeconds(0.5f);
+        SoundManager.Instance.SFXPlay(SFXType.Debuff);
+    }
+
+    private IEnumerator PlaySquid()
+    {
+        yield return new WaitForSeconds(0.5f);
+        SoundManager.Instance.SFXPlay(SFXType.Squid);
+    }
 }

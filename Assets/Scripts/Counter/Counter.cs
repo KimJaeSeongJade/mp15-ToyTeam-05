@@ -24,6 +24,10 @@ public class Counter : MonoBehaviour, IInteractable
     {
     }
 
+    public void RemoveData(IInteractor interactor)
+    {
+    }
+
     public void Interact(IInteractor interactor, IHoldable holdable)
     {
         Food food = holdable.FoodData;

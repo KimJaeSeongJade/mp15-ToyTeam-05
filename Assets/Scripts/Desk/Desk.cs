@@ -24,6 +24,10 @@ public class Desk : MonoBehaviour, IInteractable, IHolder
         _boxCollider = GetComponentInChildren<BoxCollider>();
         TransformInteract = transform;
     }
+
+    public void RemoveData(IInteractor interactor)
+    {
+    }
     
     // -------------------- 테스트
     [SerializeField] private Food _testHoldFood;
