@@ -36,6 +36,7 @@ public class PlayManager : MonoBehaviour
 
     [SerializeField] private GameObject _player2WinUI;
     [SerializeField] private GameObject _player2LoseUI;
+    [SerializeField] private GameObject _resultButton;
 
     // --------------------------------------------------- 경쟁
 
@@ -85,7 +86,7 @@ public class PlayManager : MonoBehaviour
         if (_gameData.GameTimeLeft <= 0f)
         {
             _gameData.GameTimeLeft = 0f;
-            GameEnd();
+            StartCoroutine(GameEnd());
         }
 
         InGameScore();
@@ -279,12 +280,18 @@ public class PlayManager : MonoBehaviour
 
 
 
-    private void GameEnd()
+    private IEnumerator GameEnd()
     {
         SoundManager.Instance.SFXPlay(SFXType.Result);
         _isGameEnd = true;
         _resultPopup.SetActive(true);
+        yield return new WaitForSeconds(0.7f);
         PlayerWin();
+        
+        yield return new WaitForSeconds(1.5f);
+        _resultButton.SetActive(true);
+        
+        
         SoundManager.Instance.BGMStop(BGMType.Game);
         SoundManager.Instance.BGMPlay(BGMType.End);
 
