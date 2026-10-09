@@ -7,9 +7,11 @@ using UnityEngine.UI;
 public class SpecialOrder : MonoBehaviour
 {
     [SerializeField] private GameObject[] _ink = new GameObject[2];
-  
+    [SerializeField] private Image _p1BugPos;
+    [SerializeField] private Image _p2BugPos;
+    [SerializeField] private Sprite[] _BugImage = new Sprite[3];
+    
     // ---------------------- 벨트 스폰 X 관련
-    [SerializeField] private GameObject[] _stopImage = new GameObject[4];
     [SerializeField] public bool _beltStop1 = false;
     [SerializeField] public bool _beltStop2 = false;
     // ---------------------- 벨트 스폰 X 관련
@@ -112,8 +114,10 @@ public class SpecialOrder : MonoBehaviour
     private IEnumerator MixGetkey(int Damageplayer)
     {
         Debug.Log("이동키 반전");
-        if (Damageplayer != 1)
+        if (Damageplayer == 0)
         {
+            StartCoroutine(BugImage(_p1BugPos, _BugImage[0]));
+            
             //InputManager.Instance._moveDirectionP1 *= -1;
             InputManager.Instance.num += 1;
             yield return new WaitForSeconds(3f);
@@ -122,6 +126,8 @@ public class SpecialOrder : MonoBehaviour
         }
         else
         {
+            StartCoroutine(BugImage(_p2BugPos, _BugImage[0]));
+            
             // InputManager.Instance._moveDirectionP2 *= -1;
             InputManager.Instance.num += 4;
             yield return new WaitForSeconds(3f);
@@ -134,24 +140,20 @@ public class SpecialOrder : MonoBehaviour
     {
         if (Damageplayer == 0)
         {
+            StartCoroutine(BugImage(_p1BugPos, _BugImage[1]));
+           
             _beltStop1 = true;
-            // 스폰안된다고 표시할 이미지???
-            //_stopImage[0].SetActive(true);
-            //_stopImage[1].SetActive(true);
             yield return new WaitForSeconds(10f);
             _beltStop1 = false;
-            //_stopImage[0].SetActive(false);
-            //_stopImage[1].SetActive(false);
         }
         else
         {
+            StartCoroutine(BugImage(_p2BugPos, _BugImage[1]));
+            
             _beltStop2 = true;
-            //_stopImage[2].SetActive(true);
-            //_stopImage[3].SetActive(true);
             yield return new WaitForSeconds(10f);
             _beltStop2 = false;
-            //_stopImage[2].SetActive(false);
-            //_stopImage[3].SetActive(false);
+    
         }
     }
 
@@ -159,17 +161,33 @@ public class SpecialOrder : MonoBehaviour
     {
         if (Damageplayer == 0)
         {
+            StartCoroutine(BugImage(_p1BugPos, _BugImage[2]));
+            
             _player1.ChangeSpeed(100);
             yield return new WaitForSeconds(3f);
             _player1.ChangeSpeed(300);
         }
         else
         {
+            StartCoroutine(BugImage(_p2BugPos, _BugImage[2]));
+            
             _player2.ChangeSpeed(100);
             yield return new WaitForSeconds(3f);
             _player2.ChangeSpeed(300);
 
         }
+    }
+
+    private IEnumerator BugImage(Image Playerpos, Sprite BugImage)
+    {
+        Playerpos.sprite = BugImage;
+        Playerpos.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        Playerpos.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.3f);
+        Playerpos.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        Playerpos.gameObject.SetActive(false);
     }
 
     private IEnumerator PlaySound()
