@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseBreak : MonoBehaviour
 {
@@ -8,12 +10,18 @@ public class PauseBreak : MonoBehaviour
     private bool _isPaused;
     [SerializeField] private Canvas _canvas;
     private PlayManager _playManager;
-
+    [SerializeField] private Image[] _button = new Image[2];
+    private bool _selected = true;
     private void Awake()
     {
         _playManager = GetComponent<PlayManager>();
     }
-    
+
+    private void Update()
+    {
+        GetkeySelect();
+    }
+
     private void OnEnable() => _inputManager.OnPauseBreak += EscapeOpened;
     private void OnDisable() => _inputManager.OnPauseBreak -= EscapeOpened;
     
@@ -51,6 +59,42 @@ public class PauseBreak : MonoBehaviour
         // 실제 빌드된 게임에서 애플리케이션 종료
         Application.Quit();
         #endif
+    }
+    
+    //===============================================
+
+    private void GetkeySelect()
+    {
+        if (!_isPaused) return;
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.UpArrow)|| Input.GetKeyDown(KeyCode.W))
+        {
+            _selected = !_selected;
+        }
+        
+        selected();
+    }
+
+    private void selected()
+    {
+        if(!_isPaused) return;
+        if (_selected)
+        {
+            _button[1].color = new Color32(255, 255, 255,0);
+            _button[0].color = new Color32(255, 255, 255, 255);
+            if (Input.GetKey(KeyCode.Return))
+            {
+                Resume();
+            }
+        }
+        else if (!_selected)
+        {
+            _button[0].color = new Color32(255, 255, 255,0);
+            _button[1].color = new Color32(255, 255, 255, 255);
+            if (Input.GetKey(KeyCode.Return))
+            {
+                QuitGame();
+            }
+        }
     }
 
 
