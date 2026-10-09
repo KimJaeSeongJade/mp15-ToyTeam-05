@@ -251,6 +251,8 @@ public class PlayManager : MonoBehaviour
         _isGameEnd = true;
         _resultPopup.SetActive(true);
         PlayerWin();
+        SoundManager.Instance.BGMStop(BGMType.Game);
+        SoundManager.Instance.BGMPlay(BGMType.End);
 
         Time.timeScale = 0f;
     }

@@ -760,6 +760,7 @@ MonoBehaviour:
   BGMArr:
   - {fileID: 8300000, guid: 6a5a694d9635b7240a63b35f37db7f6e, type: 3}
   - {fileID: 8300000, guid: 69dbde4ae2bccac4db96f628b9bd9e9b, type: 3}
+  - {fileID: 8300000, guid: 7644899b1d779cf4f9f318f44c653f4a, type: 3}
   SFXArr:
   - {fileID: 8300000, guid: 9749c7da000f07b4e982ddba7593f1d1, type: 3}
   - {fileID: 8300000, guid: 99d898f803558ba41a1c6f4d30d269b5, type: 3}

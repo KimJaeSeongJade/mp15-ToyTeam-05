@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 public enum BGMType
 {
-    Title,Game
+    Title,Game,End
 }
 
 public enum SFXType
