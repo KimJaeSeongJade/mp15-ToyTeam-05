@@ -48,6 +48,7 @@ public class PlayManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _coopScore;
     [SerializeField] private TextMeshProUGUI _coopBilge;
 
+    [SerializeField] private Image _StarGage;
     [SerializeField] private GameObject _star1;
     [SerializeField] private GameObject _star2;
     [SerializeField] private GameObject _star3;
@@ -112,28 +113,29 @@ public class PlayManager : MonoBehaviour
         {
             // 합쳐진 점수
             int PlayerScore = _gameData.Player1Score + _gameData.Player2Score;
-            // 이거는 사용 하실일 없을거 같음
-            _p1InGameScore.text = PlayerScore.ToString();
+            
+            _p1InGameScore.text = PlayerScore.ToString(); // 합쳐진 점수표시
+            _player1Bilge.text = (_gameData.Player1Food + _gameData.Player2Food).ToString();
 
-            // 여기를 만지셔야하는
-            if (PlayerScore < _star1Score)
+            // 점수 게이지 채워짐
+            if (PlayerScore < _star3Score + 1) 
             {
-                _p2InGameScore.text = (_star1Score - PlayerScore).ToString();
+                _StarGage.fillAmount = PlayerScore / _star3Score;
             }
+            
+            // 점수따라 별 생성
+            if (PlayerScore < _star1Score) return;
             else if (_star1Score <= PlayerScore && PlayerScore < _star2Score)
             {
                 _ingamestar1.SetActive(true);
-                _p2InGameScore.text = (_star2Score - PlayerScore).ToString();
             }
             else if (_star2Score <= PlayerScore && PlayerScore < _star3Score)
             {
                 _ingamestar2.SetActive(true);
-                _p2InGameScore.text = (_star3Score - PlayerScore).ToString();
             }
             else
             {
                 _ingamestar3.SetActive(true);
-                _p2InGameScore.text = PlayerScore.ToString();
             }
         }
     }
