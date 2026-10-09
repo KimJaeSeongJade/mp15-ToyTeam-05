@@ -283,4 +283,9 @@ public class TitleManager : MonoBehaviour
     {
         _soundUI.SetActive(false);
     }
+
+    public void SFXSound()
+    {
+        SoundManager.Instance.SFXPlay(SFXType.Dish);
+    }
 }

@@ -136,6 +136,7 @@ public class PlayManager : MonoBehaviour
 
     public IEnumerator StartCountDown()
     {
+        SoundManager.Instance.SFXPlay(SFXType.GameStart);
         _isGameStart = false;
 
         _startCountText.gameObject.SetActive(true);
