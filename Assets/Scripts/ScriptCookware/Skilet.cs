@@ -14,11 +14,17 @@ public class Fryingpan : Cookware
     private bool _isWaitingTimer;
     private float _cookingFloat;
     private int _cookingSpeed = 10; // 1 = 100초 / 5 = 20초;
-    
+
     // 비공개 필드
     // ============================================================
-    
-    private void Awake() => SetTransform(transform);
+
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        SetTransform(transform);
+    }
     
     private void Update()
     {
@@ -60,7 +66,8 @@ public class Fryingpan : Cookware
 
     private void StartFrying()
     {
-        SoundManager.Instance.SFXPlay(SFXType.Pan);
+        _audioSource.Play();
+        //SoundManager.Instance.SFXPlay(SFXType.Pan);
         _playerHolder = _currentFood.LastHolder;
         _cookProgress = (int)CookwareJobEnum.Start;
         _currentFood.CanHolding = false;
@@ -84,6 +91,7 @@ public class Fryingpan : Cookware
 
     private void FoodProcess()
     {
+        _audioSource.Stop();
         SoundManager.Instance.SFXPlay(SFXType.Dish);
         if (_recipeChar == '6')
         {
