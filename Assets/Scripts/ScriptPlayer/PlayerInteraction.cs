@@ -48,7 +48,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     [SerializeField] private GameObject _pointLightPrefab;
     private GameObject _pointLight;
 
-    private IHolder _holdFood;
+    private Vector3 _trackerHeight = new Vector3(0, 0.2f, 0);
 
     private void Awake() => Init();
 
@@ -81,7 +81,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     {
         if (CurrentInteractable != null)
         {
-            _pointLight.transform.position = CurrentInteractable.TransformInteract.position;
+            _pointLight.transform.position = CurrentInteractable.TransformInteract.position + _trackerHeight;
             _pointLight.gameObject.SetActive(true);
         }
     }
