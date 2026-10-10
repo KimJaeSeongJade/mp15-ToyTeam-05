@@ -23,7 +23,7 @@ public class HowToPlay : MonoBehaviour
 
   private void Update()
   {
-    Naxt();
+       Naxt();
   }
 
   private void Naxt()
@@ -55,7 +55,7 @@ public class HowToPlay : MonoBehaviour
   
   private void Page3()
   {
-    if (_pageNum > _cook.Length)
+    if (_pageNum >= _cook.Length)
     {
       _pageNum = 0;
     }
