@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour
 {
+    [SerializeField] private GameData _gameData;
+    
     [SerializeField] private Transform _topLeft;
     [SerializeField] private Transform _topRight;
     [SerializeField] private Transform _bottomLeft;
@@ -68,40 +70,83 @@ public class FoodSpawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(_spawntimefood);
-
-            if (_spawnData.Count < 2) continue;
-
-            FoodSpawnData firstfood = _spawnData.Dequeue();
-            FoodSpawnData sceondfood = _spawnData.Dequeue();
-
-            if (_changeSpawn)
+            // 경쟁 모드 일때 같은 음식 나오도록
+            if (_gameData.GameMode == 0)
             {
-                if (_specialOrder._beltStop1 == false)
+                yield return new WaitForSeconds(_spawntimefood);
+
+                if (_spawnData.Count < 2) continue;
+
+                FoodSpawnData firstfood = _spawnData.Dequeue();
+                //FoodSpawnData sceondfood = _spawnData.Dequeue();
+
+                if (_changeSpawn)
                 {
-                    SpawnFood(firstfood, _topLeft);    
+                    if (_specialOrder._beltStop1 == false)
+                    {
+                        SpawnFood(firstfood, _topLeft);    
+                    }
+
+                    if (_specialOrder._beltStop2 == false)
+                    {
+                        SpawnFood(firstfood, _bottomRight);
+                    }
+                }
+                else
+                {
+                    if (_specialOrder._beltStop1 == false)
+                    {
+                        SpawnFood(firstfood, _bottomLeft);
+                    }
+
+                    if (_specialOrder._beltStop2 == false)
+                    {
+                        SpawnFood(firstfood, _topRight);
+                    }
                 }
 
-                if (_specialOrder._beltStop2 == false)
-                {
-                    SpawnFood(sceondfood, _bottomRight);
-                }
+
+                _changeSpawn = !_changeSpawn;
             }
+            // 협동 모드일때 다른 음식 나오도록
             else
             {
-                if (_specialOrder._beltStop1 == false)
+                yield return new WaitForSeconds(_spawntimefood);
+
+                if (_spawnData.Count < 2) continue;
+
+                FoodSpawnData firstfood = _spawnData.Dequeue();
+                FoodSpawnData sceondfood = _spawnData.Dequeue();
+
+                if (_changeSpawn)
                 {
-                    SpawnFood(firstfood, _bottomLeft);
+                    if (_specialOrder._beltStop1 == false)
+                    {
+                        SpawnFood(firstfood, _topLeft);    
+                    }
+
+                    if (_specialOrder._beltStop2 == false)
+                    {
+                        SpawnFood(sceondfood, _bottomRight);
+                    }
+                }
+                else
+                {
+                    if (_specialOrder._beltStop1 == false)
+                    {
+                        SpawnFood(firstfood, _bottomLeft);
+                    }
+
+                    if (_specialOrder._beltStop2 == false)
+                    {
+                        SpawnFood(sceondfood, _topRight);
+                    }
                 }
 
-                if (_specialOrder._beltStop2 == false)
-                {
-                    SpawnFood(sceondfood, _topRight);
-                }
+
+                _changeSpawn = !_changeSpawn;
             }
-
-
-            _changeSpawn = !_changeSpawn;
+            
         }
     }
 
