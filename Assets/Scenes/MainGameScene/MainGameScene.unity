@@ -2391,7 +2391,7 @@ GameObject:
   - component: {fileID: 982227068}
   - component: {fileID: 982227067}
   m_Layer: 5
-  m_Name: Player2Win
+  m_Name: Player1Win
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3283,7 +3283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1579327823
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5212,10 +5212,10 @@ MonoBehaviour:
   _player2Score: {fileID: 3970570813913990859}
   _p2InGameScore: {fileID: 697065883}
   _player2Bilge: {fileID: 275453029725427545}
-  _player1WinUI: {fileID: 0}
-  _player1LoseUI: {fileID: 0}
-  _player2WinUI: {fileID: 0}
-  _player2LoseUI: {fileID: 0}
+  _player1WinUI: {fileID: 982227065}
+  _player1LoseUI: {fileID: 904633637}
+  _player2WinUI: {fileID: 142981843}
+  _player2LoseUI: {fileID: 1203831969}
   _resultButton: {fileID: 1579327822}
   _coopScore: {fileID: 0}
   _coopBilge: {fileID: 0}

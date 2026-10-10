@@ -17,7 +17,7 @@ public class GameData : ScriptableObject
     public float GameTimeLeft;
 
     public int GameMode = 0;
-    // 0은 경쟁
-    // 1은 협동
+    // 0은 경쟁    SceneLoad 2
+    // 1은 협동    SceneLoad 1
 
 }
