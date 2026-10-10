@@ -36,6 +36,7 @@ public class PlayManager : MonoBehaviour
 
     [SerializeField] private GameObject _player2WinUI;
     [SerializeField] private GameObject _player2LoseUI;
+    [SerializeField] private GameObject _resultButton;
 
     // --------------------------------------------------- 경쟁
 
@@ -48,6 +49,7 @@ public class PlayManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _coopScore;
     [SerializeField] private TextMeshProUGUI _coopBilge;
 
+    [SerializeField] private Image _StarGage;
     [SerializeField] private GameObject _star1;
     [SerializeField] private GameObject _star2;
     [SerializeField] private GameObject _star3;
@@ -84,7 +86,7 @@ public class PlayManager : MonoBehaviour
         if (_gameData.GameTimeLeft <= 0f)
         {
             _gameData.GameTimeLeft = 0f;
-            GameEnd();
+            StartCoroutine(GameEnd());
         }
 
         InGameScore();
@@ -112,28 +114,29 @@ public class PlayManager : MonoBehaviour
         {
             // 합쳐진 점수
             int PlayerScore = _gameData.Player1Score + _gameData.Player2Score;
-            // 이거는 사용 하실일 없을거 같음
-            _p1InGameScore.text = PlayerScore.ToString();
+            
+            _p1InGameScore.text = PlayerScore.ToString(); // 합쳐진 점수표시
+            _player1Bilge.text = (_gameData.Player1Food + _gameData.Player2Food).ToString();
 
-            // 여기를 만지셔야하는
-            if (PlayerScore < _star1Score)
+            // 점수 게이지 채워짐
+            if (PlayerScore < _star3Score + 1) 
             {
-                _p2InGameScore.text = (_star1Score - PlayerScore).ToString();
+                _StarGage.fillAmount = PlayerScore / _star3Score;
             }
+            
+            // 점수따라 별 생성
+            if (PlayerScore < _star1Score) return;
             else if (_star1Score <= PlayerScore && PlayerScore < _star2Score)
             {
                 _ingamestar1.SetActive(true);
-                _p2InGameScore.text = (_star2Score - PlayerScore).ToString();
             }
             else if (_star2Score <= PlayerScore && PlayerScore < _star3Score)
             {
                 _ingamestar2.SetActive(true);
-                _p2InGameScore.text = (_star3Score - PlayerScore).ToString();
             }
             else
             {
                 _ingamestar3.SetActive(true);
-                _p2InGameScore.text = PlayerScore.ToString();
             }
         }
     }
@@ -240,11 +243,11 @@ public class PlayManager : MonoBehaviour
         // 경쟁
         if(_gameData.GameMode == 0)
         {
-            _player1Score.text = "player1 Score : " + _gameData.Player1Score.ToString();
-            _player1Bilge.text = "player1 Bilge : " + _gameData.Player1Food.ToString();
+            _player1Score.text = "Score : " + _gameData.Player1Score.ToString();
+            _player1Bilge.text = "Bilge : " + _gameData.Player1Food.ToString();
 
-            _player2Score.text = "player2 Score : " + _gameData.Player2Score.ToString();
-            _player2Bilge.text = "player2 Bilge : " + _gameData.Player2Food.ToString();
+            _player2Score.text = "Score : " + _gameData.Player2Score.ToString();
+            _player2Bilge.text = "Bilge : " + _gameData.Player2Food.ToString();
         }
         // 협동
         else
@@ -277,12 +280,18 @@ public class PlayManager : MonoBehaviour
 
 
 
-    private void GameEnd()
+    private IEnumerator GameEnd()
     {
         SoundManager.Instance.SFXPlay(SFXType.Result);
         _isGameEnd = true;
         _resultPopup.SetActive(true);
+        yield return new WaitForSeconds(0.7f);
         PlayerWin();
+        
+        yield return new WaitForSeconds(1.5f);
+        _resultButton.SetActive(true);
+        
+        
         SoundManager.Instance.BGMStop(BGMType.Game);
         SoundManager.Instance.BGMPlay(BGMType.End);
 
