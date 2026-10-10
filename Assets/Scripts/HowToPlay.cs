@@ -20,21 +20,13 @@ public class HowToPlay : MonoBehaviour
     InputManager.Instance.OnCookP1 += Page3;
     InputManager.Instance.OnCookP2 += Page3;
   }
-
-  private void Update()
+  
+  private void OnDisable()
   {
-       Naxt();
-  }
-
-  private void Naxt()
-  {
-    if (Input.GetKeyDown(KeyCode.Space))
-    {
       InputManager.Instance.OnIntaractP1 -= Page1;
       InputManager.Instance.OnIntaractP2 -= Page1;
       InputManager.Instance.OnCookP1 -= Page3;
       InputManager.Instance.OnCookP2 -= Page3;
-    }
   }
 
   private void Page1()
