@@ -37,11 +37,11 @@ public class Desk : MonoBehaviour, IInteractable, IHolder
         {
             if (_testHoldFood == null)
             {
-                Debug.Log("테스트 Food가 없습니다.");
+                // Debug.Log("테스트 Food가 없습니다.");
                 return;
             }
 
-            Debug.Log("=== Desk Interact 테스트 ===");
+            // Debug.Log("=== Desk Interact 테스트 ===");
             Interact(null, _testHoldFood);
         }
     }
@@ -85,16 +85,16 @@ public class Desk : MonoBehaviour, IInteractable, IHolder
 
     public void Interact(IInteractor interactor, IHoldable holdable)
     {
-        Debug.Log("Interact 호출");
+        // Debug.Log("Interact 호출");
         if (_currentFood == null)
         {
-            Debug.Log("Desk 위에 음식이 없습니다.");
+            // Debug.Log("Desk 위에 음식이 없습니다.");
             return;
         }
         else
         {
-            Debug.Log($"Desk 음식 ID : {_currentFood.FoodName}");
-            Debug.Log($"들고 있는 음식 ID : {holdable.FoodData.FoodName}");
+            // Debug.Log($"Desk 음식 ID : {_currentFood.FoodName}");
+            // Debug.Log($"들고 있는 음식 ID : {holdable.FoodData.FoodName}");
             
             List<string> list = new List<string>();
             list.Add(_currentFood.FoodId);

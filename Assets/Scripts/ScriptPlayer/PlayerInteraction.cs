@@ -155,7 +155,7 @@ public class PlayerInteraction : MonoBehaviour, IHolder, IInteractor
     private void UnCookInteraction()
     {
         IsPressed = false;
-        Debug.Log($"{IsPressed} : UnCook");
+        // Debug.Log($"{IsPressed} : UnCook");
     }
 
     private bool CanCook()
