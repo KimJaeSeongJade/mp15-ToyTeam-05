@@ -107,7 +107,7 @@ public class FoodSpawner : MonoBehaviour
 
     private void SpawnFood(FoodSpawnData food, Transform spawnpoint)
     {
-        SoundManager.Instance.SFXPlay(SFXType.Belt);
+        //SoundManager.Instance.SFXPlay(SFXType.Belt);
         food.Food.CanHolding = true;
         float randomY = Random.Range(0f, 360f);
         
