@@ -254,7 +254,7 @@ public class TitleManager : MonoBehaviour
             }
             else if (_buttonIndex == 2)
             {
-                // 세팅 -사운드
+                _soundUI.SetActive(true);
             }
             else
             {
@@ -266,24 +266,21 @@ public class TitleManager : MonoBehaviour
     // 팝업 끄기_ 키보드로
     private void OnCloseUI()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && _popHowToPlayUI.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _popHowToPlayUI.SetActive(false);
+            if (_popHowToPlayUI.activeSelf)
+            {
+                _popHowToPlayUI.SetActive(false);
+            }
+            else if (_soundUI.activeSelf)
+            {
+                _soundUI.SetActive(false);
+            }
             InputManager.Instance.OnCookP1 -= GameStartP1;
             InputManager.Instance.OnCookP2 -= GameStartP2;
         }
     }
-
-
-    public void OpenSound()
-    {
-        _soundUI.SetActive(true);
-    }
-    public void ClseSound()
-    {
-        _soundUI.SetActive(false);
-    }
-
+    
     public void SFXSound()
     {
         SoundManager.Instance.SFXPlay(SFXType.Dish);
