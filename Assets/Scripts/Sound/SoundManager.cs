@@ -67,8 +67,8 @@ public class SoundManager : MonoBehaviour
 
         if (index >= 0 && index < SFXArr.Length)
         {
-            Debug.Log(index);
-            Debug.Log(SFXArr[index]);
+            // Debug.Log(index);
+            // Debug.Log(SFXArr[index]);
             SFX.PlayOneShot(SFXArr[index]);
         }
     }

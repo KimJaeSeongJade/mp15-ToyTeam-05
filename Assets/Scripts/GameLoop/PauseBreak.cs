@@ -30,7 +30,7 @@ public class PauseBreak : MonoBehaviour
 
     public void EscapeOpened()
     {
-        Debug.Log("EscapeOpened");
+        // Debug.Log("EscapeOpened");
         if (!_playManager.IsGameStart || _playManager.IsGameEnd) return;
         if (_isPaused) Resume();
         else Pause();
