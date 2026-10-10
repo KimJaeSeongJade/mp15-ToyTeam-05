@@ -23,7 +23,7 @@ public class HowToPlay : MonoBehaviour
 
   private void Update()
   {
-    Naxt();
+       Naxt();
   }
 
   private void Naxt()
@@ -43,24 +43,23 @@ public class HowToPlay : MonoBehaviour
     
     if (_boolpage1)
     {
-      _page1[0].enabled = false;
-      _page1[1].enabled = true;
+      _page1[0].gameObject.SetActive(false);
+      _page1[1].gameObject.SetActive(true);
     }
     else
     {
-      _page1[1].enabled = false;
-      _page1[0].enabled = true;
+      _page1[1].gameObject.SetActive(false);
+      _page1[0].gameObject.SetActive(true);
     }
   }
   
   private void Page3()
   {
-    _pageNum++;
-    _page3.sprite = _cook[_pageNum];
-
-    if (_pageNum > _cook.Length)
+    if (_pageNum >= _cook.Length)
     {
       _pageNum = 0;
     }
+    _pageNum++;
+    _page3.sprite = _cook[_pageNum];
   }
 }

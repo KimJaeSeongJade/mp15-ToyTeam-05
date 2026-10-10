@@ -22,7 +22,7 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private Sprite _Untomato;
 
     [SerializeField] private GameObject _HowUI;
-    [SerializeField] private GameObject _popHowToPlayUI;
+    [SerializeField] public GameObject _popHowToPlayUI;
     [SerializeField] private TextMeshProUGUI _howToPlayText;
     
     public GameData GameData => _gameData;
@@ -58,6 +58,7 @@ public class TitleManager : MonoBehaviour
         GetkeySelect();
         OnClick();
         OnCloseUI();
+        NextPage();
     }
     
     private void SetSingleton()
@@ -184,6 +185,7 @@ public class TitleManager : MonoBehaviour
     // 지금 선택중인 버튼 찾기
     private void GetkeySelect()
     {
+        if (_HowUI.activeSelf) return;
         if (_popHowToPlayUI.activeSelf) return;
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -230,35 +232,39 @@ public class TitleManager : MonoBehaviour
         }
     }
 
-    // 선택중인 버튼 눌렀을 때
-    private void OnClick()
+    private void NextPage()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (_HowUI.activeSelf && Input.GetKeyDown(KeyCode.Space))
         {
             if (_buttonIndex == 0)
             {
-                _HowUI.SetActive(true);
-                if (Input.GetKey(KeyCode.Space))
-                {
                     _popHowToPlayUI.SetActive(true);
                     InputManager.Instance.OnCookP1 += GameStartP1;
                     InputManager.Instance.OnCookP2 += GameStartP2;
                     _howToPlayText.text = "동료 쉐프와 함께 식당을 운영합니다!\n3스타 식당이 되기 위해 더 많은 주문을 처리하세요.\n요리 준비가 되었다면 [요리]버튼을 눌러주세요.";
                     _gameData.GameMode = 1;
-                }
             }
             else if (_buttonIndex == 1)
             {
-                _HowUI.SetActive(true);
-                if (Input.GetKey(KeyCode.Space))
-                {
                     _popHowToPlayUI.SetActive(true);
                     InputManager.Instance.OnCookP1 += GameStartP1;
                     InputManager.Instance.OnCookP2 += GameStartP2;
                     _howToPlayText.text = "옆 식당은 당신의 라이벌입니다!\n상대보다 더 빠르게 요리하고 주문을 처리하세요.\n요리 준비가 되었다면 [요리]버튼을 눌러주세요.";
                     _gameData.GameMode = 0;
-                }
             }
+        }
+    }
+
+    // 선택중인 버튼 눌렀을 때
+    private void OnClick()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (_buttonIndex == 0 || _buttonIndex == 1)
+            {
+                _HowUI.SetActive(true);
+            }
+            
             else if (_buttonIndex == 2)
             {
                 _soundUI.SetActive(true);
