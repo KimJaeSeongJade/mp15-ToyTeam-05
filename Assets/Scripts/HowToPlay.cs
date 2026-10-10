@@ -55,11 +55,15 @@ public class HowToPlay : MonoBehaviour
   
   private void Page3()
   {
+    _pageNum++;
+    _pageNum %= _cook.Length;
+    /*
     if (_pageNum >= _cook.Length)
     {
       _pageNum = 0;
     }
     _pageNum++;
+    */
     _page3.sprite = _cook[_pageNum];
   }
 }
