@@ -65,6 +65,7 @@ public class PlayManager : MonoBehaviour
     // --------------------------------------------------- 협동
     private bool _isGameStart;
     private bool _isGameEnd;
+    private bool _isGaugeMax;
     
     public bool IsGameStart => _isGameStart;
     public bool IsGameEnd => _isGameEnd;
@@ -119,10 +120,25 @@ public class PlayManager : MonoBehaviour
             _player1Bilge.text = (_gameData.Player1Food + _gameData.Player2Food).ToString();
 
             // 점수 게이지 채워짐
-            if (PlayerScore < _star3Score + 1) 
+            if (!_isGaugeMax)
+            {
+                _StarGage.fillAmount = PlayerScore / (float)_star3Score;
+            }
+
+            if (PlayerScore > (float)_star3Score)
+            {
+                _StarGage.fillAmount = 1;
+                _isGaugeMax = true;
+            }
+
+            /*if (PlayerScore < _star3Score + 1)
             {
                 _StarGage.fillAmount = PlayerScore / _star3Score;
             }
+            else if (PlayerScore > _star3Score)
+            {
+                _StarGage.fillAmount = 1;
+            }*/
             
             // 점수따라 별 생성
             if (PlayerScore < _star1Score) return;
