@@ -2485,30 +2485,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PotStove
       objectReference: {fileID: 0}
-    - target: {fileID: 7360396558967695178, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7360396558967695178, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7360396558967695178, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7360396558967695178, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7360396558967695178, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 270
-      objectReference: {fileID: 0}
-    - target: {fileID: 7360396558967695178, guid: f381803f3db1f7f4eb96e0b30446c513, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
