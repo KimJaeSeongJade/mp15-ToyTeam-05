@@ -239,6 +239,7 @@ public class TitleManager : MonoBehaviour
             if (_buttonIndex == 0)
             {
                     _popHowToPlayUI.SetActive(true);
+                    _HowUI.SetActive(false);
                     InputManager.Instance.OnCookP1 += GameStartP1;
                     InputManager.Instance.OnCookP2 += GameStartP2;
                     _howToPlayText.text = "동료 쉐프와 함께 식당을 운영합니다!\n3스타 식당이 되기 위해 더 많은 주문을 처리하세요.\n요리 준비가 되었다면 [요리]버튼을 눌러주세요.";
@@ -247,6 +248,7 @@ public class TitleManager : MonoBehaviour
             else if (_buttonIndex == 1)
             {
                     _popHowToPlayUI.SetActive(true);
+                    _HowUI.SetActive(false);
                     InputManager.Instance.OnCookP1 += GameStartP1;
                     InputManager.Instance.OnCookP2 += GameStartP2;
                     _howToPlayText.text = "옆 식당은 당신의 라이벌입니다!\n상대보다 더 빠르게 요리하고 주문을 처리하세요.\n요리 준비가 되었다면 [요리]버튼을 눌러주세요.";

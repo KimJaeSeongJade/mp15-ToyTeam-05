@@ -13,7 +13,7 @@ public class HowToPlay : MonoBehaviour
 
   private int _pageNum = 0;
   private bool _boolpage1 =  false;
-  private void Start()
+  private void OnEnable()
   {
     InputManager.Instance.OnIntaractP1 += Page1;
     InputManager.Instance.OnIntaractP2 += Page1;
