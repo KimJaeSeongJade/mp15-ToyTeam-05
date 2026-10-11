@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa09c65b6cb89134ab3fdc808a4409d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameData: {fileID: 11400000, guid: ea709e8573ce15145a6f3ed5bc971b7a, type: 2}
   _topLeft: {fileID: 7192506367595048995}
   _topRight: {fileID: 3936199131612541790}
   _bottomLeft: {fileID: 5223220601903545508}
@@ -117,15 +118,15 @@ MonoBehaviour:
   _spawntimefood: 3
   _foodSpawnData:
   - _food: {fileID: 6655654314228795475, guid: aa6e0cf19395452428076b86d668490c, type: 3}
-    _cooldown: 10
+    _cooldown: 6
   - _food: {fileID: 6808984131777018563, guid: 801aa9b2182ee0541a8e546a146eba52, type: 3}
-    _cooldown: 2
+    _cooldown: 3
   - _food: {fileID: 5790053353383131404, guid: 035905fc57e17b14586253cba246a966, type: 3}
-    _cooldown: 5
+    _cooldown: 4
   - _food: {fileID: 2441481406936406632, guid: 9a6b7ce122b188f4390e02f62465c337, type: 3}
     _cooldown: 4
   - _food: {fileID: 766124286271241912, guid: 60e7e92d6c55e8349bff4201f403f9b0, type: 3}
-    _cooldown: 20
+    _cooldown: 15
   _poolManager: {fileID: 0}
   num: 0
   _specialOrder: {fileID: 0}
