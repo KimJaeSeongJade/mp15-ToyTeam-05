@@ -61,8 +61,8 @@ public class FoodSpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(fooddata.Cooldown);
-
             _spawnData.Enqueue(fooddata);
+            if (_gameData.GameMode == 0) yield return new WaitForSeconds(fooddata.Cooldown); // 협동모드는 주기 2배로
         }
     }
 
