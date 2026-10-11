@@ -301,10 +301,10 @@ public class PlayManager : MonoBehaviour
         SoundManager.Instance.SFXPlay(SFXType.Result);
         _isGameEnd = true;
         _resultPopup.SetActive(true);
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(1f);
         PlayerWin();
         
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
         if(_gameData.GameMode == 0)
         {
             _resultButton.SetActive(true);
