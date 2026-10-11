@@ -305,7 +305,11 @@ public class PlayManager : MonoBehaviour
         PlayerWin();
         
         yield return new WaitForSeconds(1.5f);
-        _resultButton.SetActive(true);
+        if(_gameData.GameMode == 0)
+        {
+            _resultButton.SetActive(true);
+        }
+        
         
         
         SoundManager.Instance.BGMStop(BGMType.Game);
@@ -320,7 +324,14 @@ public class PlayManager : MonoBehaviour
 
         ResetGameData();
 
-        SceneManager.LoadScene(1);
+        if(_gameData.GameMode == 0)
+        { 
+            SceneManager.LoadScene(1); 
+        }
+        else if(_gameData.GameMode == 1)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 
     private void ResetGameData()
