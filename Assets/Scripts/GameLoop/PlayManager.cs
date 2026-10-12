@@ -334,7 +334,7 @@ public class PlayManager : MonoBehaviour
         }
     }
 
-    private void ResetGameData()
+    public void ResetGameData()
     {
         _gameData.Player1Score = 0;
         _gameData.Player2Score = 0;

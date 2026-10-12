@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseBreak : MonoBehaviour
 {
@@ -52,13 +53,15 @@ public class PauseBreak : MonoBehaviour
 
     public void QuitGame()
     {
-        #if UNITY_EDITOR
-        // 유니티 에디터에서 플레이 모드 종료
-        UnityEditor.EditorApplication.isPlaying = false;
-        #else
-        // 실제 빌드된 게임에서 애플리케이션 종료
-        Application.Quit();
-        #endif
+        // #if UNITY_EDITOR
+        // // 유니티 에디터에서 플레이 모드 종료
+        // UnityEditor.EditorApplication.isPlaying = false;
+        // #else
+        // // 실제 빌드된 게임에서 애플리케이션 종료
+        // Application.Quit();
+        // #endif
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
     }
     
     //===============================================

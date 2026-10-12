@@ -72,6 +72,7 @@ public class InputManager : Singleton<InputManager>
        
        if (num % 4 > 0)
        {
+          Debug.Log($"ReadInput num : {num}");
           _HorizP2 = Input.GetAxisRaw("HorizontalP2") * -1;
           _VertP2 = Input.GetAxisRaw("VerticalP2") * -1;
        }

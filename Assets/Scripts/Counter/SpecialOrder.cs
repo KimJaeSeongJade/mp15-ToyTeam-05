@@ -44,6 +44,7 @@ public class SpecialOrder : MonoBehaviour
     public void RandomSpecial(int Damageplayer)
     {
         int _special = Random.Range(0, 4);
+        //int _special = 1;
         Debug.Log(_special);
         
         switch (_special)
@@ -57,8 +58,8 @@ public class SpecialOrder : MonoBehaviour
             
             // 플레이어 조작 방해
             case 1:
-                StartCoroutine(PlaySound());
                 StartCoroutine(MixGetkey(Damageplayer));
+                StartCoroutine(PlaySound());
                 Debug.Log("조작방해");
                 break;
             
@@ -84,7 +85,7 @@ public class SpecialOrder : MonoBehaviour
         if (Damageplayer != 1)
         {
             _ink[0].SetActive(true);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             _ink[0].GetComponent<Image>().color = new Color32(255, 255, 255, 230);
             yield return new WaitForSeconds(0.7f);
             _ink[0].GetComponent<Image>().color = new Color32(255, 255, 255, 200);
@@ -98,7 +99,7 @@ public class SpecialOrder : MonoBehaviour
         else
         {
             _ink[1].SetActive(true);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             _ink[1].GetComponent<Image>().color = new Color32(255, 255, 255, 230);
             yield return new WaitForSeconds(0.7f);
             _ink[1].GetComponent<Image>().color = new Color32(255, 255, 255, 200);
@@ -114,23 +115,26 @@ public class SpecialOrder : MonoBehaviour
     private IEnumerator MixGetkey(int Damageplayer)
     {
         Debug.Log("이동키 반전");
-        if (Damageplayer == 0)
+        Debug.Log("DamegePlayer : " + Damageplayer);
+        if (Damageplayer == 1)
         {
-            StartCoroutine(BugImage(_p1BugPos, _BugImage[0]));
+            //StartCoroutine(BugImage(_p1BugPos, _BugImage[0]));
             
             //InputManager.Instance._moveDirectionP1 *= -1;
             InputManager.Instance.num += 1;
-            yield return new WaitForSeconds(3f);
+            Debug.Log($"Mixgetkey : {InputManager.Instance.num}");
+            yield return new WaitForSeconds(5f);
             //InputManager.Instance._moveDirectionP1 *= -1;
             InputManager.Instance.num -= 1;
+            Debug.Log($"Mixgetkey : {InputManager.Instance.num}");
         }
-        else
+        else if (Damageplayer == 0)
         {
             StartCoroutine(BugImage(_p2BugPos, _BugImage[0]));
             
             // InputManager.Instance._moveDirectionP2 *= -1;
             InputManager.Instance.num += 4;
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             //InputManager.Instance._moveDirectionP2 *= -1;
             InputManager.Instance.num -= 4;
         }
@@ -164,7 +168,7 @@ public class SpecialOrder : MonoBehaviour
             StartCoroutine(BugImage(_p1BugPos, _BugImage[2]));
             
             _player1.ChangeSpeed(100);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             _player1.ChangeSpeed(300);
         }
         else
@@ -172,7 +176,7 @@ public class SpecialOrder : MonoBehaviour
             StartCoroutine(BugImage(_p2BugPos, _BugImage[2]));
             
             _player2.ChangeSpeed(100);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             _player2.ChangeSpeed(300);
 
         }
