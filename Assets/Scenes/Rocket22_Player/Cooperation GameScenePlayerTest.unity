@@ -2668,6 +2668,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 095a827a62f20264194c45d4ba8c8881, type: 3}
   - {fileID: 8300000, guid: 0cfa8c86f5a80d24995a7e399c8493ba, type: 3}
   - {fileID: 8300000, guid: 7513f46e0c2434446a1ba8ab4aca4edc, type: 3}
+  masterVolume: 1
+  bgmVolume: 1
+  sfxVolume: 1
 --- !u!4 &1153720433
 Transform:
   m_ObjectHideFlags: 0
@@ -5768,7 +5771,18 @@ MonoBehaviour:
   _gameData: {fileID: 11400000, guid: ea709e8573ce15145a6f3ed5bc971b7a, type: 2}
   _timeText: {fileID: 6643742432129512684}
   _resultPopup: {fileID: 6688917899460451250}
-  _startCountText: {fileID: 521397761456956768}
+  _countImage: {fileID: 0}
+  _startImage: {fileID: 0}
+  _count1:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _count0:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _player1Score: {fileID: 0}
   _p1InGameScore: {fileID: 8586153062513172239}
   _player1Bilge: {fileID: 0}
@@ -5779,8 +5793,10 @@ MonoBehaviour:
   _player1LoseUI: {fileID: 0}
   _player2WinUI: {fileID: 0}
   _player2LoseUI: {fileID: 0}
+  _resultButton: {fileID: 0}
   _coopScore: {fileID: 8890546993804297736}
   _coopBilge: {fileID: 3385960697239404016}
+  _StarGage: {fileID: 0}
   _star1: {fileID: 453694065}
   _star2: {fileID: 1178635286}
   _star3: {fileID: 470237628}
@@ -11779,6 +11795,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputManager: {fileID: 8616923435412586057}
   _canvas: {fileID: 651435254}
+  _button:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!23 &5396178206127855344
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14032,7 +14051,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.70710677, z: -0.70710677, w: 0}
   m_LocalPosition: {x: 12.499401, y: 1.8468516, z: 6.2229424}
-  m_LocalScale: {x: 1.48, y: 1, z: 1.48}
+  m_LocalScale: {x: 1.48, y: 1.48, z: 1.48}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 137300223282060282}
@@ -15064,6 +15083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa09c65b6cb89134ab3fdc808a4409d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameData: {fileID: 0}
   _topLeft: {fileID: 8911926254582527001}
   _topRight: {fileID: 3376960403599128420}
   _bottomLeft: {fileID: 5765158033388009630}
@@ -15266,8 +15286,9 @@ MonoBehaviour:
   _ink:
   - {fileID: 0}
   - {fileID: 0}
-  _stopImage:
-  - {fileID: 0}
+  _p1BugPos: {fileID: 0}
+  _p2BugPos: {fileID: 0}
+  _BugImage:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
